@@ -3,15 +3,92 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 
+    ofSetFrameRate(60);
+    
+    receiver.setup(12000);
+    
+    viewReceived = false;
+    projectionReceived = false;
+    
+    generateNodes();
+    
+    cam.setup();
+    cam.usemouse = true;
+    cam.autosavePosition = true;
+    cam.loadCameraPosition();
+    
+}
+
+//--------------------------------------------------------------
+void testApp::generateNodes(){
+    
+    nodes.clear();
+    for(int i = 0; i < 200; i++){
+        ofNode n;
+        n.setPosition(ofRandom(-200,200), ofRandom(-200,200), ofRandom(-200,200));
+    	nodes.push_back(n);
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-
+	if(receiver.hasWaitingMessages()){
+        ofxOscMessage m;
+        receiver.getNextMessage(&m);
+        if(m.getAddress() == "/view"){
+            ofMatrix4x4 mat;
+        	for(int i = 0; i < 16; i++){
+                mat.getPtr()[i] = m.getArgAsFloat(i);
+            }
+            view.setTransformMatrix(mat);
+            viewReceived = true;
+        }
+        else if(m.getAddress() == "/projection"){
+        	for(int i = 0; i < 16; i++){
+            	receivedMat[i] = m.getArgAsFloat(i);
+            }
+            projectionReceived = true;
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    ofBackground(0);
+    
+	ofRectangle leftHalf = ofRectangle(0,0, ofGetWidth()/2, ofGetHeight());
+    ofRectangle rightHalf = ofRectangle(ofGetWidth()/2,0, ofGetWidth()/2, ofGetHeight());
+    
+    cam.begin(leftHalf);
+    drawScene();
+    cam.end();
+    
+    if(projectionReceived && viewReceived){
+        ofPushView();
+        ofViewport(rightHalf);
+        glPushMatrix();
+        glMultMatrixf(receivedMat);
+
+        drawScene();
+        
+        glPopMatrix();
+        ofPopView();        
+    }
+    else{
+        ofPushStyle();
+        ofSetColor(100, 0, 0);
+        ofRect(rightHalf);
+        ofDrawBitmapString( "Waiting for message", ofPoint(leftHalf.width+30,30) );
+        ofPopStyle();
+    }
+}
+
+//--------------------------------------------------------------
+void testApp::drawScene(){
+    for(int i = 0; i < nodes.size(); i++){
+    	nodes[i].draw();	
+    }
+    ofDrawGrid();
 
 }
 
