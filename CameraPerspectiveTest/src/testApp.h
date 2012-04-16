@@ -21,14 +21,15 @@ class testApp : public ofBaseApp{
 
     ofxGameCamera cam;
 
+    bool anyMessageReceived;
     bool viewReceived;
     bool projectionReceived;
     
     vector<ofNode> nodes;
     ofNode view;
-    GLfloat receivedMat[16];
+    ofMatrix4x4 viewMatrix;
     ofxOscReceiver receiver;
-    
+	    
     void generateNodes();
     void drawScene();
 };

@@ -5,18 +5,17 @@ void testApp::setup(){
 
     ofSetFrameRate(60);
     
-    receiver.setup(12000);
+    receiver.setup(1200);
     
     viewReceived = false;
     projectionReceived = false;
-    
-//    generateNodes();
+    anyMessageReceived = false;
     
     cam.setup();
     cam.usemouse = true;
     cam.speed = 2;
     cam.autosavePosition = true;
-    cam.loadCameraPosition();
+//    cam.loadCameraPosition();
     
 }
 
@@ -29,28 +28,41 @@ void testApp::generateNodes(){
         n.setPosition(ofRandom(-200,200), ofRandom(-200,200), ofRandom(-200,200));
     	nodes.push_back(n);
     }
+    
+
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-	if(receiver.hasWaitingMessages()){
+    
+	while(receiver.hasWaitingMessages()){
+        anyMessageReceived = true;
+        
         ofxOscMessage m;
         receiver.getNextMessage(&m);
-        if(m.getAddress() == "/view"){
+//        cout << "message " << m.getAddress() << " num args " << m.getNumArgs() << endl;
+//        for(int i = 0; i < m.getNumArgs(); i++){
+//        	cout << "	arg " << i << m.getArgAsFloat(i) << endl;
+//        }
+
+        if(m.getAddress() == "/view" && m.getNumArgs() == 16){
             ofMatrix4x4 mat;
         	for(int i = 0; i < 16; i++){
                 mat.getPtr()[i] = m.getArgAsFloat(i);
             }
             view.setTransformMatrix(mat);
             viewReceived = true;
+
         }
-        else if(m.getAddress() == "/projection"){
+        else if(m.getAddress() == "/projection" && m.getNumArgs() == 16){
         	for(int i = 0; i < 16; i++){
-            	receivedMat[i] = m.getArgAsFloat(i);
+                viewMatrix.getPtr()[i] = m.getArgAsFloat(i);
             }
             projectionReceived = true;
-        }
+
+        }     
     }
+
 }
 
 //--------------------------------------------------------------
@@ -59,6 +71,8 @@ void testApp::draw(){
     
 	ofRectangle leftHalf = ofRectangle(0,0, ofGetWidth()/2, ofGetHeight());
     ofRectangle rightHalf = ofRectangle(ofGetWidth()/2,0, ofGetWidth()/2, ofGetHeight());
+    cam.usemouse = leftHalf.inside(mouseX, mouseY);
+   
     
     cam.begin(leftHalf);
     drawScene();
@@ -68,7 +82,8 @@ void testApp::draw(){
         ofPushView();
         ofViewport(rightHalf);
         glPushMatrix();
-        glMultMatrixf(receivedMat);
+
+//        glMultMatrixf(viewMatrix.getPtr());
 
         drawScene();
         
@@ -81,17 +96,28 @@ void testApp::draw(){
         ofRect(rightHalf);
         ofSetColor(255);
         ofDrawBitmapString( "Waiting for message", ofPoint(leftHalf.width+30,30) );
+        if(!projectionReceived){
+            ofDrawBitmapString( "Waiting for projection", ofPoint(leftHalf.width+30,60) );        
+        }
+        if(!viewReceived){
+            ofDrawBitmapString( "Waiting for view", ofPoint(leftHalf.width+30,90) );                	
+        }
+        if(anyMessageReceived){
+        	ofDrawBitmapString( "We got something at least...", ofPoint(leftHalf.width+30,120) );                	
+        }
         ofPopStyle();
     }
 }
 
 //--------------------------------------------------------------
 void testApp::drawScene(){
+    glEnable(GL_DEPTH);
     for(int i = 0; i < nodes.size(); i++){
     	nodes[i].draw();	
     }
+    view.draw();
     ofDrawGrid();
-
+    glDisable(GL_DEPTH);
 }
 
 //--------------------------------------------------------------
