@@ -10,10 +10,11 @@ void testApp::setup(){
     viewReceived = false;
     projectionReceived = false;
     
-    generateNodes();
+//    generateNodes();
     
     cam.setup();
     cam.usemouse = true;
+    cam.speed = 2;
     cam.autosavePosition = true;
     cam.loadCameraPosition();
     
@@ -78,6 +79,7 @@ void testApp::draw(){
         ofPushStyle();
         ofSetColor(100, 0, 0);
         ofRect(rightHalf);
+        ofSetColor(255);
         ofDrawBitmapString( "Waiting for message", ofPoint(leftHalf.width+30,30) );
         ofPopStyle();
     }
@@ -94,7 +96,17 @@ void testApp::drawScene(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+	if(key == ' '){
+        generateNodes();
+    }
+    
+    if(key == 'f'){
+    	ofToggleFullscreen();
+    }
+    
+    if(key == 'k'){
+    	nodes.clear();
+    }
 }
 
 //--------------------------------------------------------------
