@@ -6,4 +6,4 @@
 //  Copyright (c) 2012 FlightPhase. All rights reserved.
 //
 
-#include <iostream>
+#include "ScreenLabStreetShot.h"
