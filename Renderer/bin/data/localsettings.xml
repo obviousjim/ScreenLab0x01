@@ -1,0 +1,12 @@
+<settings>
+	<soundDirectory>
+		/Users/focus/Desktop/SalfordSoundExports/
+	</soundDirectory>
+	<portraitMediaBin>
+		/Users/focus/Desktop/SalfordTestMediaBin/		
+	</portraitMediaBin>
+	 <!-- bigger screen == STUDIO --> <!-- Tall screen are CLOSE --> <!-- bigger screen is FAR --> 
+	<screenType>
+		CLOSE
+	</screenType>
+</settings>
