@@ -57,6 +57,7 @@ void testApp::setup(){
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
             portraits.popTag();//portrait
             
+            
             allPortraits.push_back( newPortrait );
         }
         portraits.popTag(); //portraits

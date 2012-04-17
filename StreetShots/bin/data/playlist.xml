@@ -1,0 +1,32 @@
+<takesfolder>/Users/focus/Desktop/__RGBD_Bins/_manchester_night_out/takes</takesfolder>
+<take>
+    <folder>G_TAKE_04_15_00_41_09_PoleWalk1</folder>
+    <intime>51797</intime>
+    <outtime>219600</outtime>
+    <soundfile />
+</take>
+<take>
+    <folder>G_TAKE_04_15_00_48_14_PeopleWalk</folder>
+    <intime />
+    <outtime />
+    <soundfile />
+</take>
+<!--
+<take>
+<folder>G_TAKE_04_15_00_55_17_Car</take>
+<take>G_TAKE_04_15_00_55_53_Cars</take>
+<take>G_TAKE_04_15_00_59_24_Printworks</take>
+<take>G_TAKE_04_15_01_02_00_TrainFewPeople</take>
+<take>G_TAKE_04_15_01_02_33_no_one</take>
+<take>G_TAKE_04_15_01_11_14_park</take>
+-->
+<!--
+<take>
+	<folder>G_TAKE_04_15_00_48_14_PeopleWalk</folder>
+	<intime></intime>
+	<outtime></outtime>
+	<soundfile></soundfile>
+	
+</take>
+
+-->

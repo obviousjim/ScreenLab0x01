@@ -104,7 +104,6 @@ void testApp::draw(){
         glMatrixMode(GL_MODELVIEW);
         glLoadMatrixf(viewMatrix.getPtr());
         
-        
         for(int i = 0; i < nodes.size(); i++){
             nodes[i].draw();	
         }
