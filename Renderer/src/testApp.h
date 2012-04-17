@@ -26,6 +26,12 @@ class testApp : public ofBaseApp{
     void gotoNextPortrait();
     
     
+    float lastCameraChangeTimeLeft;
+    float currentCameraDurationLeft;
+
+    float lastCameraChangeTimeRight;
+    float currentCameraDurationRight;
+
     vector<ScreenLabPortrait> allPortraits;
     int currentPortrait;
     
@@ -38,6 +44,10 @@ class testApp : public ofBaseApp{
     
     ofxGameCamera leftCam;
     ofxGameCamera rightCam;
+    
+    ofCamera normalLeftCam;
+    ofCamera normalRightCam;
+    
     ofRectangle leftRect;
     ofRectangle rightRect;
     ofxCameraTrack track;
@@ -45,6 +55,6 @@ class testApp : public ofBaseApp{
     vector<ofNode> debugNodes;
     
     bool composeMode;
-  	
+  	void checkSwitchCamera(bool force = false);
     
 };

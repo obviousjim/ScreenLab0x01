@@ -94,7 +94,13 @@ void testApp::setup(){
     rightCam.speed = 10;
     rightCam.loadCameraPosition();
 
-//	switchCamera();
+	checkSwitchCamera(true);
+    
+//    lastCameraChangeTimeRight = ofGetElapsedTimef();
+//    currentCameraDurationRight = ofRandom(20, 50); //ofRandom(10, 40);
+//    lastCameraChangeTimeLeft = ofGetElapsedTimef();
+//    currentCameraDurationLeft = ofRandom(20, 50); //ofRandom(10, 40);
+
 }
 
 //--------------------------------------------------------------
@@ -110,6 +116,8 @@ void testApp::gotoNextPortrait(){
     track.loadFromFile(cameraTrackFile);
 
     cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;    
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -119,10 +127,12 @@ void testApp::update(){
         gotoNextPortrait();
     }
     
-    cout << "allPortraits[currentPortrait].soundPlayer.getPosition() == 1.0 " << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
+    //cout << "allPortraits[currentPortrait].soundPlayer.getPosition() == 1.0 " << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
 	if(type == Studio){
     	//do master stuff
     }
+    
+    checkSwitchCamera();
 }
 
 //--------------------------------------------------------------
@@ -132,13 +142,24 @@ void testApp::draw(){
     ofSetColor(255, 0, 0);
     ofPopStyle();
     
-	leftCam.begin(leftRect);
-    renderer.drawWireFrame();
-    leftCam.end();
+    if(composeMode){
+        leftCam.begin(leftRect);
+        renderer.drawWireFrame();
+        leftCam.end();
 
-    rightCam.begin(rightRect);
-    renderer.drawWireFrame();
-	rightCam.end();
+        rightCam.begin(rightRect);
+        renderer.drawWireFrame();
+        rightCam.end();
+    }
+    else{
+        normalLeftCam.begin(leftRect);
+        renderer.drawWireFrame();
+        normalLeftCam.end();
+        
+        normalRightCam.begin(rightRect);
+        renderer.drawWireFrame();
+        normalRightCam.end();        
+    }
     
 	ofDrawBitmapString("of framerate " + ofToString(ofGetFrameRate()), 30, 30 );
 	//allPortraits[currentPortrait].videoPlayer.draw(0,0, 640,360);
@@ -149,9 +170,11 @@ void testApp::keyPressed(int key){
 	if(key == 'j'){
         allPortraits[currentPortrait].soundPlayer.setPosition(.98);
     }
-	if(key == ' '){
+	
+    if(key == ' '){
 		renderer.reloadShader();
 	}
+    
 	if(key == 'v'){
         float ratio = 720/2160.;
         float newHeight = ofGetHeight();
@@ -169,6 +192,43 @@ void testApp::keyPressed(int key){
 		track.sample(track.getSamples().size()); //add a sample
         track.writeToFile(cameraTrackFile);
     }
+    if(key == 'P'){
+        checkSwitchCamera(true);
+    }
+}
+
+//--------------------------------------------------------------
+void testApp::checkSwitchCamera(bool force) {
+    
+//    cout << "attempting switch camera" << endl;
+    if(!force && composeMode){
+        return;
+    }
+	
+    if(force || currentCameraDurationLeft < ofGetElapsedTimef() - lastCameraChangeTimeLeft){
+
+        lastCameraChangeTimeLeft = ofGetElapsedTimef();
+        currentCameraDurationLeft = ofRandom(2, 4); //ofRandom(10, 40);
+        if(track.getSamples().size() > 1){
+        	track.camera = &normalLeftCam;
+            int sample = ofRandom(0, track.getSamples().size());
+            track.moveCameraToFrame(sample);
+            
+            cout << "LEFT sampling camera at frame " << sample << endl;
+
+        }
+    }
+    if(force || currentCameraDurationRight < ofGetElapsedTimef() - lastCameraChangeTimeRight){
+        lastCameraChangeTimeRight = ofGetElapsedTimef();
+        currentCameraDurationRight = ofRandom(2, 4); //ofRandom(10, 40);
+        if(track.getSamples().size() > 1){
+        	track.camera = &normalRightCam;
+            int sample = ofRandom(0, track.getSamples().size());
+            cout << "RIGHT sampling camera at frame " << sample << endl;
+
+            track.moveCameraToFrame(sample);        
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -179,7 +239,7 @@ void testApp::keyReleased(int key){
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y){
 	leftCam.usemouse = composeMode && leftRect.inside(x,y); 
-    leftCam.applyTranslation = composeMode &&  leftRect.inside(x,y);
+    leftCam.applyTranslation = composeMode && leftRect.inside(x,y);
     rightCam.usemouse =  composeMode && rightRect.inside(x,y);
     rightCam.applyTranslation =  composeMode && rightRect.inside(x,y);
 }
