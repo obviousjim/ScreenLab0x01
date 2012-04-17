@@ -34,7 +34,6 @@ void testApp::setup(){
     	int numPortraits = portraits.getNumTags("portrait");
         for(int i = 0; i < numPortraits; i++){
             ScreenLabPortrait newPortrait;
-
             portraits.pushTag("portrait");
             string compositionMediaBin;
 			if(type == Studio){
@@ -52,8 +51,6 @@ void testApp::setup(){
                 newPortrait.startFrame = portraits.getValue("close:startFrame",0);
                 newPortrait.endFrame = portraits.getValue("close:endFrame",0);
             }
-
-            cout << "Composition folder" << compositionMediaBin << endl;
             
 			string soundFile = portraits.getValue("soundFile", "");
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
@@ -74,12 +71,6 @@ void testApp::setup(){
     cam.speed = 10;
     cam.loadCameraPosition();
     
-    for(int i = 0; i < 200; i++){
-        ofNode n;
-        n.setPosition(ofRandom(-2000,2000), ofRandom(-2000,2000), ofRandom(-2000,2000));
-		debugNodes.push_back( n );
-    }
-
 }
 
 //--------------------------------------------------------------
@@ -94,9 +85,13 @@ void testApp::gotoNextPortrait(){
 
 //--------------------------------------------------------------
 void testApp::update(){
+    cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
+    if(allPortraits[currentPortrait].soundPlayer.getPosition() == 1.0 ){
+        gotoNextPortrait();
+    }
+    
 	if(type == Studio){
     	//do master stuff
-
     }
 }
 
@@ -104,18 +99,16 @@ void testApp::update(){
 void testApp::draw(){
     
 	cam.begin();
-    for(int i = 0; i < debugNodes.size(); i++){
-        debugNodes[i].draw();
-    }
-            
-    renderer.drawPointCloud();
+    //TODO draw with render settings
     renderer.drawWireFrame();
     cam.end();
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+	if(key == 'j'){
+        allPortraits[currentPortrait].soundPlayer.setPosition(.95);
+    }
 }
 
 //--------------------------------------------------------------

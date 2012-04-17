@@ -11,6 +11,8 @@ void testApp::setup(){
     projectionReceived = false;
     anyMessageReceived = false;
     
+    generateNodes();
+    
     cam.setup();
     cam.usemouse = true;
     cam.speed = 2;
@@ -56,13 +58,12 @@ void testApp::update(){
         }
         else if(m.getAddress() == "/projection" && m.getNumArgs() == 16){
         	for(int i = 0; i < 16; i++){
-                viewMatrix.getPtr()[i] = m.getArgAsFloat(i);
+                projectionMatrix.getPtr()[i] = m.getArgAsFloat(i);
             }
             projectionReceived = true;
 
         }     
     }
-
 }
 
 //--------------------------------------------------------------
@@ -75,19 +76,39 @@ void testApp::draw(){
    
     
     cam.begin(leftHalf);
-    drawScene();
+    view.draw();
+    ofDrawGrid(100.0f);
+//    for(int i = 0; i < nodes.size(); i++){
+//        nodes[i].draw();	
+//    }
+	glPushMatrix();
+    glMultMatrixf( (viewMatrix * projectionMatrix).getPtr());
+    
+    ofPushStyle();
+    ofNoFill();
+    ofBox(2.0f);
+    ofPopStyle();
+    
+    glPopMatrix();
+    
     cam.end();
     
     if(projectionReceived && viewReceived){
         ofPushView();
         ofViewport(rightHalf);
-        glPushMatrix();
-
-//        glMultMatrixf(viewMatrix.getPtr());
-
-        drawScene();
         
-        glPopMatrix();
+        glMatrixMode(GL_PROJECTION);
+        glLoadMatrixf(projectionMatrix.getPtr());
+
+        
+        glMatrixMode(GL_MODELVIEW);
+        glLoadMatrixf(viewMatrix.getPtr());
+        
+        
+        for(int i = 0; i < nodes.size(); i++){
+            nodes[i].draw();	
+        }
+        
         ofPopView();        
     }
     else{
@@ -115,8 +136,8 @@ void testApp::drawScene(){
     for(int i = 0; i < nodes.size(); i++){
     	nodes[i].draw();	
     }
-    view.draw();
-    ofDrawGrid();
+
+    ofDrawGrid(100.0f);
     glDisable(GL_DEPTH);
 }
 
