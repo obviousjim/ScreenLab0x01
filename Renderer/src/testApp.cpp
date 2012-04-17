@@ -53,8 +53,8 @@ void testApp::setup(){
             }
             
 			string soundFile = portraits.getValue("soundFile", "");
+            newPortrait.rendererRef = &renderer; //must be set before setup()
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
-            newPortrait.rendererRef = &renderer;
             portraits.popTag();//portrait
             
             allPortraits.push_back( newPortrait );
@@ -65,7 +65,13 @@ void testApp::setup(){
     currentPortrait = -1;
     gotoNextPortrait();
 
-    cam.setup();
+//	for(int i = 0; i < 200; i++){
+//		ofNode n;
+//		n.setPosition(ofRandom(-1000,1000),ofRandom(-1000,1000),ofRandom(-1000,1000) );
+//		debugNodes.push_back( n );
+//	}
+    
+	cam.setup();
     cam.usemouse = true;
     cam.autosavePosition = true;
     cam.speed = 10;
@@ -80,12 +86,13 @@ void testApp::gotoNextPortrait(){
     }
 	currentPortrait = (currentPortrait + 1) % allPortraits.size();
 	allPortraits[currentPortrait].resetAndPlay();
-    cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;
+
+    cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;    
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
+    //cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
     if(allPortraits[currentPortrait].soundPlayer.getPosition() == 1.0 ){
         gotoNextPortrait();
     }
@@ -101,7 +108,14 @@ void testApp::draw(){
 	cam.begin();
     //TODO draw with render settings
     renderer.drawWireFrame();
+	ofDrawGrid(100.0f, 5.0f, true);
+	for(int i = 0; i < debugNodes.size(); i++){
+		debugNodes[i].draw();
+	}
     cam.end();
+
+	ofDrawBitmapString("of framerate " + ofToString(ofGetFrameRate()), 30, 30 );
+	//allPortraits[currentPortrait].videoPlayer.draw(0,0, 640,360);
 }
 
 //--------------------------------------------------------------
@@ -109,6 +123,10 @@ void testApp::keyPressed(int key){
 	if(key == 'j'){
         allPortraits[currentPortrait].soundPlayer.setPosition(.95);
     }
+	if(key == ' '){
+		renderer.reloadShader();
+	}
+
 }
 
 //--------------------------------------------------------------

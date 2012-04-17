@@ -65,6 +65,9 @@
     <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\Wrappers.cpp">
       <Filter>ofxCv</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderSettings.cpp">
+      <Filter>ofxRGBDepth</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ScreenLabPortrait.h" />
@@ -102,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxRange\ofRange.h">
       <Filter>ofxRange</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderSettings.h">
+      <Filter>ofxRGBDepth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

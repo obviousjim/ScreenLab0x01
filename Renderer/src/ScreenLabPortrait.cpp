@@ -16,12 +16,13 @@ ScreenLabPortrait::ScreenLabPortrait(){
 
 void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string soundPath){
     type = _type;
-	soundPlayer.loadMovie(soundPath);
-    soundPlayer.setLoopState(OF_LOOP_NONE);
+	//soundPlayer.loadMovie(soundPath);
+    //soundPlayer.setLoopState(OF_LOOP_NONE);
     
     if(take.loadFromFolder(mediaFolder)){
-        //videoPlayer.loadMovie(take.lowResVideoPath);
-        videoPlayer.loadMovie(take.hiResVideoPath);
+        videoPlayer.loadMovie(take.lowResVideoPath);
+		rendererRef->setTextureScale(640./1920, 360./1080);
+        //videoPlayer.loadMovie(take.hiResVideoPath);
         depthImages.loadSequence(take.depthFolder);
         pairing.loadPairingFile(take.pairingsFile);
         if(!pairing.ready()){
@@ -53,7 +54,7 @@ void ScreenLabPortrait::resetAndPlay(){
 	
     cout << "sound player duration " << soundPlayer.getDuration() << endl;
     
-    videoPlayer.setSpeed(.33);
+    //videoPlayer.setSpeed(.33);
     videoPlayer.setFrame(startFrame);
     videoPlayer.setVolume(0);
     videoPlayer.play();

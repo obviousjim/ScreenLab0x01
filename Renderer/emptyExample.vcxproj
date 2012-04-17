@@ -82,6 +82,7 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat />
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxCv\libs\ofxCv\include;..\..\..\addons\ofxCv\src;C:\Users\Administrator\Downloads\opencv\build\include;..\..\..\addons\ofxGameCamera\src;..\..\..\addons\ofxRange;..\..\..\addons\ofxXmlSettings\libs;..\..\..\addons\ofxXmlSettings\src;..\..\..\addons\ofxRGBDepth\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -93,6 +94,8 @@
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>C:\openFrameworks\addons\ofxOpenCv\libs\opencv\lib\vs2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_calib3d231.lib;opencv_contrib231.lib;opencv_core231.lib;opencv_features2d231.lib;opencv_flann231.lib;opencv_gpu231.lib;opencv_highgui231.lib;opencv_imgproc231.lib;opencv_legacy231.lib;opencv_ml231.lib;opencv_objdetect231.lib;opencv_video231.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent />
   </ItemDefinitionGroup>
@@ -112,6 +115,7 @@
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDCompositionManager.cpp" />
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDMediaTake.cpp" />
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderer.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderSettings.cpp" />
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDVideoDepthSequence.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp" />
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp" />
@@ -131,6 +135,7 @@
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDCompositionManager.h" />
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDMediaTake.h" />
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderer.h" />
+    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderSettings.h" />
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDVideoDepthSequence.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h" />
     <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h" />
