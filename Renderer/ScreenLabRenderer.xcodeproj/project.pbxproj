@@ -60,6 +60,7 @@
 		E738E8E7153C4A5200BDA0F3 /* ScreenLabStreetShot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E8E6153C4A5200BDA0F3 /* ScreenLabStreetShot.cpp */; };
 		E738E8EA153C69D600BDA0F3 /* ofxRGBDMediaTake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E8E9153C69D600BDA0F3 /* ofxRGBDMediaTake.cpp */; };
 		E738E8F1153C922D00BDA0F3 /* ofxDepthImageSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E8EF153C922C00BDA0F3 /* ofxDepthImageSequence.cpp */; };
+		E738E8F3153CB00500BDA0F3 /* ofxRGBDRenderSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E8F2153CB00400BDA0F3 /* ofxRGBDRenderSettings.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,7 +123,6 @@
 		E738E67E153C463300BDA0F3 /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxXmlSettings.h; sourceTree = "<group>"; };
 		E738E683153C47C600BDA0F3 /* ScreenLabPortrait.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenLabPortrait.cpp; sourceTree = "<group>"; };
 		E738E685153C47E100BDA0F3 /* ScreenLabPortrait.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenLabPortrait.h; sourceTree = "<group>"; };
-		E738E688153C481C00BDA0F3 /* ofRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofRange.h; sourceTree = "<group>"; };
 		E738E69D153C482200BDA0F3 /* ofxGameCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxGameCamera.cpp; sourceTree = "<group>"; };
 		E738E69E153C482200BDA0F3 /* ofxGameCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGameCamera.h; sourceTree = "<group>"; };
 		E738E6B7153C483200BDA0F3 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
@@ -255,6 +255,8 @@
 		E738E8EB153C69E400BDA0F3 /* ofxRGBDMediaTake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxRGBDMediaTake.h; sourceTree = "<group>"; };
 		E738E8EF153C922C00BDA0F3 /* ofxDepthImageSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDepthImageSequence.cpp; sourceTree = "<group>"; };
 		E738E8F0153C922D00BDA0F3 /* ofxDepthImageSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDepthImageSequence.h; sourceTree = "<group>"; };
+		E738E8F2153CB00400BDA0F3 /* ofxRGBDRenderSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRGBDRenderSettings.cpp; sourceTree = "<group>"; };
+		E738E8F4153CB03700BDA0F3 /* ofxRGBDRenderSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxRGBDRenderSettings.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,7 +303,6 @@
 				E738E6D8153C488900BDA0F3 /* ofxCv */,
 				E738E6AA153C483200BDA0F3 /* ofxRGBDepth */,
 				E738E689153C482200BDA0F3 /* ofxGameCamera */,
-				E738E686153C481C00BDA0F3 /* ofxRange */,
 				E738E676153C463300BDA0F3 /* ofxXmlSettings */,
 			);
 			name = addons;
@@ -417,15 +418,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		E738E686153C481C00BDA0F3 /* ofxRange */ = {
-			isa = PBXGroup;
-			children = (
-				E738E688153C481C00BDA0F3 /* ofRange.h */,
-			);
-			name = ofxRange;
-			path = ../../../addons/ofxRange;
-			sourceTree = "<group>";
-		};
 		E738E689153C482200BDA0F3 /* ofxGameCamera */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +463,8 @@
 				E738E6C9153C483200BDA0F3 /* ofxRGBDVideoDepthSequence.cpp */,
 				E738E8EB153C69E400BDA0F3 /* ofxRGBDMediaTake.h */,
 				E738E8E9153C69D600BDA0F3 /* ofxRGBDMediaTake.cpp */,
+				E738E8F4153CB03700BDA0F3 /* ofxRGBDRenderSettings.h */,
+				E738E8F2153CB00400BDA0F3 /* ofxRGBDRenderSettings.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -906,6 +900,7 @@
 				E738E8E7153C4A5200BDA0F3 /* ScreenLabStreetShot.cpp in Sources */,
 				E738E8EA153C69D600BDA0F3 /* ofxRGBDMediaTake.cpp in Sources */,
 				E738E8F1153C922D00BDA0F3 /* ofxDepthImageSequence.cpp in Sources */,
+				E738E8F3153CB00500BDA0F3 /* ofxRGBDRenderSettings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,7 +3,6 @@
 //  ScreenLabRenderer
 //
 //  Created by James George on 4/16/12.
-//  Copyright (c) 2012 FlightPhase. All rights reserved.
 //
 
 #include "ScreenLabPortrait.h"
@@ -17,15 +16,28 @@ ScreenLabPortrait::ScreenLabPortrait(){
 
 void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string soundPath){
     type = _type;
-	soundPlayer.loadSound(soundPath);
+	soundPlayer.loadMovie(soundPath);
+    soundPlayer.setLoopState(OF_LOOP_NONE);
     
-    //TODO: Load from comp directory
     if(take.loadFromFolder(mediaFolder)){
-        videoPlayer.loadMovie(take.lowResVideoPath);
+        //videoPlayer.loadMovie(take.lowResVideoPath);
+        videoPlayer.loadMovie(take.hiResVideoPath);
         depthImages.loadSequence(take.depthFolder);
         pairing.loadPairingFile(take.pairingsFile);
         if(!pairing.ready()){
             ofLogError("ScreenLabPortrait -- Pairings not ready!");
+        }
+        
+        take.populateRenderSettings();
+        if(take.getRenderSettings().size() == 0){
+            startFrame = 0;
+            endFrame = videoPlayer.getTotalNumFrames();
+            ofLogError("ScreenLabPortrait -- No Render Settings!");
+        }
+        else{
+            startFrame = take.getRenderSettings()[0].startFrame;
+            endFrame   = take.getRenderSettings()[0].endFrame;
+            cout << "found start and end frame " << startFrame << " " << endFrame << endl;
         }
     }
     else{
@@ -34,14 +46,24 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
 }
 
 void ScreenLabPortrait::resetAndPlay(){
+    
+    soundPlayer.setVolume(1300);
+    soundPlayer.setPosition(0);
+    soundPlayer.play();
+	
+    cout << "sound player duration " << soundPlayer.getDuration() << endl;
+    
+    videoPlayer.setSpeed(.33);
     videoPlayer.setFrame(startFrame);
     videoPlayer.setVolume(0);
     videoPlayer.play();
     videoPlayer.setLoopState(OF_LOOP_NORMAL);
+    
     rendererRef->setup(take.calibrationDirectory);
     rendererRef->setRGBTexture(videoPlayer);
-    soundPlayer.setPosition(0);
-    soundPlayer.play();
+    if(take.getRenderSettings().size() != 0){
+    	take.getRenderSettings()[0].applyToRenderer(*rendererRef);
+    }
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
 }
 

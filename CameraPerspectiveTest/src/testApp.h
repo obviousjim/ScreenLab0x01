@@ -28,6 +28,7 @@ class testApp : public ofBaseApp{
     vector<ofNode> nodes;
     ofNode view;
     ofMatrix4x4 viewMatrix;
+    ofMatrix4x4 projectionMatrix;
     ofxOscReceiver receiver;
 	    
     void generateNodes();

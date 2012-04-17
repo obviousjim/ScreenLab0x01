@@ -12,6 +12,7 @@
 #include "ofxRGBDRenderer.h"
 #include "ofxRGBDMediaTake.h"
 #include "ofxDepthImageSequence.h"
+#include "ofxRGBDRenderSettings.h"
 
 typedef enum  {
 	Studio,
@@ -31,6 +32,7 @@ class ScreenLabPortrait {
     int startFrame;
     int endFrame;
     
+    
     ofxRGBDRenderer* rendererRef;
     ofxRGBDMediaTake take;
     ofxDepthImageSequence depthImages;
@@ -38,8 +40,5 @@ class ScreenLabPortrait {
     
     PortraitType type;
   	ofVideoPlayer videoPlayer;
-	ofSoundPlayer soundPlayer;
-
-    vector<ofNode> idealCameraLocations;
-    
+	ofVideoPlayer soundPlayer;
 };
