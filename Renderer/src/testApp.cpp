@@ -1,11 +1,14 @@
 #include "testApp.h"
-#include "ofxXmlSettings.h"
 
 //--------------------------------------------------------------
 void testApp::setup(){
 
-	ofSetFrameRate(30);
+	ofSetFrameRate(60);
     ofBackground(0);
+    ofToggleFullscreen();
+    
+    leftRect = ofRectangle(0,0, 720, 2160);
+    rightRect = ofRectangle(720,0, 720, 2160) ;
     
     ofxXmlSettings localSettings;
     if(localSettings.loadFile("localsettings.xml")){
@@ -34,7 +37,7 @@ void testApp::setup(){
     	int numPortraits = portraits.getNumTags("portrait");
         for(int i = 0; i < numPortraits; i++){
             ScreenLabPortrait newPortrait;
-            portraits.pushTag("portrait");
+            portraits.pushTag("portrait", i);
             string compositionMediaBin;
 			if(type == Studio){
                 compositionMediaBin = portraits.getValue("studio:mediaFolder","");
@@ -43,7 +46,7 @@ void testApp::setup(){
             }
             else if(type == Far){
                 compositionMediaBin = portraits.getValue("far:mediaFolder","");
-                newPortrait.startFrame = portraits.getValue("far:startFrame",0);
+                newPortrait.startFrame = portraits.getValue("far:startFrame",-1);
                 newPortrait.endFrame = portraits.getValue("far:endFrame",0);
             }
             else if(type == Close){
@@ -53,15 +56,22 @@ void testApp::setup(){
             }
             
 			string soundFile = portraits.getValue("soundFile", "");
+            cout << "loading sound file " << soundFile << endl;
+
             newPortrait.rendererRef = &renderer; //must be set before setup()
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
             portraits.popTag();//portrait
-            
             
             allPortraits.push_back( newPortrait );
         }
         portraits.popTag(); //portraits
     }
+    else{
+        ofLogError("Couldn't Load XML File ");
+    }
+    
+
+    composeMode = false;
     
     currentPortrait = -1;
     gotoNextPortrait();
@@ -72,12 +82,19 @@ void testApp::setup(){
 //		debugNodes.push_back( n );
 //	}
     
-	cam.setup();
-    cam.usemouse = true;
-    cam.autosavePosition = true;
-    cam.speed = 10;
-    cam.loadCameraPosition();
-    
+	leftCam.setup();
+    leftCam.usemouse = true;
+    leftCam.autosavePosition = true;
+    leftCam.speed = 10;
+    leftCam.loadCameraPosition();
+
+    rightCam.setup();
+    rightCam.usemouse = true;
+    rightCam.autosavePosition = true;
+    rightCam.speed = 10;
+    rightCam.loadCameraPosition();
+
+//	switchCamera();
 }
 
 //--------------------------------------------------------------
@@ -88,16 +105,21 @@ void testApp::gotoNextPortrait(){
 	currentPortrait = (currentPortrait + 1) % allPortraits.size();
 	allPortraits[currentPortrait].resetAndPlay();
 
+    cameraTrackFile = ofToDataPath(allPortraits[currentPortrait].take.mediaFolder + "/SalfordTracks.xml");
+    cout << "loading camera track " << cameraTrackFile << endl;
+    track.loadFromFile(cameraTrackFile);
+
     cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;    
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     //cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
-    if(allPortraits[currentPortrait].soundPlayer.getPosition() == 1.0 ){
+    if(!allPortraits[currentPortrait].soundPlayer.isPlaying()){
         gotoNextPortrait();
     }
     
+    cout << "allPortraits[currentPortrait].soundPlayer.getPosition() == 1.0 " << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
 	if(type == Studio){
     	//do master stuff
     }
@@ -106,15 +128,18 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     
-	cam.begin();
-    //TODO draw with render settings
+    ofPushStyle();
+    ofSetColor(255, 0, 0);
+    ofPopStyle();
+    
+	leftCam.begin(leftRect);
     renderer.drawWireFrame();
-	ofDrawGrid(100.0f, 5.0f, true);
-	for(int i = 0; i < debugNodes.size(); i++){
-		debugNodes[i].draw();
-	}
-    cam.end();
+    leftCam.end();
 
+    rightCam.begin(rightRect);
+    renderer.drawWireFrame();
+	rightCam.end();
+    
 	ofDrawBitmapString("of framerate " + ofToString(ofGetFrameRate()), 30, 30 );
 	//allPortraits[currentPortrait].videoPlayer.draw(0,0, 640,360);
 }
@@ -122,12 +147,28 @@ void testApp::draw(){
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
 	if(key == 'j'){
-        allPortraits[currentPortrait].soundPlayer.setPosition(.95);
+        allPortraits[currentPortrait].soundPlayer.setPosition(.98);
     }
 	if(key == ' '){
 		renderer.reloadShader();
 	}
-
+	if(key == 'v'){
+        float ratio = 720/2160.;
+        float newHeight = ofGetHeight();
+        float newWidth = ofGetWidth() * ratio;
+        leftRect = ofRectangle(0,0, newWidth, newHeight);
+        rightRect = ofRectangle(newWidth,0, newWidth, newHeight);
+    }
+    
+    if(key == 'C'){
+        composeMode = !composeMode;
+    }
+    
+    if(key == 'R'){
+        track.camera = leftCam.applyTranslation ? &leftCam : &rightCam;
+		track.sample(track.getSamples().size()); //add a sample
+        track.writeToFile(cameraTrackFile);
+    }
 }
 
 //--------------------------------------------------------------
@@ -137,7 +178,10 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y){
-
+	leftCam.usemouse = composeMode && leftRect.inside(x,y); 
+    leftCam.applyTranslation = composeMode &&  leftRect.inside(x,y);
+    rightCam.usemouse =  composeMode && rightRect.inside(x,y);
+    rightCam.applyTranslation =  composeMode && rightRect.inside(x,y);
 }
 
 //--------------------------------------------------------------

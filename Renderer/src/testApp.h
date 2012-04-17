@@ -4,6 +4,8 @@
 #include "ofxRGBDRenderer.h"
 #include "ScreenLabPortrait.h"
 #include "ofxGameCamera.h"
+#include "ofxXmlSettings.h"
+#include "ofxCameraTrack.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -21,8 +23,8 @@ class testApp : public ofBaseApp{
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    
     void gotoNextPortrait();
+    
     
     vector<ScreenLabPortrait> allPortraits;
     int currentPortrait;
@@ -30,11 +32,19 @@ class testApp : public ofBaseApp{
     ofxRGBDRenderer renderer;
     string soundDirectory;
     string portraitMediaBin;
+    string cameraTrackFile;
     
     PortraitType type;
     
-    ofxGameCamera cam;
+    ofxGameCamera leftCam;
+    ofxGameCamera rightCam;
+    ofRectangle leftRect;
+    ofRectangle rightRect;
+    ofxCameraTrack track;
     
     vector<ofNode> debugNodes;
+    
+    bool composeMode;
+  	
     
 };

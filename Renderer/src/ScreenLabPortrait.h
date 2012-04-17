@@ -31,7 +31,7 @@ class ScreenLabPortrait {
 
     int startFrame;
     int endFrame;
-    
+    float lastTime;
     
     ofxRGBDRenderer* rendererRef;
     ofxRGBDMediaTake take;

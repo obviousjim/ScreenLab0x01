@@ -1,24 +1,70 @@
 <portraits>
+	<!-- ALICE -->
 	<portrait>
-		<soundFile>Mark.aiff</soundFile>
-		
+		<soundFile>AliceBaldwin.wav</soundFile>
+		<close>
+			<mediaFolder>ALICE_CLOSE</mediaFolder>
+		</close>
+	</portrait>
+	
+	<!-- MARK -->
+	<portrait>		
+		<soundFile>Mark.wav</soundFile>
 		<close>
 			<startFrame>83</startFrame>
 			<endFrame>1048</endFrame>
-			<mediaFolder>16_MARK_CLOSE/</mediaFolder>
+			<mediaFolder>MARK_CLOSE/</mediaFolder>
 		</close>
 		
 		<far>
 			<startFrame>126</startFrame>
 			<endFrame>994</endFrame>
-			<mediaFolder>15_MARK_FAR/</mediaFolder>
+			<mediaFolder>MARK_FAR/</mediaFolder>
 		</far>
 		
 		<studio>
 			<startFrame>406</startFrame>
 			<endFrame>2304</endFrame>			
-			<mediaFolder>17_MARK_STUDIO</mediaFolder>
+			<mediaFolder>MARK_STUDIO</mediaFolder>
 		</studio>
-
 	</portrait>
+
+	<!-- JENNY -->
+	<portrait>
+		<soundFile>Jenny.wav</soundFile>
+		<close>
+			<mediaFolder>JEN_CLOSE</mediaFolder>
+		</close>
+	</portrait>
+
+	<!-- ALASDAIR -->
+	<portrait>
+		<soundFile>Alasdair.wav</soundFile>
+		<close>
+			<mediaFolder>ALASDAIR_CLOSE</mediaFolder>
+		</close>
+	</portrait>
+
+	<!-- KEV -->
+	<portrait>
+		<soundFile>Kev.wav</soundFile>
+		<close>
+			<mediaFolder>KEV_CLOSE</mediaFolder>
+		</close>
+	</portrait>
+
+	<portrait>
+		<soundFile>Lisa.wav</soundFile>
+		<close>
+			<mediaFolder>LISA_CLOSE</mediaFolder>
+		</close>
+	</portrait>
+
+	<portrait>
+		<soundFile>Matthew.wav</soundFile>
+		<close>
+			<mediaFolder>MATT_CLOSE</mediaFolder>
+		</close>
+	</portrait>
+
 </portraits>

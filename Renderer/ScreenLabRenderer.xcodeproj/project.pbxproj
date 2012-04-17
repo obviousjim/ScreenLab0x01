@@ -24,6 +24,7 @@
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		E734B799153DA92A00E7E20F /* ofxCameraTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E734B796153DA92A00E7E20F /* ofxCameraTrack.cpp */; };
 		E738E67F153C463300BDA0F3 /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E678153C463300BDA0F3 /* tinyxml.cpp */; };
 		E738E680153C463300BDA0F3 /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E67A153C463300BDA0F3 /* tinyxmlerror.cpp */; };
 		E738E681153C463300BDA0F3 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E67B153C463300BDA0F3 /* tinyxmlparser.cpp */; };
@@ -57,7 +58,6 @@
 		E738E8E3153C491400BDA0F3 /* opencv_ml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E738E8D6153C491400BDA0F3 /* opencv_ml.a */; };
 		E738E8E4153C491400BDA0F3 /* opencv_objdetect.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E738E8D7153C491400BDA0F3 /* opencv_objdetect.a */; };
 		E738E8E5153C491400BDA0F3 /* opencv_video.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E738E8D8153C491400BDA0F3 /* opencv_video.a */; };
-		E738E8E7153C4A5200BDA0F3 /* ScreenLabStreetShot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E8E6153C4A5200BDA0F3 /* ScreenLabStreetShot.cpp */; };
 		E738E8EA153C69D600BDA0F3 /* ofxRGBDMediaTake.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E8E9153C69D600BDA0F3 /* ofxRGBDMediaTake.cpp */; };
 		E738E8F1153C922D00BDA0F3 /* ofxDepthImageSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E8EF153C922C00BDA0F3 /* ofxDepthImageSequence.cpp */; };
 		E738E8F3153CB00500BDA0F3 /* ofxRGBDRenderSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E738E8F2153CB00400BDA0F3 /* ofxRGBDRenderSettings.cpp */; };
@@ -115,6 +115,8 @@
 		E4C2424610CC5A17004149E2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		E734B796153DA92A00E7E20F /* ofxCameraTrack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCameraTrack.cpp; sourceTree = "<group>"; };
+		E734B797153DA92A00E7E20F /* ofxCameraTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCameraTrack.h; sourceTree = "<group>"; };
 		E738E678153C463300BDA0F3 /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml.cpp; sourceTree = "<group>"; };
 		E738E679153C463300BDA0F3 /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml.h; sourceTree = "<group>"; };
 		E738E67A153C463300BDA0F3 /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxmlerror.cpp; sourceTree = "<group>"; };
@@ -249,8 +251,6 @@
 		E738E8D6153C491400BDA0F3 /* opencv_ml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = opencv_ml.a; sourceTree = "<group>"; };
 		E738E8D7153C491400BDA0F3 /* opencv_objdetect.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = opencv_objdetect.a; sourceTree = "<group>"; };
 		E738E8D8153C491400BDA0F3 /* opencv_video.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = opencv_video.a; sourceTree = "<group>"; };
-		E738E8E6153C4A5200BDA0F3 /* ScreenLabStreetShot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenLabStreetShot.cpp; sourceTree = "<group>"; };
-		E738E8E8153C4A6900BDA0F3 /* ScreenLabStreetShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenLabStreetShot.h; sourceTree = "<group>"; };
 		E738E8E9153C69D600BDA0F3 /* ofxRGBDMediaTake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRGBDMediaTake.cpp; sourceTree = "<group>"; };
 		E738E8EB153C69E400BDA0F3 /* ofxRGBDMediaTake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxRGBDMediaTake.h; sourceTree = "<group>"; };
 		E738E8EF153C922C00BDA0F3 /* ofxDepthImageSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDepthImageSequence.cpp; sourceTree = "<group>"; };
@@ -300,6 +300,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				E734B78E153DA92A00E7E20F /* ofxCameraTrack */,
 				E738E6D8153C488900BDA0F3 /* ofxCv */,
 				E738E6AA153C483200BDA0F3 /* ofxRGBDepth */,
 				E738E689153C482200BDA0F3 /* ofxGameCamera */,
@@ -373,8 +374,6 @@
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E738E685153C47E100BDA0F3 /* ScreenLabPortrait.h */,
 				E738E683153C47C600BDA0F3 /* ScreenLabPortrait.cpp */,
-				E738E8E8153C4A6900BDA0F3 /* ScreenLabStreetShot.h */,
-				E738E8E6153C4A5200BDA0F3 /* ScreenLabStreetShot.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -386,6 +385,24 @@
 				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
 			);
 			name = openFrameworks;
+			sourceTree = "<group>";
+		};
+		E734B78E153DA92A00E7E20F /* ofxCameraTrack */ = {
+			isa = PBXGroup;
+			children = (
+				E734B795153DA92A00E7E20F /* src */,
+			);
+			name = ofxCameraTrack;
+			path = ../../../addons/ofxCameraTrack;
+			sourceTree = "<group>";
+		};
+		E734B795153DA92A00E7E20F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E734B797153DA92A00E7E20F /* ofxCameraTrack.h */,
+				E734B796153DA92A00E7E20F /* ofxCameraTrack.cpp */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		E738E676153C463300BDA0F3 /* ofxXmlSettings */ = {
@@ -897,10 +914,10 @@
 				E738E833153C488B00BDA0F3 /* Tracker.cpp in Sources */,
 				E738E834153C488B00BDA0F3 /* Utilities.cpp in Sources */,
 				E738E835153C488B00BDA0F3 /* Wrappers.cpp in Sources */,
-				E738E8E7153C4A5200BDA0F3 /* ScreenLabStreetShot.cpp in Sources */,
 				E738E8EA153C69D600BDA0F3 /* ofxRGBDMediaTake.cpp in Sources */,
 				E738E8F1153C922D00BDA0F3 /* ofxDepthImageSequence.cpp in Sources */,
 				E738E8F3153CB00500BDA0F3 /* ofxRGBDRenderSettings.cpp in Sources */,
+				E734B799153DA92A00E7E20F /* ofxCameraTrack.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
