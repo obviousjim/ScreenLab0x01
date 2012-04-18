@@ -14,6 +14,7 @@
 #include "ofxDepthImageSequence.h"
 #include "ofxRGBDRenderSettings.h"
 #include "ofxDepthHoleFiller.h"
+#include "ofxOsc.h"
 
 typedef enum  {
 	Studio,
@@ -26,6 +27,7 @@ class ScreenLabPortrait {
 	ScreenLabPortrait();
     void setup(PortraitType type, string mediaFolder, string soundPath);
     
+    string name; //used for osc
     void resetAndPlay();
     void stop();
 	void update(ofEventArgs& args);
@@ -43,4 +45,5 @@ class ScreenLabPortrait {
   	ofVideoPlayer videoPlayer;
 	ofVideoPlayer soundPlayer;
     ofxDepthHoleFiller filler;
+    
 };

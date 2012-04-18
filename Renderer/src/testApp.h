@@ -24,7 +24,7 @@ class testApp : public ofBaseApp{
     void gotMessage(ofMessage msg);
     
     void gotoNextPortrait();
-    
+    void gotoPortrait(string name);
     void drawFunc();
     
     float lastCameraChangeTimeLeft;
@@ -64,5 +64,7 @@ class testApp : public ofBaseApp{
     bool loadedSuccess;
     bool composeMode;
   	void checkSwitchCamera(bool force = false);
-    
+
+    ofxOscReceiver receiver;
+
 };
