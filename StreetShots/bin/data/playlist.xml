@@ -1,32 +1,43 @@
-<takesfolder>/Users/focus/Desktop/__RGBD_Bins/_manchester_night_out/takes</takesfolder>
+<takesfolder>E:\Media\jim_studio_shots</takesfolder>
 <take>
-    <folder>G_TAKE_04_15_00_41_09_PoleWalk1</folder>
-    <intime>51797</intime>
-    <outtime>219600</outtime>
+    <folder>11_07_12_matt_far_depth</folder>
+    <intime>1976</intime>
+    <outtime>48842</outtime>
     <soundfile />
 </take>
 <take>
-    <folder>G_TAKE_04_15_00_48_14_PeopleWalk</folder>
-    <intime />
-    <outtime />
+    <folder>12_00_39_lisa_far_depth</folder>
+    <intime>9298</intime>
+    <outtime>44556</outtime>
     <soundfile />
 </take>
-<!--
 <take>
-<folder>G_TAKE_04_15_00_55_17_Car</take>
-<take>G_TAKE_04_15_00_55_53_Cars</take>
-<take>G_TAKE_04_15_00_59_24_Printworks</take>
-<take>G_TAKE_04_15_01_02_00_TrainFewPeople</take>
-<take>G_TAKE_04_15_01_02_33_no_one</take>
-<take>G_TAKE_04_15_01_11_14_park</take>
--->
-<!--
-<take>
-	<folder>G_TAKE_04_15_00_48_14_PeopleWalk</folder>
-	<intime></intime>
-	<outtime></outtime>
-	<soundfile></soundfile>
-	
+    <folder>12_24_51_alice_far_depth</folder>
+    <intime>2205</intime>
+    <outtime>33630</outtime>
+    <soundfile />
 </take>
-
--->
+<take>
+    <folder>15_13_01_alasdair_far_depth</folder>
+    <intime>2063</intime>
+    <outtime>38406</outtime>
+    <soundfile />
+</take>
+<take>
+    <folder>14_34_06_mark_far_depth</folder>
+    <soundfile />
+    <intime>4461</intime>
+    <outtime>37620</outtime>
+</take>
+<take>
+    <folder>15_47_13_jen_far_depth</folder>
+    <soundfile />
+    <intime>3678</intime>
+    <outtime>55958</outtime>
+</take>
+<take>
+    <folder>13_14_12_kev_far_depth</folder>
+    <soundfile />
+    <intime>2248</intime>
+    <outtime>43318</outtime>
+</take>

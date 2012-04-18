@@ -1,9 +1,9 @@
 <settings>
 	<soundDirectory>
-		e:\Media\SoundExports\
+		/Users/focus/Desktop/SalfordSoundExports/
 	</soundDirectory>
 	<portraitMediaBin>
-		e:\Media\MediaBinForShow\
+		/Users/focus/Desktop/SalfordTestMediaBin/		
 	</portraitMediaBin>
 	 <!-- bigger screen == STUDIO --> <!-- Tall screen are CLOSE --> <!-- bigger screen is FAR --> 
 	<screenType>

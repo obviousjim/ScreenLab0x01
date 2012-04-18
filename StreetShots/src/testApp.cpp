@@ -4,10 +4,17 @@
 //--------------------------------------------------------------
 void testApp::setup(){
     
+	cam.setFarClip(10000.0f);
     ofSetFrameRate(60);
     ofBackground(0);
-    
+       
+	ofToggleFullscreen();
+	//scrubMode = true;
 	scrubMode = false;
+	//debugView = true;
+	debugView = false;
+
+	rx.setup(1200);
     if(!playlist.loadFile("playlist.xml")){
         ofLogError("Error loading playlist xml");
     }
@@ -22,6 +29,8 @@ void testApp::setup(){
         take.images.loadSequence( take.path );        
         take.intime  = playlist.getValue("intime", 0);
 		take.outtime = playlist.getValue("outtime", int(take.images.getDurationInMillis()));
+		//take.outtime = take.images.getDurationInMillis();
+		cout << take.intime << " " << take.outtime << " " << take.images.getDurationInMillis() << endl;
         take.soundFile = playlist.getValue("soundFile", "");
 
         playlist.popTag();
@@ -29,17 +38,34 @@ void testApp::setup(){
     }
     currentTake = 0;
 
-    cam.setup();
-    cam.usemouse = true;
-    cam.autosavePosition;
-    cam.loadCameraPosition();
-	cam.speed = 5;
-    
     startTime = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------------
+
+void loadMatrix(ofxOscMessage & msg, ofMatrix4x4 & matrix)
+{
+	for(int i = 0; i < 16; i++){
+		matrix.getPtr()[i] = msg.getArgAsFloat(i);
+	}
+}
+
 void testApp::update(){
+
+	while(rx.hasWaitingMessages()){
+		ofxOscMessage msg;
+		rx.getNextMessage(&msg);
+
+		if(msg.getAddress() == "/view")
+		{
+			loadMatrix(msg, view);
+		}
+		if(msg.getAddress() == "/projection")
+		{
+			loadMatrix(msg, projection);			
+		}
+	}
+
 	if(scrubMode){
         long time = ofMap(mouseX, 0, ofGetWidth(), 0, sequences[currentTake].images.getDurationInMillis(), true);
         sequences[currentTake].images.selectTime(time);
@@ -54,7 +80,8 @@ void testApp::draw(){
         ofDrawBitmapString("Current Path " + sequences[currentTake].path, 50, 50);
     }
     else{
-        long currentMillis = ofGetElapsedTimeMillis() - startTime + sequences[currentTake].intime;
+		long currentMillis = ofGetElapsedTimeMillis() - startTime + sequences[currentTake].intime;
+		//cout << "start time " << startTime << " millis " << currentMillis << " " << sequences[currentTake].images.getDurationInMillis() << endl;
         if(currentMillis < sequences[currentTake].outtime){
 	        sequences[currentTake].images.selectTime(currentMillis);    
         }
@@ -88,9 +115,43 @@ void testApp::drawPointcloud(){
 		}
 	}
     
-    cam.begin(rect);
+
+	if (debugView) {
+		cam.begin(rect);
+	} else {
+		ofPushView();
+		glMatrixMode(GL_PROJECTION);
+		glLoadMatrixf(projection.getPtr());
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(view.getPtr());
+	}
+
+	glEnable(GL_DEPTH_FUNC);
+	ofPushMatrix();
+	ofTranslate(2.0f, 1.0f, 0.0f);
+	ofScale(0.001f, 0.001f, 0.001f);
 	mesh.drawVertices();
-	cam.end();
+
+	ofPopMatrix();
+	if (debugView){
+		
+		ofPushStyle();
+		ofSetColor(100,50,50);
+		ofDrawGrid(10,5,true);
+		ofSetColor(255);
+		ofPushMatrix();
+		glMultMatrixf((view * projection).getInverse().getPtr());
+		ofNoFill();
+		ofBox(2.0f);
+		ofPopMatrix();
+		ofPopStyle();
+	}
+	glDisable(GL_DEPTH_FUNC);
+
+	if (debugView)
+		cam.end();
+	else
+		ofPopView();
     
 	glDisable(GL_DEPTH_TEST);	
 
@@ -98,6 +159,9 @@ void testApp::drawPointcloud(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+	if (key == 'd')
+		debugView ^= true;
+
 	if(key == ' '){
         scrubMode = !scrubMode;
         if(!scrubMode){
@@ -106,7 +170,9 @@ void testApp::keyPressed(int key){
     }
     if(scrubMode && key == '['){
         long time = ofMap(mouseX, 0, ofGetWidth(), 0, sequences[currentTake].images.getDurationInMillis(), true);
-        playlist.pushTag("take",sequences[currentTake].xmlIndex);
+   		sequences[currentTake].intime = time;
+
+		playlist.pushTag("take",sequences[currentTake].xmlIndex);
         playlist.setValue("intime", int(time));
         playlist.popTag();
         playlist.saveFile();
@@ -114,7 +180,8 @@ void testApp::keyPressed(int key){
     }
     if(scrubMode && key == ']'){
     	long time = ofMap(mouseX, 0, ofGetWidth(), 0, sequences[currentTake].images.getDurationInMillis(), true);
-        playlist.pushTag("take",sequences[currentTake].xmlIndex);
+		sequences[currentTake].outtime = time;
+		playlist.pushTag("take",sequences[currentTake].xmlIndex);
         playlist.setValue("outtime", int(time));
         playlist.popTag();
         playlist.saveFile();
@@ -130,12 +197,14 @@ void testApp::keyPressed(int key){
     }
 
     if(key == 'f'){
-        ofToggleFullscreen();
+		ofToggleFullscreen();  
     }
 }
 
 void testApp::nextTake(){
     currentTake = (currentTake + 1) % sequences.size();   
+	cout << currentTake << " switched  " << endl;
+	startTime = ofGetElapsedTimeMillis();
 }
 
 void testApp::previousTake(){
