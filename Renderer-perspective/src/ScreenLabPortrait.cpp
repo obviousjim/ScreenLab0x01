@@ -16,9 +16,9 @@ ScreenLabPortrait::ScreenLabPortrait(){
 
 void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string soundPath){
     type = _type;
-	soundPlayer.loadMovie(soundPath);
-    soundPlayer.setLoopState(OF_LOOP_NONE);
-    cout << "media folder " << mediaFolder << " " << soundPath << endl;
+	//soundPlayer.loadMovie(soundPath);
+    //soundPlayer.setLoopState(OF_LOOP_NONE);
+    
     if(take.loadFromFolder(mediaFolder)){
         videoPlayer.loadMovie(take.lowResVideoPath);
 		rendererRef->setTextureScale(640./1920, 360./1080);
@@ -44,23 +44,17 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
     else{
         ofLogError("ScreenLabPortrait -- Couldn't load media folder " + mediaFolder);
     }
-    filler.enable = true;
-    filler.setIterations(5);
-    filler.setKernelSize(3);
-
 }
 
 void ScreenLabPortrait::resetAndPlay(){
-    lastTime = 0;
     
     soundPlayer.setVolume(1300);
     soundPlayer.setPosition(0);
     soundPlayer.play();
-	soundPlayer.setLoopState(OF_LOOP_NONE);
-    
+	
     cout << "sound player duration " << soundPlayer.getDuration() << endl;
     
-    videoPlayer.setSpeed(.5);
+    //videoPlayer.setSpeed(.33);
     videoPlayer.setFrame(startFrame);
     videoPlayer.setVolume(0);
     videoPlayer.play();
@@ -71,7 +65,6 @@ void ScreenLabPortrait::resetAndPlay(){
     if(take.getRenderSettings().size() != 0){
     	take.getRenderSettings()[0].applyToRenderer(*rendererRef);
     }
-    rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
 }
 
@@ -82,11 +75,6 @@ void ScreenLabPortrait::stop(){
 }
 
 void ScreenLabPortrait::update(ofEventArgs& args){
-    if(soundPlayer.getPosition() == 1.0 || lastTime > soundPlayer.getPosition()){ //looops?
-        stop();
-    }
-    lastTime = soundPlayer.getPosition();
-    
     videoPlayer.update();
     if(videoPlayer.isFrameNew()){
         if(videoPlayer.getCurrentFrame() >= endFrame){
@@ -95,11 +83,7 @@ void ScreenLabPortrait::update(ofEventArgs& args){
 		else {
             long time = pairing.getDepthFrameForVideoFrame(videoPlayer.getPosition() * videoPlayer.getDuration() * 1000);
             depthImages.selectTime( time );
-//            filler.setIterations(ofGetMouseX()/10);
-//            filler.setKernelSize(ofGetMouseY()/10);
-			ofShortPixels& pix = depthImages.getPixels();
-            filler.close(pix);
-            rendererRef->setDepthImage(pix);
+            rendererRef->setDepthImage(depthImages.getPixels());
             rendererRef->update();
         }        	
     }

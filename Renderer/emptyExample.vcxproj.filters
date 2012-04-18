@@ -2,30 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\ScreenLabPortrait.cpp" />
-    <ClCompile Include="src\ScreenLabStreetShot.cpp" />
     <ClCompile Include="src\testApp.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxGameCamera\src\ofxGameCamera.cpp">
-      <Filter>ofxGameCamera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDCompositionManager.cpp">
-      <Filter>ofxRGBDepth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDMediaTake.cpp">
-      <Filter>ofxRGBDepth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDVideoDepthSequence.cpp">
-      <Filter>ofxRGBDepth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthHoleFiller.cpp">
-      <Filter>ofxRGBDepth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageCompressor.cpp">
-      <Filter>ofxRGBDepth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageSequence.cpp">
-      <Filter>ofxRGBDepth</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
       <Filter>ofxXmlSettings</Filter>
     </ClCompile>
@@ -38,43 +15,45 @@
     <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
       <Filter>ofxXmlSettings</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderer.cpp">
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageCompressor.cpp">
       <Filter>ofxRGBDepth</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\Calibration.cpp">
-      <Filter>ofxCv</Filter>
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageSequence.cpp">
+      <Filter>ofxRGBDepth</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\ContourFinder.cpp">
-      <Filter>ofxCv</Filter>
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDCompositionManager.cpp">
+      <Filter>ofxRGBDepth</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\Distance.cpp">
-      <Filter>ofxCv</Filter>
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDMediaTake.cpp">
+      <Filter>ofxRGBDepth</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\Helpers.cpp">
-      <Filter>ofxCv</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\RunningBackground.cpp">
-      <Filter>ofxCv</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\Tracker.cpp">
-      <Filter>ofxCv</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\Utilities.cpp">
-      <Filter>ofxCv</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxCv\libs\ofxCv\src\Wrappers.cpp">
-      <Filter>ofxCv</Filter>
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderer.cpp">
+      <Filter>ofxRGBDepth</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderSettings.cpp">
       <Filter>ofxRGBDepth</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDVideoDepthSequence.cpp">
+      <Filter>ofxRGBDepth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxGameCamera\src\ofxGameCamera.cpp">
+      <Filter>ofxGameCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxCameraTrack\src\ofxCameraTrack.cpp">
+      <Filter>ofxCameraTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ScreenLabPortrait.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ScreenLabPortrait.h" />
-    <ClInclude Include="src\ScreenLabStreetShot.h" />
     <ClInclude Include="src\testApp.h" />
-    <ClInclude Include="..\..\..\addons\ofxGameCamera\src\ofxGameCamera.h">
-      <Filter>ofxGameCamera</Filter>
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h">
+      <Filter>ofxXmlSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
+      <Filter>ofxXmlSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageCompressor.h">
+      <Filter>ofxRGBDepth</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageSequence.h">
       <Filter>ofxRGBDepth</Filter>
@@ -85,30 +64,25 @@
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDMediaTake.h">
       <Filter>ofxRGBDepth</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDVideoDepthSequence.h">
-      <Filter>ofxRGBDepth</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthHoleFiller.h">
-      <Filter>ofxRGBDepth</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageCompressor.h">
-      <Filter>ofxRGBDepth</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h">
-      <Filter>ofxXmlSettings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
-      <Filter>ofxXmlSettings</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderer.h">
+      <Filter>ofxRGBDepth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderSettings.h">
+      <Filter>ofxRGBDepth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDVideoDepthSequence.h">
       <Filter>ofxRGBDepth</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxRange\ofRange.h">
       <Filter>ofxRange</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDRenderSettings.h">
-      <Filter>ofxRGBDepth</Filter>
+    <ClInclude Include="..\..\..\addons\ofxGameCamera\src\ofxGameCamera.h">
+      <Filter>ofxGameCamera</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxCameraTrack\src\ofxCameraTrack.h">
+      <Filter>ofxCameraTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ScreenLabPortrait.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ofxGameCamera">
@@ -126,5 +100,13 @@
     <Filter Include="ofxCv">
       <UniqueIdentifier>{e38371b3-05dd-4cc6-ad56-47e29f97aeaf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ofxCameraTrack">
+      <UniqueIdentifier>{b56d26b8-f747-4dc6-9851-cbd43d90c0d3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\addons\ofxGameCamera\.gitignore">
+      <Filter>ofxGameCamera</Filter>
+    </None>
   </ItemGroup>
 </Project>

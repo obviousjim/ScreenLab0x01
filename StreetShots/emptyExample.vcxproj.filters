@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\testApp.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageCompressor.cpp">
+      <Filter>RGBD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxGrabCam\src\ofxGrabCam.cpp">
+      <Filter>ofxGrabCam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
+      <Filter>ofxXmlSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp">
+      <Filter>ofxXmlSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp">
+      <Filter>ofxXmlSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
+      <Filter>ofxXmlSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageSequence.cpp">
+      <Filter>RGBD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp">
+      <Filter>ofxOsc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp">
+      <Filter>ofxOsc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.cpp">
+      <Filter>ofxOsc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscSender.cpp">
+      <Filter>ofxOsc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\testApp.h" />
+    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageCompressor.h">
+      <Filter>RGBD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxGrabCam\src\ofxGrabCam.h">
+      <Filter>ofxGrabCam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h">
+      <Filter>ofxXmlSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
+      <Filter>ofxXmlSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageSequence.h">
+      <Filter>RGBD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h">
+      <Filter>ofxOsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscArg.h">
+      <Filter>ofxOsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h">
+      <Filter>ofxOsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.h">
+      <Filter>ofxOsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.h">
+      <Filter>ofxOsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscSender.h">
+      <Filter>ofxOsc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="RGBD">
+      <UniqueIdentifier>{c13c7e5e-fed0-4110-bdea-b54569d70610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxXmlSettings">
+      <UniqueIdentifier>{e605f79c-46bb-4fc5-b2a4-31a5b2fd846d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxGrabCam">
+      <UniqueIdentifier>{f931f6f7-3024-4daa-a84d-f989f28ba401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ofxOsc">
+      <UniqueIdentifier>{3c4ca2ff-4c73-4fc7-9b3b-4c1b0fb69c5c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,10 +1,10 @@
 <settings>
 	<soundDirectory>
-		/Volumes/Headroom 2/IslingtonMill/SoundExports/
+		e:\Media\SoundExports\
 	</soundDirectory>
 	<portraitMediaBin>
-		/Volumes/Headroom 2/IslingtonMill/MediaBinForShow/
-	</portraitMediaBin>
+		e:\Media\MediaBinForShow\
+	</soundDirectory>
 	<screenType>
 		CLOSE
 	</screenType>

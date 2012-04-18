@@ -2,7 +2,9 @@
 
 #include "ofMain.h"
 #include "ofxDepthImageSequence.h"
-#include "ofxGameCamera.h"
+#include "ofxGrabCam.h"
+#include "ofxXmlSettings.h"
+#include "ofxOsc.h"
 
 typedef struct {
 	ofxDepthImageSequence images;
@@ -40,7 +42,13 @@ class testApp : public ofBaseApp{
     int currentTake;
     ofSoundPlayer player;
     ofxXmlSettings playlist;
-
     long startTime;
-    ofxGameCamera cam;
+
+	ofxOscReceiver rx;	
+	ofMatrix4x4 view;
+	ofMatrix4x4 projection;
+
+    ofxGrabCam cam;
+
+	bool debugView;
 };

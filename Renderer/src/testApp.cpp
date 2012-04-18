@@ -5,8 +5,8 @@ void testApp::setup(){
 
 	ofSetFrameRate(60);
     ofBackground(0);
-    ofToggleFullscreen();
-    
+
+    loadedSuccess = false;
 //    leftRect = ofRectangle(0,0, 720, 2160);
 //    rightRect = ofRectangle(720,0, 720, 2160) ;
     
@@ -23,7 +23,7 @@ void testApp::setup(){
         leftRect.width = localSettings.getValue("w",10);
         leftRect.height = localSettings.getValue("h",10);
         localSettings.popTag();
-        cout << "screen one " << leftRect.width << " " << leftRect.height << endl;
+        cout << "screen one " << rightRect.x << " " << rightRect.y << " " << leftRect.width << " " << leftRect.height << endl;
 		if(twoScreens){
             localSettings.pushTag("screenRect",1);
             rightRect.x = localSettings.getValue("x",0);
@@ -31,7 +31,7 @@ void testApp::setup(){
             rightRect.width = localSettings.getValue("w",10);
             rightRect.height = localSettings.getValue("h",10);
             localSettings.popTag();            
-            cout << "screen one " << rightRect.width << " " << rightRect.height << endl;
+            cout << "screen two " << rightRect.x << " " << rightRect.y << " " << rightRect.width << " " << rightRect.height << endl;
         }
         
         soundDirectory = localSettings.getValue("soundDirectory", "");
@@ -54,7 +54,8 @@ void testApp::setup(){
         receiver.setup(1200);
     }
     else{
-        ofLogError("testApp -- couldn't load settings");
+        ofLogError("testApp -- error loading settings -- check xml file");
+		return;
     }
     
     ofxXmlSettings portraits;
@@ -98,8 +99,7 @@ void testApp::setup(){
     else{
         ofLogError("Couldn't Load XML File ");
     }
-    twoScreens = false;
-
+    
     currentLeft = 0;
     currentRight = 0;
     if(!twoScreens){
@@ -132,7 +132,8 @@ void testApp::setup(){
 	checkSwitchCamera(true);
     
     glEnable(GL_DEPTH_TEST);
-    
+    loadedSuccess = true;
+	ofToggleFullscreen();
 //    lastCameraChangeTimeRight = ofGetElapsedTimef();
 //    currentCameraDurationRight = ofRandom(20, 50); //ofRandom(10, 40);
 //    lastCameraChangeTimeLeft = ofGetElapsedTimef();
@@ -172,6 +173,8 @@ void testApp::gotoPortrait(string name){
 
 //--------------------------------------------------------------
 void testApp::update(){
+	if(!loadedSuccess) return;
+   // cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
     
     while(receiver.hasWaitingMessages()){
         ofxOscMessage m;
@@ -210,12 +213,16 @@ void testApp::update(){
     	//do master stuff
     }
     
-    checkSwitchCamera();
+    //checkSwitchCamera();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    
+	if(!loadedSuccess){
+		ofBackground(255,0,0);
+		return;
+	}
+
     ofPushStyle();
     ofSetColor(255, 0, 0);
     ofPopStyle();
@@ -247,11 +254,11 @@ void testApp::draw(){
 void testApp::drawFunc(){
     ofEnableBlendMode(OF_BLENDMODE_SCREEN);
     glEnable(GL_POINT_SMOOTH); // makes circular points
-    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);	// allows per-point size
+    //glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);	// allows per-point size
 //    glDisable(GL_DEPTH_TEST);		        
-    glPointSize( pointSize );
+    glPointSize( int(pointSize) );
     renderer.drawPointCloud();
-    glLineWidth( lineWidth );
+    glLineWidth( int(lineWidth) );
     renderer.drawWireFrame();
 }
 
@@ -266,7 +273,7 @@ void testApp::keyPressed(int key){
 	}
     
 	if(key == 'v'){
-        float ratio = 720/2160.;
+        float ratio = leftRect.width/leftRect.height;
         float newHeight = ofGetHeight();
         float newWidth = ofGetWidth() * ratio;
         leftRect = ofRectangle(0,0, newWidth, newHeight);
@@ -289,6 +296,10 @@ void testApp::keyPressed(int key){
     if(key == 'N'){
         gotoNextPortrait();
     }
+
+	if(key == 'f'){
+		ofToggleFullscreen();
+	}
 }
 
 //--------------------------------------------------------------
@@ -311,8 +322,8 @@ void testApp::checkSwitchCamera(bool force) {
                 sample = ofRandom(0, track.getSamples().size());
             } while(sample == currentRight && tries++ < 10);
         	currentRight = sample;
-            track.moveCameraToFrame(sample);
-            cout << "LEFT sampling camera at frame " << sample << endl;
+			cout << "LEFT sampling camera at frame " << (sample+1) << " of " << track.getSamples().size() << endl;
+            track.moveCameraToFrame(sample);            
         }
     }
     if(force || currentCameraDurationRight < ofGetElapsedTimef() - lastCameraChangeTimeRight){
@@ -326,7 +337,7 @@ void testApp::checkSwitchCamera(bool force) {
                 sample = ofRandom(0, track.getSamples().size());                
             } while(sample == currentLeft && tries++ < 10);
             currentLeft = sample;
-            cout << "RIGHT sampling camera at frame " << sample << endl;
+            cout << "RIGHT sampling camera at frame " << (sample+1) << " of " << track.getSamples().size() << endl;
             track.moveCameraToFrame(sample);        
         }
     }

@@ -13,7 +13,7 @@ void main(void)
 	
 	vec4 withinRGB = tTex *object;
 	withinRGB.rgb /= withinRGB.w;
-	withinRGB.x *= -1;
+	
 	withinRGB.xy += 1.;
 	withinRGB.xy /= 2.;
 	withinRGB.y = 1. - withinRGB.y;
