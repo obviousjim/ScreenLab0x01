@@ -46,10 +46,12 @@ void testApp::setup(){
         else {
             type = Far;
         }
-        lineWidth = localSettings.getValue("lineWidth",1) ;
-        pointSize = localSettings.getValue("pointSize",2) ;
+        lineWidth = localSettings.getValue("lineWidth",1);
+        pointSize = localSettings.getValue("pointSize",2);
         cout << "line width " << lineWidth << " " << pointSize << endl;
         ofLogNotice("TYPE IS " + typeString);
+    	int receiverPort = localSettings.getValue("receiverPort", 1200);
+        receiver.setup(1200);
     }
     else{
         ofLogError("testApp -- couldn't load settings");
@@ -84,6 +86,8 @@ void testApp::setup(){
 
             newPortrait.rendererRef = &renderer; //must be set before setup()
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
+            newPortrait.name = portraits.getValue("name", "noname");
+
             portraits.popTag();//portrait
             
             allPortraits.push_back( newPortrait );
@@ -152,7 +156,50 @@ void testApp::gotoNextPortrait(){
 }
 
 //--------------------------------------------------------------
+void testApp::gotoPortrait(string name){
+	for(int i = 0; i < allPortraits.size(); i++){
+    	if(allPortraits[i].name == name){
+            if(currentPortrait != -1){
+                allPortraits[i].stop();
+            }
+            currentPortrait = i;
+            allPortraits[i].resetAndPlay();
+            return;
+        }
+    }
+    ofLogError("couldn't find name " + name);
+}
+
+//--------------------------------------------------------------
 void testApp::update(){
+    
+    while(receiver.hasWaitingMessages()){
+        ofxOscMessage m;
+        receiver.getNextMessage(&m);
+        
+        if(m.getAddress() == "/person"){
+            gotoPortrait(m.getArgAsString(0));
+        }
+//        else if(m.getAddress() == "/matt"){
+//        
+//        }
+//        else if(m.getAddress() == "/mark"){
+//            
+//        }
+//        else if(m.getAddress() == "/alasdair"){
+//            
+//        }
+//        else if(m.getAddress() == "/jenny"){
+//            
+//        }
+//        else if(m.getAddress() == "/lisa"){
+//            
+//        }
+//        else if(m.getAddress() == "/kev"){
+//            
+//        }
+    }
+    
     //cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
     if(!allPortraits[currentPortrait].soundPlayer.isPlaying()){
         gotoNextPortrait();
