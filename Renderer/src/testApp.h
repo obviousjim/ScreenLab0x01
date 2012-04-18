@@ -37,6 +37,7 @@ class testApp : public ofBaseApp{
     int currentPortrait;
     
     ofxRGBDRenderer renderer;
+    
     string soundDirectory;
     string portraitMediaBin;
     string cameraTrackFile;
@@ -49,8 +50,14 @@ class testApp : public ofBaseApp{
     ofCamera normalLeftCam;
     ofCamera normalRightCam;
     
+    bool twoScreens;
     ofRectangle leftRect;
     ofRectangle rightRect;
+    float lineWidth;
+    float pointSize;
+    int currentLeft;
+    int currentRight;
+    
     ofxCameraTrack track;
     
     vector<ofNode> debugNodes;

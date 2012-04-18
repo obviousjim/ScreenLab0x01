@@ -13,6 +13,7 @@
 #include "ofxRGBDMediaTake.h"
 #include "ofxDepthImageSequence.h"
 #include "ofxRGBDRenderSettings.h"
+#include "ofxDepthHoleFiller.h"
 
 typedef enum  {
 	Studio,
@@ -41,4 +42,5 @@ class ScreenLabPortrait {
     PortraitType type;
   	ofVideoPlayer videoPlayer;
 	ofVideoPlayer soundPlayer;
+    ofxDepthHoleFiller filler;
 };

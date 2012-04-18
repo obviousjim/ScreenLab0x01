@@ -1,12 +1,33 @@
 <settings>
 	<soundDirectory>
-		/Users/focus/Desktop/SalfordSoundExports/
+		/Volumes/Headroom 2/IslingtonMill/SoundExports/
 	</soundDirectory>
 	<portraitMediaBin>
-		/Users/focus/Desktop/SalfordTestMediaBin/		
+		/Volumes/Headroom 2/IslingtonMill/MediaBinForShow/
 	</portraitMediaBin>
-	 <!-- bigger screen == STUDIO --> <!-- Tall screen are CLOSE --> <!-- bigger screen is FAR --> 
 	<screenType>
 		CLOSE
 	</screenType>
+	
+	<screenRect>
+		<x>0</x>
+		<y>0</y>
+		<w>720</w>
+		<h>2160</h>
+	</screenRect>
+	<screenRect>
+		<x>720</x>
+		<y>0</y>
+		<w>720</w>
+		<h>2160</h>		
+	</screenRect>	
+	
+	<pointSize>
+		2.5
+	</pointSize>
+	
+	<lineWidth>
+		1
+	</lineWidth>
+	
 </settings>
