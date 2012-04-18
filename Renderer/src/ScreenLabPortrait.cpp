@@ -71,7 +71,7 @@ void ScreenLabPortrait::resetAndPlay(){
     if(take.getRenderSettings().size() != 0){
     	take.getRenderSettings()[0].applyToRenderer(*rendererRef);
     }
-    rendererRef->setSimplification(4);
+    rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
 }
 

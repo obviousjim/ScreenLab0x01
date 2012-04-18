@@ -94,10 +94,13 @@ void testApp::setup(){
     else{
         ofLogError("Couldn't Load XML File ");
     }
-    
+    twoScreens = false;
 
     currentLeft = 0;
     currentRight = 0;
+    if(!twoScreens){
+    	currentRight = -1; //disable this index    
+    }
 
     composeMode = false;
     
