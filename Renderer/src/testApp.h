@@ -25,6 +25,7 @@ class testApp : public ofBaseApp{
     
     void gotoNextPortrait();
     
+    void drawFunc();
     
     float lastCameraChangeTimeLeft;
     float currentCameraDurationLeft;
