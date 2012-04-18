@@ -4,9 +4,30 @@
 	</soundDirectory>
 	<portraitMediaBin>
 		e:\Media\MediaBinForShow\
-	</portraitMediaBin>
-	 <!-- bigger screen == STUDIO --> <!-- Tall screen are CLOSE --> <!-- bigger screen is FAR --> 
+	</soundDirectory>
 	<screenType>
 		CLOSE
 	</screenType>
+	
+	<screenRect>
+		<x>0</x>
+		<y>0</y>
+		<w>720</w>
+		<h>2160</h>
+	</screenRect>
+	<screenRect>
+		<x>720</x>
+		<y>0</y>
+		<w>720</w>
+		<h>2160</h>		
+	</screenRect>	
+	
+	<pointSize>
+		2.5
+	</pointSize>
+	
+	<lineWidth>
+		1
+	</lineWidth>
+	
 </settings>

@@ -44,6 +44,10 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
     else{
         ofLogError("ScreenLabPortrait -- Couldn't load media folder " + mediaFolder);
     }
+    filler.enable = true;
+    filler.setIterations(5);
+    filler.setKernelSize(3);
+
 }
 
 void ScreenLabPortrait::resetAndPlay(){
@@ -53,6 +57,7 @@ void ScreenLabPortrait::resetAndPlay(){
     soundPlayer.setPosition(0);
     soundPlayer.play();
 	soundPlayer.setLoopState(OF_LOOP_NONE);
+    
     cout << "sound player duration " << soundPlayer.getDuration() << endl;
     
     videoPlayer.setSpeed(.5);
@@ -66,6 +71,7 @@ void ScreenLabPortrait::resetAndPlay(){
     if(take.getRenderSettings().size() != 0){
     	take.getRenderSettings()[0].applyToRenderer(*rendererRef);
     }
+    rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
 }
 
@@ -89,7 +95,11 @@ void ScreenLabPortrait::update(ofEventArgs& args){
 		else {
             long time = pairing.getDepthFrameForVideoFrame(videoPlayer.getPosition() * videoPlayer.getDuration() * 1000);
             depthImages.selectTime( time );
-            rendererRef->setDepthImage(depthImages.getPixels());
+//            filler.setIterations(ofGetMouseX()/10);
+//            filler.setKernelSize(ofGetMouseY()/10);
+			ofShortPixels& pix = depthImages.getPixels();
+            filler.close(pix);
+            rendererRef->setDepthImage(pix);
             rendererRef->update();
         }        	
     }

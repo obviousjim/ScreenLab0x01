@@ -7,12 +7,33 @@ void testApp::setup(){
     ofBackground(0);
     ofToggleFullscreen();
     
-    leftRect = ofRectangle(0,0, 720, 2160);
-    rightRect = ofRectangle(720,0, 720, 2160) ;
+//    leftRect = ofRectangle(0,0, 720, 2160);
+//    rightRect = ofRectangle(720,0, 720, 2160) ;
     
     ofxXmlSettings localSettings;
     if(localSettings.loadFile("localsettings.xml")){
         localSettings.pushTag("settings");
+        int numScreens = localSettings.getNumTags("screenRect");
+        cout << "num screens " << numScreens << endl;
+		twoScreens = (numScreens == 2);
+
+        localSettings.pushTag("screenRect");
+        leftRect.x = localSettings.getValue("x",0);
+        leftRect.y = localSettings.getValue("y",0);
+        leftRect.width = localSettings.getValue("w",10);
+        leftRect.height = localSettings.getValue("h",10);
+        localSettings.popTag();
+        cout << "screen one " << leftRect.width << " " << leftRect.height << endl;
+		if(twoScreens){
+            localSettings.pushTag("screenRect",1);
+            rightRect.x = localSettings.getValue("x",0);
+            rightRect.y = localSettings.getValue("y",0);
+            rightRect.width = localSettings.getValue("w",10);
+            rightRect.height = localSettings.getValue("h",10);
+            localSettings.popTag();            
+            cout << "screen one " << rightRect.width << " " << rightRect.height << endl;
+        }
+        
         soundDirectory = localSettings.getValue("soundDirectory", "");
         portraitMediaBin = localSettings.getValue("portraitMediaBin", "");
         string typeString = localSettings.getValue("screenType", "");
@@ -25,6 +46,9 @@ void testApp::setup(){
         else {
             type = Far;
         }
+        lineWidth = localSettings.getValue("lineWidth",1) ;
+        pointSize = localSettings.getValue("pointSize",2) ;
+        cout << "line width " << lineWidth << " " << pointSize << endl;
         ofLogNotice("TYPE IS " + typeString);
     }
     else{
@@ -65,11 +89,18 @@ void testApp::setup(){
             allPortraits.push_back( newPortrait );
         }
         portraits.popTag(); //portraits
+        
     }
     else{
         ofLogError("Couldn't Load XML File ");
     }
-    
+    twoScreens = false;
+
+    currentLeft = 0;
+    currentRight = 0;
+    if(!twoScreens){
+    	currentRight = -1; //disable this index    
+    }
 
     composeMode = false;
     
@@ -96,6 +127,8 @@ void testApp::setup(){
 
 	checkSwitchCamera(true);
     
+    glEnable(GL_DEPTH_TEST);
+    
 //    lastCameraChangeTimeRight = ofGetElapsedTimef();
 //    currentCameraDurationRight = ofRandom(20, 50); //ofRandom(10, 40);
 //    lastCameraChangeTimeLeft = ofGetElapsedTimef();
@@ -116,8 +149,6 @@ void testApp::gotoNextPortrait(){
     track.loadFromFile(cameraTrackFile);
 
     cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;    
-    
-    
 }
 
 //--------------------------------------------------------------
@@ -144,25 +175,37 @@ void testApp::draw(){
     
     if(composeMode){
         leftCam.begin(leftRect);
-        renderer.drawWireFrame();
+        drawFunc();
         leftCam.end();
-
+        
         rightCam.begin(rightRect);
-        renderer.drawWireFrame();
+        drawFunc();
         rightCam.end();
     }
     else{
         normalLeftCam.begin(leftRect);
-        renderer.drawWireFrame();
+		drawFunc();
         normalLeftCam.end();
-        
-        normalRightCam.begin(rightRect);
-        renderer.drawWireFrame();
-        normalRightCam.end();        
+     	if(twoScreens){   
+            normalRightCam.begin(rightRect);
+            drawFunc();
+            normalRightCam.end();        
+        }
     }
     
-	ofDrawBitmapString("of framerate " + ofToString(ofGetFrameRate()), 30, 30 );
+//	ofDrawBitmapString("of framerate " + ofToString(ofGetFrameRate()), 30, 30 );
 	//allPortraits[currentPortrait].videoPlayer.draw(0,0, 640,360);
+}
+
+void testApp::drawFunc(){
+    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+    glEnable(GL_POINT_SMOOTH); // makes circular points
+    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);	// allows per-point size
+//    glDisable(GL_DEPTH_TEST);		        
+    glPointSize( pointSize );
+    renderer.drawPointCloud();
+    glLineWidth( lineWidth );
+    renderer.drawWireFrame();
 }
 
 //--------------------------------------------------------------
@@ -195,6 +238,10 @@ void testApp::keyPressed(int key){
     if(key == 'P'){
         checkSwitchCamera(true);
     }
+    
+    if(key == 'N'){
+        gotoNextPortrait();
+    }
 }
 
 //--------------------------------------------------------------
@@ -208,24 +255,31 @@ void testApp::checkSwitchCamera(bool force) {
     if(force || currentCameraDurationLeft < ofGetElapsedTimef() - lastCameraChangeTimeLeft){
 
         lastCameraChangeTimeLeft = ofGetElapsedTimef();
-        currentCameraDurationLeft = ofRandom(2, 4); //ofRandom(10, 40);
+        currentCameraDurationLeft = ofRandom(5, 40); //ofRandom(10, 40);
         if(track.getSamples().size() > 1){
         	track.camera = &normalLeftCam;
-            int sample = ofRandom(0, track.getSamples().size());
+            int sample;
+            int tries = 0;
+            do{
+                sample = ofRandom(0, track.getSamples().size());
+            } while(sample == currentRight && tries++ < 10);
+        	currentRight = sample;
             track.moveCameraToFrame(sample);
-            
             cout << "LEFT sampling camera at frame " << sample << endl;
-
         }
     }
     if(force || currentCameraDurationRight < ofGetElapsedTimef() - lastCameraChangeTimeRight){
         lastCameraChangeTimeRight = ofGetElapsedTimef();
-        currentCameraDurationRight = ofRandom(2, 4); //ofRandom(10, 40);
+        currentCameraDurationRight = ofRandom(5, 15); //ofRandom(10, 40);
         if(track.getSamples().size() > 1){
         	track.camera = &normalRightCam;
-            int sample = ofRandom(0, track.getSamples().size());
+            int sample;
+            int tries = 0;
+            do{
+                sample = ofRandom(0, track.getSamples().size());                
+            } while(sample == currentLeft && tries++ < 10);
+            currentLeft = sample;
             cout << "RIGHT sampling camera at frame " << sample << endl;
-
             track.moveCameraToFrame(sample);        
         }
     }
