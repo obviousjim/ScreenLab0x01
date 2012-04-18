@@ -61,7 +61,7 @@ class testApp : public ofBaseApp{
     ofxCameraTrack track;
     
     vector<ofNode> debugNodes;
-    
+    bool loadedSuccess;
     bool composeMode;
   	void checkSwitchCamera(bool force = false);
     

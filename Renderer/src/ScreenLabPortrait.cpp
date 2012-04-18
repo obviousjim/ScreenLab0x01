@@ -18,7 +18,7 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
     type = _type;
 	soundPlayer.loadMovie(soundPath);
     soundPlayer.setLoopState(OF_LOOP_NONE);
-    
+    cout << "media folder " << mediaFolder << " " << soundPath << endl;
     if(take.loadFromFolder(mediaFolder)){
         videoPlayer.loadMovie(take.lowResVideoPath);
 		rendererRef->setTextureScale(640./1920, 360./1080);
