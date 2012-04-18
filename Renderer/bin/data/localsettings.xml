@@ -29,5 +29,8 @@
 	<lineWidth>
 		1
 	</lineWidth>
+	<receiverPort>
+		1200
+	</receiverPort>
 	
 </settings>
