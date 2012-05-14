@@ -5,7 +5,8 @@ void testApp::setup(){
 
 	ofSetFrameRate(60);
     ofBackground(0);
-
+    
+    alignMode = false;
     loadedSuccess = false;
 //    leftRect = ofRectangle(0,0, 720, 2160);
 //    rightRect = ofRectangle(720,0, 720, 2160) ;
@@ -13,6 +14,10 @@ void testApp::setup(){
     ofxXmlSettings localSettings;
     if(localSettings.loadFile("localsettings.xml")){
         localSettings.pushTag("settings");
+        renderer.xmult = localSettings.getValue("xshift", 0.0);
+        renderer.ymult = localSettings.getValue("yshift", 0.0);
+        cout << "xshift " << renderer.xmult << " y shift " << renderer.ymult << endl;
+
         int numScreens = localSettings.getNumTags("screenRect");
         cout << "num screens " << numScreens << endl;
 		twoScreens = (numScreens == 2);
@@ -22,6 +27,7 @@ void testApp::setup(){
         leftRect.y = localSettings.getValue("y",0);
         leftRect.width = localSettings.getValue("w",10);
         leftRect.height = localSettings.getValue("h",10);
+        leftFbo.allocate(leftRect.width, leftRect.height, GL_RGB, 4);
         localSettings.popTag();
         cout << "screen one " << rightRect.x << " " << rightRect.y << " " << leftRect.width << " " << leftRect.height << endl;
 		if(twoScreens){
@@ -30,6 +36,8 @@ void testApp::setup(){
             rightRect.y = localSettings.getValue("y",0);
             rightRect.width = localSettings.getValue("w",10);
             rightRect.height = localSettings.getValue("h",10);
+            rightFbo.allocate(leftRect.width, leftRect.height, GL_RGB, 4); 
+            
             localSettings.popTag();            
             cout << "screen two " << rightRect.x << " " << rightRect.y << " " << rightRect.width << " " << rightRect.height << endl;
         }
@@ -52,11 +60,13 @@ void testApp::setup(){
         ofLogNotice("TYPE IS " + typeString);
     	int receiverPort = localSettings.getValue("receiverPort", 1200);
         receiver.setup(1200);
+        
     }
     else{
         ofLogError("testApp -- error loading settings -- check xml file");
 		return;
     }
+    
     
     ofxXmlSettings portraits;
     if(portraits.loadFile("portraits.xml")){
@@ -118,17 +128,22 @@ void testApp::setup(){
 //	}
     
 	leftCam.setup();
+    leftCam.setScale(1,-1,1);
     leftCam.usemouse = true;
     leftCam.autosavePosition = true;
     leftCam.speed = 10;
     leftCam.loadCameraPosition();
 
     rightCam.setup();
+    rightCam.setScale(1,-1,1);
     rightCam.usemouse = true;
     rightCam.autosavePosition = true;
     rightCam.speed = 10;
     rightCam.loadCameraPosition();
 
+    normalLeftCam.setScale(1,-1,1);
+    normalRightCam.setScale(1,-1,1);
+    
 	checkSwitchCamera(true);
     
     glEnable(GL_DEPTH_TEST);
@@ -138,6 +153,7 @@ void testApp::setup(){
 //    currentCameraDurationRight = ofRandom(20, 50); //ofRandom(10, 40);
 //    lastCameraChangeTimeLeft = ofGetElapsedTimef();
 //    currentCameraDurationLeft = ofRandom(20, 50); //ofRandom(10, 40);
+
 
 }
 
@@ -152,7 +168,6 @@ void testApp::gotoNextPortrait(){
     cameraTrackFile = ofToDataPath(allPortraits[currentPortrait].take.mediaFolder + "/SalfordTracks.xml");
     cout << "loading camera track " << cameraTrackFile << endl;
     track.loadFromFile(cameraTrackFile);
-
     cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;    
 }
 
@@ -176,6 +191,11 @@ void testApp::update(){
 	if(!loadedSuccess) return;
    // cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
     
+    if(alignMode){
+        renderer.xmult = ofMap(ofGetMouseX(), 0, ofGetWidth(),  -.2, .2, true);
+        renderer.ymult = ofMap(ofGetMouseY(), 0, ofGetHeight(), -.2, .2, true);
+    }
+    
     while(receiver.hasWaitingMessages()){
         ofxOscMessage m;
         receiver.getNextMessage(&m);
@@ -183,24 +203,6 @@ void testApp::update(){
         if(m.getAddress() == "/person"){
             gotoPortrait(m.getArgAsString(0));
         }
-//        else if(m.getAddress() == "/matt"){
-//        
-//        }
-//        else if(m.getAddress() == "/mark"){
-//            
-//        }
-//        else if(m.getAddress() == "/alasdair"){
-//            
-//        }
-//        else if(m.getAddress() == "/jenny"){
-//            
-//        }
-//        else if(m.getAddress() == "/lisa"){
-//            
-//        }
-//        else if(m.getAddress() == "/kev"){
-//            
-//        }
     }
     
     //cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
@@ -213,7 +215,7 @@ void testApp::update(){
     	//do master stuff
     }
     
-    //checkSwitchCamera();
+    checkSwitchCamera();
 }
 
 //--------------------------------------------------------------
@@ -227,26 +229,45 @@ void testApp::draw(){
     ofSetColor(255, 0, 0);
     ofPopStyle();
     
+    ofRectangle justifiedLeft  = ofRectangle(0,0,leftFbo.getWidth(), leftFbo.getHeight());
+    ofRectangle justifiedRight = ofRectangle(0,0,rightFbo.getWidth(), rightFbo.getHeight() );
+    
     if(composeMode){
-        leftCam.begin(leftRect);
+        leftFbo.begin();
+        ofClear(0);
+        leftCam.begin();
         drawFunc();
         leftCam.end();
+        leftFbo.end();
         
-        rightCam.begin(rightRect);
+        rightFbo.begin();
+        ofClear(0);
+        rightCam.begin();
         drawFunc();
         rightCam.end();
+        rightFbo.end();
     }
     else{
-        normalLeftCam.begin(leftRect);
+        leftFbo.begin();
+        ofClear(0);
+        normalLeftCam.begin();
 		drawFunc();
         normalLeftCam.end();
+        leftFbo.end();
      	if(twoScreens){   
-            normalRightCam.begin(rightRect);
+            rightFbo.begin();
+            ofClear(0);
+            normalRightCam.begin();
             drawFunc();
             normalRightCam.end();        
+            rightFbo.end();
         }
     }
     
+    leftFbo.getTextureReference().draw(leftRect);
+    if(twoScreens){
+        rightFbo.getTextureReference().draw(rightRect);
+    }
 //	ofDrawBitmapString("of framerate " + ofToString(ofGetFrameRate()), 30, 30 );
 	//allPortraits[currentPortrait].videoPlayer.draw(0,0, 640,360);
 }
@@ -254,8 +275,6 @@ void testApp::draw(){
 void testApp::drawFunc(){
     ofEnableBlendMode(OF_BLENDMODE_SCREEN);
     glEnable(GL_POINT_SMOOTH); // makes circular points
-    //glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);	// allows per-point size
-//    glDisable(GL_DEPTH_TEST);		        
     glPointSize( int(pointSize) );
     renderer.drawPointCloud();
     glLineWidth( int(lineWidth) );
@@ -273,7 +292,7 @@ void testApp::keyPressed(int key){
 	}
     
 	if(key == 'v'){
-        float ratio = leftRect.width/leftRect.height;
+        float ratio = leftFbo.getWidth()/leftFbo.getHeight();
         float newHeight = ofGetHeight();
         float newWidth = ofGetWidth() * ratio;
         leftRect = ofRectangle(0,0, newWidth, newHeight);
@@ -300,6 +319,17 @@ void testApp::keyPressed(int key){
 	if(key == 'f'){
 		ofToggleFullscreen();
 	}
+    
+    if(key == 'A'){
+        alignMode = !alignMode;
+        if(!alignMode){
+            ofxXmlSettings localSettings;
+            localSettings.loadFile("localsettings.xml");
+            localSettings.setValue("settings:xshift", renderer.xmult);
+            localSettings.setValue("settings:yshift", renderer.ymult);
+            localSettings.saveFile();
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -354,6 +384,8 @@ void testApp::mouseMoved(int x, int y){
     leftCam.applyTranslation = composeMode && leftRect.inside(x,y);
     rightCam.usemouse =  composeMode && rightRect.inside(x,y);
     rightCam.applyTranslation =  composeMode && rightRect.inside(x,y);
+    
+    
 }
 
 //--------------------------------------------------------------

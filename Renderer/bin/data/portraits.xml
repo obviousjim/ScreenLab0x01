@@ -2,7 +2,7 @@
 	<!-- ALICE -->
 	<portrait>
 		<name>alice</name>
-		<soundFile>AliceBaldwin.wav</soundFile>
+		<soundFile>Alice.aif</soundFile>
 		<close>
 			<mediaFolder>ALICE_CLOSE</mediaFolder>
 		</close>
@@ -11,7 +11,7 @@
 	<!-- MARK -->
 	<portrait>		
 		<name>mark</name>
-		<soundFile>Mark.wav</soundFile>
+		<soundFile>Mark.aif</soundFile>
 		<close>
 			<startFrame>83</startFrame>
 			<endFrame>1048</endFrame>
@@ -34,7 +34,7 @@
 	<!-- JENNY -->
 	<portrait>
 		<name>jenny</name>
-		<soundFile>Jenny.wav</soundFile>
+		<soundFile>Jenny.aif</soundFile>
 		<close>
 			<mediaFolder>JEN_CLOSE</mediaFolder>
 		</close>
@@ -43,7 +43,7 @@
 	<!-- ALASDAIR -->
 	<portrait>
 		<name>alasdair</name>
-		<soundFile>Alasdair.wav</soundFile>
+		<soundFile>Alasdair.aif</soundFile>
 		<close>
 			<mediaFolder>ALASDAIR_CLOSE</mediaFolder>
 		</close>
@@ -52,7 +52,7 @@
 	<!-- KEV -->
 	<portrait>
 		<name>kev</name>
-		<soundFile>Kev.wav</soundFile>
+		<soundFile>Kev.aif</soundFile>
 		<close>
 			<mediaFolder>KEV_CLOSE</mediaFolder>
 		</close>
@@ -60,12 +60,12 @@
 
 	<portrait>
 		<name>lisa</name>
-		<soundFile>Lisa.wav</soundFile>
+		<soundFile>Lisa.aif</soundFile>
 		<close>
 			<mediaFolder>LISA_CLOSE</mediaFolder>
 		</close>
 	</portrait>
-
+<!--
 	<portrait>
 		<name>matthew</name>
 		<soundFile>Matthew.wav</soundFile>
@@ -73,5 +73,5 @@
 			<mediaFolder>MATT_CLOSE</mediaFolder>
 		</close>
 	</portrait>
-
+-->
 </portraits>

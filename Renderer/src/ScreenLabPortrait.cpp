@@ -21,7 +21,7 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
     cout << "media folder " << mediaFolder << " " << soundPath << endl;
     if(take.loadFromFolder(mediaFolder)){
         videoPlayer.loadMovie(take.lowResVideoPath);
-		rendererRef->setTextureScale(640./1920, 360./1080);
+//		rendererRef->setTextureScale(640./1920, 360./1080);
         //videoPlayer.loadMovie(take.hiResVideoPath);
         depthImages.loadSequence(take.depthFolder);
         pairing.loadPairingFile(take.pairingsFile);
@@ -68,8 +68,12 @@ void ScreenLabPortrait::resetAndPlay(){
     
     rendererRef->setup(take.calibrationDirectory);
     rendererRef->setRGBTexture(videoPlayer);
-    if(take.getRenderSettings().size() != 0){
-    	take.getRenderSettings()[0].applyToRenderer(*rendererRef);
+//    if(take.getRenderSettings().size() != 0){
+    	//take.getRenderSettings()[0].applyToRenderer(*rendererRef);
+//    }
+    rendererRef->farClip = 1500;
+    if(name == "jenny"){
+        rendererRef->farClip = 1200;
     }
     rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
@@ -95,8 +99,6 @@ void ScreenLabPortrait::update(ofEventArgs& args){
 		else {
             long time = pairing.getDepthFrameForVideoFrame(videoPlayer.getPosition() * videoPlayer.getDuration() * 1000);
             depthImages.selectTime( time );
-//            filler.setIterations(ofGetMouseX()/10);
-//            filler.setKernelSize(ofGetMouseY()/10);
 			ofShortPixels& pix = depthImages.getPixels();
             filler.close(pix);
             rendererRef->setDepthImage(pix);
