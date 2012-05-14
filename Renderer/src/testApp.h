@@ -67,4 +67,9 @@ class testApp : public ofBaseApp{
 
     ofxOscReceiver receiver;
 
+    bool alignMode;
+    ofFbo leftFbo;
+    ofFbo rightFbo;
+    
+
 };
