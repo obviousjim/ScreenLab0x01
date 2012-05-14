@@ -45,7 +45,7 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
         ofLogError("ScreenLabPortrait -- Couldn't load media folder " + mediaFolder);
     }
     filler.enable = true;
-    filler.setIterations(5);
+    filler.setIterations(2);
     filler.setKernelSize(3);
 
 }
@@ -71,9 +71,9 @@ void ScreenLabPortrait::resetAndPlay(){
 //    if(take.getRenderSettings().size() != 0){
     	//take.getRenderSettings()[0].applyToRenderer(*rendererRef);
 //    }
-    rendererRef->farClip = 1500;
+    rendererRef->farClip = 1200;
     if(name == "jenny"){
-        rendererRef->farClip = 1200;
+        rendererRef->farClip = 925;
     }
     rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);

@@ -286,7 +286,7 @@ void testApp::draw(){
 }
 
 void testApp::drawFunc(){
-    ofEnableBlendMode(OF_BLENDMODE_ADD);
+    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
     glEnable(GL_POINT_SMOOTH); // makes circular points
     glPointSize( int(pointSize) );
     renderer.drawPointCloud();
@@ -307,9 +307,11 @@ void testApp::keyPressed(int key){
 	if(key == 'v'){
         float ratio = leftFbo.getWidth()/leftFbo.getHeight();
         float newHeight = ofGetHeight();
-        float newWidth = ofGetWidth() * ratio;
+        float newWidth = ofGetHeight() * ratio;
+        cout << "ratio was " << leftRect.width / leftRect.height << endl;
         leftRect = ofRectangle(0,0, newWidth, newHeight);
         rightRect = ofRectangle(newWidth,0, newWidth, newHeight);
+        cout << "ratio is " << leftRect.width / leftRect.height << endl;
     }
     
     if(key == 'C'){
