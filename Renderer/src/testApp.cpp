@@ -59,7 +59,7 @@ void testApp::setup(){
         cout << "line width " << lineWidth << " " << pointSize << endl;
         ofLogNotice("TYPE IS " + typeString);
     	int receiverPort = localSettings.getValue("receiverPort", 1200);
-        receiver.setup(1200);
+//        receiver.setup(1200);
         
     }
     else{
@@ -196,6 +196,7 @@ void testApp::update(){
         renderer.ymult = ofMap(ofGetMouseY(), 0, ofGetHeight(), -.2, .2, true);
     }
     
+    /*
     while(receiver.hasWaitingMessages()){
         ofxOscMessage m;
         receiver.getNextMessage(&m);
@@ -204,6 +205,7 @@ void testApp::update(){
             gotoPortrait(m.getArgAsString(0));
         }
     }
+    */
     
     //cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
     if(!allPortraits[currentPortrait].soundPlayer.isPlaying()){
@@ -220,6 +222,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    
 	if(!loadedSuccess){
 		ofBackground(255,0,0);
 		return;
@@ -235,29 +238,30 @@ void testApp::draw(){
     if(composeMode){
         leftFbo.begin();
         ofClear(0);
-        leftCam.begin();
+        leftCam.begin(justifiedLeft);
         drawFunc();
         leftCam.end();
         leftFbo.end();
-        
-        rightFbo.begin();
-        ofClear(0);
-        rightCam.begin();
-        drawFunc();
-        rightCam.end();
-        rightFbo.end();
+        if(twoScreens){   
+            rightFbo.begin();
+            ofClear(0);
+            rightCam.begin(justifiedRight);
+            drawFunc();
+            rightCam.end();
+            rightFbo.end();
+        }
     }
     else{
         leftFbo.begin();
         ofClear(0);
-        normalLeftCam.begin();
+        normalLeftCam.begin(justifiedLeft);
 		drawFunc();
         normalLeftCam.end();
         leftFbo.end();
      	if(twoScreens){   
             rightFbo.begin();
             ofClear(0);
-            normalRightCam.begin();
+            normalRightCam.begin(justifiedRight);
             drawFunc();
             normalRightCam.end();        
             rightFbo.end();
@@ -268,12 +272,21 @@ void testApp::draw(){
     if(twoScreens){
         rightFbo.getTextureReference().draw(rightRect);
     }
+    
+    ofPushStyle();
+    ofNoFill();
+    ofSetColor(255, 0, 0);
+    ofSetLineWidth(2);
+    ofRect(leftRect);
+    ofRect(rightRect);
+    ofPopStyle();
+    
 //	ofDrawBitmapString("of framerate " + ofToString(ofGetFrameRate()), 30, 30 );
 	//allPortraits[currentPortrait].videoPlayer.draw(0,0, 640,360);
 }
 
 void testApp::drawFunc(){
-    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
     glEnable(GL_POINT_SMOOTH); // makes circular points
     glPointSize( int(pointSize) );
     renderer.drawPointCloud();
@@ -363,7 +376,7 @@ void testApp::checkSwitchCamera(bool force) {
         	track.camera = &normalRightCam;
             int sample;
             int tries = 0;
-            do{
+            do {
                 sample = ofRandom(0, track.getSamples().size());                
             } while(sample == currentLeft && tries++ < 10);
             currentLeft = sample;

@@ -14,7 +14,7 @@
 #include "ofxDepthImageSequence.h"
 #include "ofxRGBDRenderSettings.h"
 #include "ofxDepthHoleFiller.h"
-#include "ofxOsc.h"
+//#include "ofxOsc.h"
 
 typedef enum  {
 	Studio,

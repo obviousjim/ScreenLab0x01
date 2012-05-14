@@ -6,6 +6,7 @@
 #include "ofxGameCamera.h"
 #include "ofxXmlSettings.h"
 #include "ofxCameraTrack.h"
+//#include "ofxOsc.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -65,7 +66,7 @@ class testApp : public ofBaseApp{
     bool composeMode;
   	void checkSwitchCamera(bool force = false);
 
-    ofxOscReceiver receiver;
+//    ofxOscReceiver receiver;
 
     bool alignMode;
     ofFbo leftFbo;
