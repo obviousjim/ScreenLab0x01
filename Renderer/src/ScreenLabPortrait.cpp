@@ -9,8 +9,8 @@
 #include "ofxXmlSettings.h"
 
 ScreenLabPortrait::ScreenLabPortrait(){
-	startFrame = 0;
-    endFrame = -1;
+//	startFrame = 0;
+//    endFrame = -1;
     rendererRef = false;
 }
 
@@ -29,23 +29,25 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
             ofLogError("ScreenLabPortrait -- Pairings not ready!");
         }
         
+        videoTimes = pairing.getStartAndEndTimes(videoPlayer, depthImages);
+        
         take.populateRenderSettings();
-        if(take.getRenderSettings().size() == 0){
-            startFrame = 0;
-            endFrame = videoPlayer.getTotalNumFrames();
-            ofLogError("ScreenLabPortrait -- No Render Settings!");
-        }
-        else{
-            startFrame = take.getRenderSettings()[0].startFrame;
-            endFrame   = take.getRenderSettings()[0].endFrame;
-            cout << "found start and end frame " << startFrame << " " << endFrame << endl;
-        }
+//        if(take.getRenderSettings().size() == 0){
+//            startFrame = 0;
+//            endFrame = videoPlayer.getTotalNumFrames();
+//            ofLogError("ScreenLabPortrait -- No Render Settings!");
+//        }
+//        else{
+//            startFrame = take.getRenderSettings()[0].startFrame;
+//            endFrame   = take.getRenderSettings()[0].endFrame;
+//            cout << "found start and end frame " << startFrame << " " << endFrame << endl;
+//        }
     }
     else{
         ofLogError("ScreenLabPortrait -- Couldn't load media folder " + mediaFolder);
     }
     filler.enable = true;
-    filler.setIterations(2);
+    filler.setIterations(3);
     filler.setKernelSize(3);
 
 }
@@ -61,19 +63,33 @@ void ScreenLabPortrait::resetAndPlay(){
     cout << "sound player duration " << soundPlayer.getDuration() << endl;
     
     videoPlayer.setSpeed(.5);
-    videoPlayer.setFrame(startFrame);
+    //videoPlayer.setFrame(startFrame);
+    videoPlayer.setPosition(videoTimes.min / videoPlayer.getDuration() );
     videoPlayer.setVolume(0);
     videoPlayer.play();
     videoPlayer.setLoopState(OF_LOOP_NORMAL);
     
     rendererRef->setup(take.calibrationDirectory);
     rendererRef->setRGBTexture(videoPlayer);
+	rendererRef->setDepthImage(depthImages.getPixels());
 //    if(take.getRenderSettings().size() != 0){
     	//take.getRenderSettings()[0].applyToRenderer(*rendererRef);
 //    }
     rendererRef->farClip = 1200;
     if(name == "jenny"){
         rendererRef->farClip = 925;
+    }
+    else if(name == "lisa"){
+    	rendererRef->farClip = 1050;
+    }
+    
+    if(name == "kev"){
+        rendererRef->xmult = 0.0140476;
+        rendererRef->ymult = 0.0293333;
+    }
+    else{
+		rendererRef->xmult = 0;
+        rendererRef->ymult = 0.0436667;
     }
     rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
@@ -93,15 +109,16 @@ void ScreenLabPortrait::update(ofEventArgs& args){
     
     videoPlayer.update();
     if(videoPlayer.isFrameNew()){
-        if(videoPlayer.getCurrentFrame() >= endFrame){
-            videoPlayer.setFrame(startFrame);
+        if(videoPlayer.getPosition() >= videoTimes.max / videoPlayer.getDuration()){
+            videoPlayer.setFrame(videoTimes.min / videoPlayer.getDuration() );
         }
 		else {
             long time = pairing.getDepthFrameForVideoFrame(videoPlayer.getPosition() * videoPlayer.getDuration() * 1000);
             depthImages.selectTime( time );
-			ofShortPixels& pix = depthImages.getPixels();
-            filler.close(pix);
-            rendererRef->setDepthImage(pix);
+			//ofShortPixels& pix = depthImages.getPixels();
+            //filler.close(pix);
+            filler.close(depthImages.getPixels());
+//            rendererRef->setDepthImage(pix);
             rendererRef->update();
         }        	
     }

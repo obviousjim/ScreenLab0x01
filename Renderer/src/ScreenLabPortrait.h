@@ -32,10 +32,11 @@ class ScreenLabPortrait {
     void stop();
 	void update(ofEventArgs& args);
 
-    int startFrame;
-    int endFrame;
+//    int startFrame;
+//    int endFrame;
     float lastTime;
     
+    ofRange videoTimes;
     ofxRGBDRenderer* rendererRef;
     ofxRGBDMediaTake take;
     ofxDepthImageSequence depthImages;

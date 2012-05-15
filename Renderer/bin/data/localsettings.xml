@@ -1,6 +1,6 @@
 <settings>
-    <soundDirectory>/Volumes/Headroom/IslingtonMill/SoundBin/</soundDirectory>
-    <portraitMediaBin>/Volumes/Headroom/IslingtonMill/MediaBinForShow/</portraitMediaBin>
+    <soundDirectory>/Volumes/Headroom 2/IslingtonMill/SoundBin/</soundDirectory>
+    <portraitMediaBin>/Volumes/Headroom 2/IslingtonMill/MediaBinForShow/</portraitMediaBin>
     <screenType>CLOSE</screenType>
     <screenRect>
         <x>0</x>
@@ -16,6 +16,6 @@
     </screenRect>
     <pointSize>2.5</pointSize>
     <lineWidth>1</lineWidth>
-    <xshift>0</xshift>
-    <yshift>0.0436667</yshift>
+    <xshift>0.0140476</xshift>
+    <yshift>0.0293333</yshift>
 </settings>

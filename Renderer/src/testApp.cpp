@@ -78,18 +78,18 @@ void testApp::setup(){
             string compositionMediaBin;
 			if(type == Studio){
                 compositionMediaBin = portraits.getValue("studio:mediaFolder","");
-                newPortrait.startFrame = portraits.getValue("studio:startFrame",0);
-                newPortrait.endFrame = portraits.getValue("studio:endFrame",0);
+//                newPortrait.startFrame = portraits.getValue("studio:startFrame",0);
+//                newPortrait.endFrame = portraits.getValue("studio:endFrame",0);
             }
             else if(type == Far){
                 compositionMediaBin = portraits.getValue("far:mediaFolder","");
-                newPortrait.startFrame = portraits.getValue("far:startFrame",-1);
-                newPortrait.endFrame = portraits.getValue("far:endFrame",0);
+//                newPortrait.startFrame = portraits.getValue("far:startFrame",-1);
+//                newPortrait.endFrame = portraits.getValue("far:endFrame",0);
             }
             else if(type == Close){
                 compositionMediaBin = portraits.getValue("close:mediaFolder","");
-                newPortrait.startFrame = portraits.getValue("close:startFrame",0);
-                newPortrait.endFrame = portraits.getValue("close:endFrame",0);
+//                newPortrait.startFrame = portraits.getValue("close:startFrame",0);
+//                newPortrait.endFrame = portraits.getValue("close:endFrame",0);
             }
             
 			string soundFile = portraits.getValue("soundFile", "");
@@ -365,8 +365,8 @@ void testApp::checkSwitchCamera(bool force) {
             int tries = 0;
             do{
                 sample = ofRandom(0, track.getSamples().size());
-            } while(sample == currentRight && tries++ < 10);
-        	currentRight = sample;
+            } while( (sample == currentRight || sample == currentLeft) && tries++ < 10);
+        	currentLeft = sample;
 			cout << "LEFT sampling camera at frame " << (sample+1) << " of " << track.getSamples().size() << endl;
             track.moveCameraToFrame(sample);            
         }
@@ -380,8 +380,8 @@ void testApp::checkSwitchCamera(bool force) {
             int tries = 0;
             do {
                 sample = ofRandom(0, track.getSamples().size());                
-            } while(sample == currentLeft && tries++ < 10);
-            currentLeft = sample;
+            } while((sample == currentLeft || sample == currentRight) && tries++ < 10);
+            currentRight = sample;
             cout << "RIGHT sampling camera at frame " << (sample+1) << " of " << track.getSamples().size() << endl;
             track.moveCameraToFrame(sample);        
         }
@@ -399,8 +399,6 @@ void testApp::mouseMoved(int x, int y){
     leftCam.applyTranslation = composeMode && leftRect.inside(x,y);
     rightCam.usemouse =  composeMode && rightRect.inside(x,y);
     rightCam.applyTranslation =  composeMode && rightRect.inside(x,y);
-    
-    
 }
 
 //--------------------------------------------------------------
