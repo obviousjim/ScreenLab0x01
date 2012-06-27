@@ -7,7 +7,7 @@
 #include "ofxXmlSettings.h"
 #include "ofxCameraTrack.h"
 //#include "ofxOsc.h"
-#include "ofxGui.h"
+//#include "ofxGui.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -39,9 +39,10 @@ class testApp : public ofBaseApp{
     int currentPortrait;
     
     ofxRGBDRenderer renderer;
-    
+
     string soundDirectory;
     string portraitMediaBin;
+    string cameraPositionDirectory;
     string cameraTrackFile;
     
     PortraitType type;
@@ -67,8 +68,8 @@ class testApp : public ofBaseApp{
     bool composeMode;
   	void checkSwitchCamera(bool force = false);
 
-    ofxPanel panel;
-	ofxToggle renderOn;
+//    ofxPanel panel;
+//	ofxToggle renderOn;
     
 //    ofxOscReceiver receiver;
 

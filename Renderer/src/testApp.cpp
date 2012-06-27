@@ -14,9 +14,9 @@ void testApp::setup(){
     ofxXmlSettings localSettings;
     if(localSettings.loadFile("localsettings.xml")){
         localSettings.pushTag("settings");
-        renderer.xmult = localSettings.getValue("xshift", 0.0);
-        renderer.ymult = localSettings.getValue("yshift", 0.0);
-        cout << "xshift " << renderer.xmult << " y shift " << renderer.ymult << endl;
+        renderer.xshift = localSettings.getValue("xshift", 0.0);
+        renderer.yshift = localSettings.getValue("yshift", 0.0);
+        cout << "xshift " << renderer.xshift << " y shift " << renderer.yshift << endl;
 
         int numScreens = localSettings.getNumTags("screenRect");
         cout << "num screens " << numScreens << endl;
@@ -61,6 +61,8 @@ void testApp::setup(){
     	int receiverPort = localSettings.getValue("receiverPort", 1200);
 //        receiver.setup(1200);
         
+        cameraPositionDirectory = localSettings.getValue("cameraAngles", "");
+        cout << "camera angles " << cameraPositionDirectory << endl;
     }
     else{
         ofLogError("testApp -- error loading settings -- check xml file");
@@ -95,6 +97,7 @@ void testApp::setup(){
 			string soundFile = portraits.getValue("soundFile", "");
             cout << "loading sound file " << soundFile << endl;
 
+            
             newPortrait.rendererRef = &renderer; //must be set before setup()
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
             newPortrait.name = portraits.getValue("name", "noname");
@@ -165,10 +168,17 @@ void testApp::gotoNextPortrait(){
 	currentPortrait = (currentPortrait + 1) % allPortraits.size();
 	allPortraits[currentPortrait].resetAndPlay();
 
-    cameraTrackFile = ofToDataPath(allPortraits[currentPortrait].take.mediaFolder + "/SalfordTracks.xml");
+    //cameraTrackFile = ofToDataPath(allPortraits[currentPortrait].scene.mediaFolder + "/SalfordTracks.xml");
+    cameraTrackFile = ofToDataPath(cameraPositionDirectory + allPortraits[currentPortrait].name + "_CameraTrack.xml", true);
     cout << "loading camera track " << cameraTrackFile << endl;
     track.loadFromFile(cameraTrackFile);
-    cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;    
+    cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;
+    
+    ofxXmlSettings xyshiftFile;
+    xyshiftFile.loadFile(allPortraits[currentPortrait].scene.xyshiftFile);
+    renderer.xshift = xyshiftFile.getValue("xshift", 0.);
+    renderer.yshift = xyshiftFile.getValue("yshift", 0.);
+
 }
 
 //--------------------------------------------------------------
@@ -192,8 +202,8 @@ void testApp::update(){
    // cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
     
     if(alignMode){
-        renderer.xmult = ofMap(ofGetMouseX(), 0, ofGetWidth(),  -.2, .2, true);
-        renderer.ymult = ofMap(ofGetMouseY(), 0, ofGetHeight(), -.2, .2, true);
+        renderer.xshift = ofMap(ofGetMouseX(), 0, ofGetWidth(),  -.2, .2, true);
+        renderer.yshift = ofMap(ofGetMouseY(), 0, ofGetHeight(), -.2, .2, true);
     }
     
     /*
@@ -208,7 +218,7 @@ void testApp::update(){
     */
     
     //cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
-    if(!allPortraits[currentPortrait].soundPlayer.isPlaying()){
+    if(!composeMode && !allPortraits[currentPortrait].soundPlayer.isPlaying()){
         gotoNextPortrait();
     }
     
@@ -338,11 +348,12 @@ void testApp::keyPressed(int key){
     if(key == 'A'){
         alignMode = !alignMode;
         if(!alignMode){
-            ofxXmlSettings localSettings;
-            localSettings.loadFile("localsettings.xml");
-            localSettings.setValue("settings:xshift", renderer.xmult);
-            localSettings.setValue("settings:yshift", renderer.ymult);
-            localSettings.saveFile();
+            
+            ofxXmlSettings xyshiftFile;
+            xyshiftFile.loadFile(allPortraits[currentPortrait].scene.xyshiftFile);
+            xyshiftFile.setValue("xshift", renderer.xshift);
+            xyshiftFile.setValue("yshift", renderer.yshift);
+            xyshiftFile.saveFile();
         }
     }
 }

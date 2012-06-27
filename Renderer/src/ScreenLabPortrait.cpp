@@ -11,7 +11,7 @@
 ScreenLabPortrait::ScreenLabPortrait(){
 //	startFrame = 0;
 //    endFrame = -1;
-    rendererRef = false;
+    rendererRef = NULL;
 }
 
 void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string soundPath){
@@ -19,19 +19,19 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
 	soundPlayer.loadMovie(soundPath);
     soundPlayer.setLoopState(OF_LOOP_NONE);
     cout << "media folder " << mediaFolder << " " << soundPath << endl;
-    if(take.loadFromFolder(mediaFolder)){
-        videoPlayer.loadMovie(take.lowResVideoPath);
+    if(scene.loadFromFolder(mediaFolder)){
+        videoPlayer.loadMovie(scene.videoPath);
 //		rendererRef->setTextureScale(640./1920, 360./1080);
         //videoPlayer.loadMovie(take.hiResVideoPath);
-        depthImages.loadSequence(take.depthFolder);
-        pairing.loadPairingFile(take.pairingsFile);
+        depthImages.loadSequence(scene.depthFolder);
+        pairing.loadPairingFile(scene.pairingsFile);
         if(!pairing.ready()){
             ofLogError("ScreenLabPortrait -- Pairings not ready!");
         }
         
         videoTimes = pairing.getStartAndEndTimes(videoPlayer, depthImages);
         
-        take.populateRenderSettings();
+//        scene.populateRenderSettings();
 //        if(take.getRenderSettings().size() == 0){
 //            startFrame = 0;
 //            endFrame = videoPlayer.getTotalNumFrames();
@@ -63,13 +63,12 @@ void ScreenLabPortrait::resetAndPlay(){
     cout << "sound player duration " << soundPlayer.getDuration() << endl;
     
     videoPlayer.setSpeed(.5);
-    //videoPlayer.setFrame(startFrame);
     videoPlayer.setPosition(videoTimes.min / videoPlayer.getDuration() );
     videoPlayer.setVolume(0);
     videoPlayer.play();
     videoPlayer.setLoopState(OF_LOOP_NORMAL);
     
-    rendererRef->setup(take.calibrationDirectory);
+    rendererRef->setup(scene.calibrationFolder);
     rendererRef->setRGBTexture(videoPlayer);
 	rendererRef->setDepthImage(depthImages.getPixels());
 //    if(take.getRenderSettings().size() != 0){
@@ -84,12 +83,12 @@ void ScreenLabPortrait::resetAndPlay(){
     }
     
     if(name == "kev"){
-        rendererRef->xmult = 0.0140476;
-        rendererRef->ymult = 0.0293333;
+        rendererRef->xshift = 0.0140476;
+        rendererRef->yshift = 0.0293333;
     }
     else{
-		rendererRef->xmult = 0;
-        rendererRef->ymult = 0.0436667;
+		rendererRef->xshift = 0;
+        rendererRef->yshift = 0.0436667;
     }
     rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
