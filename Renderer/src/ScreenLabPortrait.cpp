@@ -9,8 +9,6 @@
 #include "ofxXmlSettings.h"
 
 ScreenLabPortrait::ScreenLabPortrait(){
-//	startFrame = 0;
-//    endFrame = -1;
     rendererRef = NULL;
     useHighResPlayer = false;
     render = false;
@@ -23,13 +21,18 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
 	soundPlayer.loadMovie(soundPath);
     soundPlayer.setLoopState(OF_LOOP_NONE);
     cout << "media folder " << mediaFolder << " " << soundPath << endl;
-    if(take.loadFromFolder(mediaFolder)){
-        cout << "Low res video is " << take.lowResVideoPath << endl;
-        videoPlayer.loadMovie(take.lowResVideoPath);
+//<<<<<<< HEAD
+//    if(take.loadFromFolder(mediaFolder)){
+//        cout << "Low res video is " << take.lowResVideoPath << endl;
+//        videoPlayer.loadMovie(take.lowResVideoPath);
+//=======
+    if(scene.loadFromFolder(mediaFolder)){
+        videoPlayer.loadMovie(scene.videoPath);
+//>>>>>>> 7785d622a173e710bd358ffb900bc4ebd357bed5
 //		rendererRef->setTextureScale(640./1920, 360./1080);
         //videoPlayer.loadMovie(take.hiResVideoPath);
-        depthImages.loadSequence(take.depthFolder);
-        pairing.loadPairingFile(take.pairingsFile);
+        depthImages.loadSequence(scene.depthFolder);
+        pairing.loadPairingFile(scene.pairingsFile);
         if(!pairing.ready()){
             ofLogError("ScreenLabPortrait -- Pairings not ready!");
         }
@@ -40,7 +43,7 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
         }
         videoTimes = pairing.getStartAndEndTimes(videoPlayer, depthImages);
         
-        take.populateRenderSettings();
+//        scene.populateRenderSettings();
 //        if(take.getRenderSettings().size() == 0){
 //            startFrame = 0;
 //            endFrame = videoPlayer.getTotalNumFrames();
@@ -76,6 +79,7 @@ void ScreenLabPortrait::resetAndPlay(){
     cout << "setting up renderer " << endl;
     cout << "sound player duration " << soundPlayer.getDuration() << endl;
     
+//<<<<<<< HEAD
     if(useHighResPlayer){
         if(!hiResPlayer.isLoaded()){
             hiResPlayer.loadMovie(take.hiResVideoPath);
@@ -98,6 +102,16 @@ void ScreenLabPortrait::resetAndPlay(){
         rendererRef->setRGBTexture(videoPlayer);
     }
     
+//=======
+//    videoPlayer.setSpeed(.5);
+//    videoPlayer.setPosition(videoTimes.min / videoPlayer.getDuration() );
+//    videoPlayer.setVolume(0);
+//    videoPlayer.play();
+//    videoPlayer.setLoopState(OF_LOOP_NORMAL);
+    
+    rendererRef->setup(scene.calibrationFolder);
+    rendererRef->setRGBTexture(videoPlayer);
+//>>>>>>> 7785d622a173e710bd358ffb900bc4ebd357bed5
 	rendererRef->setDepthImage(depthImages.getPixels());
     rendererRef->farClip = 1200;
     if(name == "jenny"){
@@ -108,12 +122,17 @@ void ScreenLabPortrait::resetAndPlay(){
     }
     
     if(name == "kev"){
-        rendererRef->xmult = 0.0104762;
-        rendererRef->ymult = 0.0274286;
+//<<<<<<< HEAD
+//        rendererRef->xmult = 0.0104762;
+//        rendererRef->ymult = 0.0274286;
+
+        rendererRef->xshift = 0.0140476;
+        rendererRef->yshift = 0.0293333;
+//>>>>>>> 7785d622a173e710bd358ffb900bc4ebd357bed5
     }
     else{
-		rendererRef->xmult = 0;
-        rendererRef->ymult = 0.0436667;
+		rendererRef->xshift = 0;
+        rendererRef->yshift = 0.0436667;
     }
     rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);

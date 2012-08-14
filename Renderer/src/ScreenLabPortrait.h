@@ -10,9 +10,9 @@
 #include "ofMain.h"
 #include "ofxRGBDVideoDepthSequence.h"
 #include "ofxRGBDRenderer.h"
-#include "ofxRGBDMediaTake.h"
+#include "ofxRGBDScene.h"
 #include "ofxDepthImageSequence.h"
-#include "ofxRGBDRenderSettings.h"
+//#include "ofxRGBDRenderSettings.h"
 #include "ofxDepthHoleFiller.h"
 //#include "ofxOsc.h"
 
@@ -38,7 +38,7 @@ class ScreenLabPortrait {
     
     ofRange videoTimes;
     ofxRGBDRenderer* rendererRef;
-    ofxRGBDMediaTake take;
+    ofxRGBDScene scene;
     ofxDepthImageSequence depthImages;
     ofxRGBDVideoDepthSequence pairing;
     
