@@ -74,7 +74,7 @@ void ScreenLabPortrait::resetAndPlay(){
     soundPlayer.play();
 	soundPlayer.setLoopState(OF_LOOP_NONE);
     
-    rendererRef->setup(take.calibrationDirectory);
+//    rendererRef->setup(take.calibrationDirectory);
     
     cout << "setting up renderer " << endl;
     cout << "sound player duration " << soundPlayer.getDuration() << endl;
@@ -82,7 +82,7 @@ void ScreenLabPortrait::resetAndPlay(){
 //<<<<<<< HEAD
     if(useHighResPlayer){
         if(!hiResPlayer.isLoaded()){
-            hiResPlayer.loadMovie(take.hiResVideoPath);
+            hiResPlayer.loadMovie(scene.alternativeHiResVideoPath);
         }
         hiResPlayer.setSpeed(.5);
         //videoPlayer.setFrame(startFrame);
@@ -90,7 +90,7 @@ void ScreenLabPortrait::resetAndPlay(){
         hiResPlayer.setVolume(0);
         hiResPlayer.play();
         hiResPlayer.setLoopState(OF_LOOP_NORMAL);
-        rendererRef->setRGBTexture(hiResPlayer);
+//        rendererRef->setRGBTexture(hiResPlayer);
     }
     else {
         videoPlayer.setSpeed(.5);
@@ -99,7 +99,7 @@ void ScreenLabPortrait::resetAndPlay(){
         videoPlayer.setVolume(0);
         videoPlayer.play();
         videoPlayer.setLoopState(OF_LOOP_NORMAL);
-        rendererRef->setRGBTexture(videoPlayer);
+//        rendererRef->setRGBTexture(videoPlayer);
     }
     
 //=======
@@ -108,7 +108,7 @@ void ScreenLabPortrait::resetAndPlay(){
 //    videoPlayer.setVolume(0);
 //    videoPlayer.play();
 //    videoPlayer.setLoopState(OF_LOOP_NORMAL);
-    
+    cout << "calibration folder is " << scene.calibrationFolder << endl;
     rendererRef->setup(scene.calibrationFolder);
     rendererRef->setRGBTexture(videoPlayer);
 //>>>>>>> 7785d622a173e710bd358ffb900bc4ebd357bed5
