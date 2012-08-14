@@ -42,9 +42,14 @@ class ScreenLabPortrait {
     ofxDepthImageSequence depthImages;
     ofxRGBDVideoDepthSequence pairing;
     
+    bool useHighResPlayer;
     PortraitType type;
   	ofVideoPlayer videoPlayer;
+    ofVideoPlayer hiResPlayer;
 	ofVideoPlayer soundPlayer;
     ofxDepthHoleFiller filler;
-    
+  
+    string renderFolder;
+    void startRender();
+    bool render;
 };

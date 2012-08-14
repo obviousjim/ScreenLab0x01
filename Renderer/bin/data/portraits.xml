@@ -1,5 +1,15 @@
 <portraits>
 	
+	<!-- ALICE -->
+	<portrait>
+		<name>alice</name>
+		<soundFile>Alice.aif</soundFile>
+		<close>
+			<mediaFolder>ALICE_CLOSE</mediaFolder>
+		</close>
+	</portrait>
+
+	
 	<!-- MARK -->
 	<portrait>		
 		<name>mark</name>
@@ -21,15 +31,6 @@
 			<endFrame>2304</endFrame>			
 			<mediaFolder>MARK_STUDIO</mediaFolder>
 		</studio>
-	</portrait>
-
-	<!-- ALICE -->
-	<portrait>
-		<name>alice</name>
-		<soundFile>Alice.aif</soundFile>
-		<close>
-			<mediaFolder>ALICE_CLOSE</mediaFolder>
-		</close>
 	</portrait>
 
 	<!-- JENNY -->

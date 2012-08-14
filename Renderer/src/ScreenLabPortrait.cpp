@@ -11,15 +11,20 @@
 ScreenLabPortrait::ScreenLabPortrait(){
 //	startFrame = 0;
 //    endFrame = -1;
-    rendererRef = false;
+    rendererRef = NULL;
+    useHighResPlayer = false;
+    render = false;
 }
 
 void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string soundPath){
     type = _type;
+    cout << "Setting up portrait " << endl;
+    
 	soundPlayer.loadMovie(soundPath);
     soundPlayer.setLoopState(OF_LOOP_NONE);
     cout << "media folder " << mediaFolder << " " << soundPath << endl;
     if(take.loadFromFolder(mediaFolder)){
+        cout << "Low res video is " << take.lowResVideoPath << endl;
         videoPlayer.loadMovie(take.lowResVideoPath);
 //		rendererRef->setTextureScale(640./1920, 360./1080);
         //videoPlayer.loadMovie(take.hiResVideoPath);
@@ -29,6 +34,10 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
             ofLogError("ScreenLabPortrait -- Pairings not ready!");
         }
         
+        renderFolder = mediaFolder + "/renders";
+        if(!ofDirectory(renderFolder).exists()){
+            ofDirectory(renderFolder).create();
+        }
         videoTimes = pairing.getStartAndEndTimes(videoPlayer, depthImages);
         
         take.populateRenderSettings();
@@ -55,26 +64,41 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
 void ScreenLabPortrait::resetAndPlay(){
     lastTime = 0;
     
+    cout << "setting up sound player" << endl;
+    
     soundPlayer.setVolume(1300);
     soundPlayer.setPosition(0);
     soundPlayer.play();
 	soundPlayer.setLoopState(OF_LOOP_NONE);
     
+    rendererRef->setup(take.calibrationDirectory);
+    
+    cout << "setting up renderer " << endl;
     cout << "sound player duration " << soundPlayer.getDuration() << endl;
     
-    videoPlayer.setSpeed(.5);
-    //videoPlayer.setFrame(startFrame);
-    videoPlayer.setPosition(videoTimes.min / videoPlayer.getDuration() );
-    videoPlayer.setVolume(0);
-    videoPlayer.play();
-    videoPlayer.setLoopState(OF_LOOP_NORMAL);
+    if(useHighResPlayer){
+        if(!hiResPlayer.isLoaded()){
+            hiResPlayer.loadMovie(take.hiResVideoPath);
+        }
+        hiResPlayer.setSpeed(.5);
+        //videoPlayer.setFrame(startFrame);
+        hiResPlayer.setPosition(videoTimes.min / videoPlayer.getDuration() );
+        hiResPlayer.setVolume(0);
+        hiResPlayer.play();
+        hiResPlayer.setLoopState(OF_LOOP_NORMAL);
+        rendererRef->setRGBTexture(hiResPlayer);
+    }
+    else {
+        videoPlayer.setSpeed(.5);
+        //videoPlayer.setFrame(startFrame);
+        videoPlayer.setPosition(videoTimes.min / videoPlayer.getDuration() );
+        videoPlayer.setVolume(0);
+        videoPlayer.play();
+        videoPlayer.setLoopState(OF_LOOP_NORMAL);
+        rendererRef->setRGBTexture(videoPlayer);
+    }
     
-    rendererRef->setup(take.calibrationDirectory);
-    rendererRef->setRGBTexture(videoPlayer);
 	rendererRef->setDepthImage(depthImages.getPixels());
-//    if(take.getRenderSettings().size() != 0){
-    	//take.getRenderSettings()[0].applyToRenderer(*rendererRef);
-//    }
     rendererRef->farClip = 1200;
     if(name == "jenny"){
         rendererRef->farClip = 925;
@@ -84,8 +108,8 @@ void ScreenLabPortrait::resetAndPlay(){
     }
     
     if(name == "kev"){
-        rendererRef->xmult = 0.0140476;
-        rendererRef->ymult = 0.0293333;
+        rendererRef->xmult = 0.0104762;
+        rendererRef->ymult = 0.0274286;
     }
     else{
 		rendererRef->xmult = 0;
@@ -95,30 +119,38 @@ void ScreenLabPortrait::resetAndPlay(){
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
 }
 
+void ScreenLabPortrait::startRender(){
+    hiResPlayer.setSpeed(0);
+    render = true;
+}
+
 void ScreenLabPortrait::stop(){
+    cout << "stopping portraits " << endl;
 	videoPlayer.stop();
+    hiResPlayer.stop();
     soundPlayer.stop();
     ofRemoveListener(ofEvents().update, this, &ScreenLabPortrait::update);
+    cout << "portrait stopped" << endl;
 }
 
 void ScreenLabPortrait::update(ofEventArgs& args){
-    if(soundPlayer.getPosition() == 1.0 || lastTime > soundPlayer.getPosition()){ //looops?
+    if(!render && (soundPlayer.getPosition() == 1.0 || lastTime > soundPlayer.getPosition()) ){ 
         stop();
     }
     lastTime = soundPlayer.getPosition();
-    
-    videoPlayer.update();
-    if(videoPlayer.isFrameNew()){
-        if(videoPlayer.getPosition() >= videoTimes.max / videoPlayer.getDuration()){
-            videoPlayer.setFrame(videoTimes.min / videoPlayer.getDuration() );
+    ofVideoPlayer& player = useHighResPlayer ? hiResPlayer : videoPlayer;
+    if(render){
+        player.setFrame(player.getCurrentFrame()+1);
+    }
+    player.update();
+    if(player.isFrameNew()){
+        if(player.getPosition() >= videoTimes.max / player.getDuration()){
+            player.setPosition(videoTimes.min / player.getDuration() );
         }
 		else {
-            long time = pairing.getDepthFrameForVideoFrame(videoPlayer.getPosition() * videoPlayer.getDuration() * 1000);
+            long time = pairing.getDepthFrameForVideoFrame(player.getPosition() * player.getDuration() * 1000);
             depthImages.selectTime( time );
-			//ofShortPixels& pix = depthImages.getPixels();
-            //filler.close(pix);
             filler.close(depthImages.getPixels());
-//            rendererRef->setDepthImage(pix);
             rendererRef->update();
         }        	
     }

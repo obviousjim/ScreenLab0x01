@@ -6,7 +6,6 @@
 #include "ofxGameCamera.h"
 #include "ofxXmlSettings.h"
 #include "ofxCameraTrack.h"
-//#include "ofxOsc.h"
 #include "ofxGui.h"
 
 class testApp : public ofBaseApp{
@@ -29,12 +28,15 @@ class testApp : public ofBaseApp{
     void gotoPortrait(string name);
     void drawFunc();
     
-    float lastCameraChangeTimeLeft;
-    float currentCameraDurationLeft;
-
-    float lastCameraChangeTimeRight;
-    float currentCameraDurationRight;
-
+    int lastCameraChangeFrameLeft;
+    int currentCameraFramesLeft;
+    
+    int lastCameraChangeFrameRight;
+    int currentCameraFramesRight;
+    
+    int lastCameraChangeFrameMiddle;
+    int currentCameraFramesMiddle;
+    
     vector<ScreenLabPortrait> allPortraits;
     int currentPortrait;
     
@@ -43,24 +45,32 @@ class testApp : public ofBaseApp{
     string soundDirectory;
     string portraitMediaBin;
     string cameraTrackFile;
+    string middleCameraTrackFile;
     
     PortraitType type;
     
     ofxGameCamera leftCam;
     ofxGameCamera rightCam;
-    
+    ofxGameCamera middleCam;
+
     ofCamera normalLeftCam;
     ofCamera normalRightCam;
+    ofCamera normalMiddleCam;
+    
+    ofxCameraTrack track;
+    ofxCameraTrack middleTrack;
     
     bool twoScreens;
+    bool threeScreens;
     ofRectangle leftRect;
     ofRectangle rightRect;
+    ofRectangle middleRect;
+    
     float lineWidth;
     float pointSize;
     int currentLeft;
     int currentRight;
-    
-    ofxCameraTrack track;
+    int currentMiddle;
     
     vector<ofNode> debugNodes;
     bool loadedSuccess;
@@ -73,8 +83,11 @@ class testApp : public ofBaseApp{
 //    ofxOscReceiver receiver;
 
     bool alignMode;
-    ofFbo leftFbo;
-    ofFbo rightFbo;
+    ofFbo fbo;
+    bool render;
+    int totalFramesRendered;
+    ofImage savePixels;
+  //  bool fullCamMode;
     
 
 };

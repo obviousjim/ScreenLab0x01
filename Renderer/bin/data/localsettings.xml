@@ -5,17 +5,25 @@
     <screenRect>
         <x>0</x>
         <y>0</y>
-        <w>360</w>
-        <h>1200</h>
+        <w>600</w>
+        <h>1920</h>
     </screenRect>
+    <screenRect>
+        <x>600</x>
+        <y>0</y>
+        <w>600</w>
+        <h>1920</h>
+    </screenRect>
+    <!--
     <screenRect>
         <x>360</x>
         <y>0</y>
-        <w>360</w>
+        <w>540</w>
         <h>1200</h>
     </screenRect>
+-->
     <pointSize>2.5</pointSize>
     <lineWidth>1</lineWidth>
-    <xshift>0.0140476</xshift>
-    <yshift>0.0293333</yshift>
+    <xshift>0.0104762</xshift>
+    <yshift>0.0274286</yshift>
 </settings>
