@@ -29,7 +29,6 @@ void main(void)
     texCd.xyz /= texCd.w;
     
     texCd.xy *= -1.;
-	texCd.x *= -1.;
     texCd.xy += 1.;
     texCd.xy /= 2.;
     texCd.xy += fudge;

@@ -5,6 +5,7 @@ void testApp::setup(){
     
 	ofSetFrameRate(30);
     ofBackground(0);
+    ofHideCursor();
     
 	totalFramesRendered = 0;
     alignMode = false;
@@ -19,15 +20,14 @@ void testApp::setup(){
         cout << "xshift " << renderer.xshift << " y shift " << renderer.yshift << endl;
         cout << "num screens " << numScreens << endl;
 		twoScreens = (numScreens > 1);
-		threeScreens = (numScreens > 2);
-        localSettings.pushTag("screenRect");
+        localSettings.pushTag("screenRect", 0);
         leftRect.x = localSettings.getValue("x",0);
         leftRect.y = localSettings.getValue("y",0);
         leftRect.width = localSettings.getValue("w",10);
         leftRect.height = localSettings.getValue("h",10);
         //leftFbo.allocate(leftRect.width, leftRect.height, GL_RGB, 4);
         localSettings.popTag();
-        cout << "screen one " << rightRect.x << " " << rightRect.y << " " << leftRect.width << " " << leftRect.height << endl;
+        cout << "screen one " << leftRect.x << " " << leftRect.y << " " << leftRect.width << " " << leftRect.height << endl;
 		if(twoScreens){
             localSettings.pushTag("screenRect",1);
             rightRect.x = localSettings.getValue("x",0);
@@ -36,19 +36,10 @@ void testApp::setup(){
             rightRect.height = localSettings.getValue("h",10);
             
             localSettings.popTag();            
-            cout << "screen two " << rightRect.x << " " << rightRect.y << " " << rightRect.width << " " << rightRect.height << endl;
-            if(threeScreens){
-                localSettings.pushTag("screenRect",2);
-                middleRect.x = localSettings.getValue("x",0);
-                middleRect.y = localSettings.getValue("y",0);
-                middleRect.width = localSettings.getValue("w",10);
-                middleRect.height = localSettings.getValue("h",10);
-                localSettings.popTag();
-                fbo.allocate(leftRect.width+rightRect.width+middleRect.width, leftRect.height, GL_RGB, 4);                
-            }
-            else{
-                fbo.allocate(leftRect.width+rightRect.width, leftRect.height, GL_RGB, 4);
-            }
+            ofRectangle unionRect = leftRect.getUnion(rightRect);
+            cout << "screen two " << rightRect.x << " " << rightRect.y << " " << rightRect.width << " " << rightRect.height <<  endl;
+            cout << " union " << unionRect.x << " " << unionRect.y << " " << unionRect.width << " " << unionRect.height << endl;
+            fbo.allocate(unionRect.width, unionRect.height, GL_RGB, 4);
         }
         else{
             fbo.allocate(leftRect.width, leftRect.height, GL_RGB, 4);
@@ -149,13 +140,6 @@ void testApp::setup(){
     rightCam.speed = 10;
     rightCam.loadCameraPosition();
 
-    middleCam.setup();
-    middleCam.setScale(1,-1,1);
-    middleCam.usemouse = true;
-    middleCam.autosavePosition = true;
-    middleCam.speed = 10;
-    middleCam.loadCameraPosition();
-
     normalLeftCam.setScale(1,-1,1);
     normalRightCam.setScale(1,-1,1);
     
@@ -175,7 +159,6 @@ void testApp::gotoNextPortrait(){
 	allPortraits[currentPortrait].resetAndPlay();
 
     track.loadFromFile(cameraTrackFile);
-    middleTrack.loadFromFile(middleCameraTrackFile);
     
     cameraTrackFile = ofToDataPath(cameraPositionDirectory + allPortraits[currentPortrait].name + "_CameraTrack.xml", true);
     cout << "loading camera track " << cameraTrackFile << endl;
@@ -249,14 +232,7 @@ void testApp::draw(){
 		ofBackground(255,0,0);
 		return;
 	}
-
-    ofPushStyle();
-    ofSetColor(255, 0, 0);
-    ofPopStyle();
-    
-//    ofRectangle justifiedLeft  = ofRectangle(0,0,leftFbo.getWidth(), leftFbo.getHeight());
-//    ofRectangle justifiedRight = ofRectangle(0,0,rightFbo.getWidth(), rightFbo.getHeight() );
-    
+        
     fbo.begin();
     if(composeMode){
         ofClear(0);
@@ -267,11 +243,6 @@ void testApp::draw(){
             rightCam.begin(rightRect);
             drawFunc();
             rightCam.end();
-            if(threeScreens){
-                middleCam.begin(middleRect);
-                drawFunc();
-                middleCam.end();
-            }
         }
     }
     else{
@@ -283,11 +254,6 @@ void testApp::draw(){
             normalRightCam.begin(rightRect);
             drawFunc();
             normalRightCam.end();        
-            if(threeScreens){
-                middleCam.begin(middleRect);
-                drawFunc();
-                middleCam.end();
-            }
         }
     }
     
@@ -298,10 +264,11 @@ void testApp::draw(){
     
     ofPushStyle();
     ofNoFill();
+    ofSetLineWidth(10);
     ofSetColor(255, 0, 0);
-    ofSetLineWidth(2);
-    ofRect(leftRect);
-    ofRect(rightRect);
+    ofCircle(leftRect.getCenter(), 10);
+    ofSetColor(255, 255, 0);
+    ofCircle(rightRect.getCenter(), 10);
     ofPopStyle();
     
     ofDrawBitmapString("Next Cut Left " + ofToString( currentCameraFramesLeft - (ofGetFrameNum() - lastCameraChangeFrameLeft)), 
@@ -349,19 +316,17 @@ void testApp::keyPressed(int key){
     
     if(key == 'C'){
         composeMode = !composeMode;
+        if(composeMode){
+            ofShowCursor();
+        }
+        else {
+            ofHideCursor();
+        }
     }
     if(key == 'R'){
-        if(middleCam.applyRotation){
-            middleTrack.camera = &middleCam;
-            middleTrack.addSample(); //add a sample
-            middleTrack.writeToFile(middleCameraTrackFile);
-        }
-        else{
-            track.camera = leftCam.applyTranslation ? &leftCam : &rightCam;
-            //            track.sample(track.getSamples().size()); //add a sample
-            track.addSample();
-            track.writeToFile(cameraTrackFile);
-        }
+        track.camera = leftCam.applyTranslation ? &leftCam : &rightCam;
+        track.addSample();
+        track.writeToFile(cameraTrackFile);
     }
     if(key == 'P'){
         checkSwitchCamera(true);
@@ -436,23 +401,6 @@ void testApp::checkSwitchCamera(bool force) {
             track.moveCameraToFrame(sample);        
         }
     }
-    //cout << "checking for middle camera " << currentCameraFramesMiddle << " " << ofGetFrameNum() - lastCameraChangeFrameMiddle << endl;
-    if(force || currentCameraFramesMiddle < ofGetFrameNum() - lastCameraChangeFrameMiddle){
-        lastCameraChangeFrameMiddle = ofGetFrameNum();
-        //currentCameraFramesMiddle = ofRandom(10*30, 60*30); //ofRandom(10, 40);
-        currentCameraFramesMiddle = ofRandom(10, 60); //ofRandom(10, 40);
-        if(middleTrack.getSamples().size() > 1){
-            middleTrack.camera = &normalMiddleCam;
-            int sample;
-            int tries = 0;
-            do{
-                sample = ofRandom(0, middleTrack.getSamples().size());
-            } while(sample == currentMiddle && tries++ < 10);
-            currentMiddle = sample;
-            middleTrack.moveCameraToFrame(sample);            
-        }
-
-    }
 }
 
 //--------------------------------------------------------------
@@ -462,9 +410,9 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y){
-	leftCam.usemouse  = leftCam.applyTranslation  = composeMode && leftRect.inside(x,y); 
+//    cout << "mouse is " << x << " " << y << " " << leftRect.inside(x,y) << " " << rightRect.inside(x,y) << endl;
+	leftCam.usemouse  = leftCam.applyTranslation  = composeMode && leftRect.inside(x,y);
     rightCam.usemouse = rightCam.applyTranslation = composeMode && rightRect.inside(x,y);
-    middleCam.usemouse = middleCam.applyRotation  = composeMode && middleRect.inside(x,y);
 }
 
 //--------------------------------------------------------------

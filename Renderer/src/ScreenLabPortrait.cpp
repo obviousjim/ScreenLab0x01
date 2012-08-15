@@ -75,7 +75,8 @@ void ScreenLabPortrait::resetAndPlay(){
         videoPlayer.setLoopState(OF_LOOP_NORMAL);
 
     }
-        rendererRef->setup(scene.calibrationFolder);
+    cout << "calibration folder " << scene.calibrationFolder << endl;
+    rendererRef->setup(scene.calibrationFolder);
     rendererRef->setRGBTexture(videoPlayer);
 
 	rendererRef->setDepthImage(depthImages.getPixels());

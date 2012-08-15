@@ -53,20 +53,15 @@ class testApp : public ofBaseApp{
     
     ofxGameCamera leftCam;
     ofxGameCamera rightCam;
-    ofxGameCamera middleCam;
 
     ofCamera normalLeftCam;
     ofCamera normalRightCam;
-    ofCamera normalMiddleCam;
     
     ofxCameraTrack track;
-    ofxCameraTrack middleTrack;
     
     bool twoScreens;
-    bool threeScreens;
     ofRectangle leftRect;
     ofRectangle rightRect;
-    ofRectangle middleRect;
     
     float lineWidth;
     float pointSize;
