@@ -12,7 +12,6 @@
 #include "ofxRGBDRenderer.h"
 #include "ofxRGBDScene.h"
 #include "ofxDepthImageSequence.h"
-//#include "ofxRGBDRenderSettings.h"
 #include "ofxDepthHoleFiller.h"
 //#include "ofxOsc.h"
 
@@ -32,8 +31,6 @@ class ScreenLabPortrait {
     void stop();
 	void update(ofEventArgs& args);
 
-//    int startFrame;
-//    int endFrame;
     float lastTime;
     
     ofRange videoTimes;

@@ -13,17 +13,10 @@ void testApp::setup(){
     ofxXmlSettings localSettings;
     if(localSettings.loadFile("localsettings.xml")){
         localSettings.pushTag("settings");
-//<<<<<<< HEAD
-//        renderer.xmult = localSettings.getValue("xshift", 0.0);
-//        renderer.ymult = localSettings.getValue("yshift", 0.0);
-//        cout << "xshift " << renderer.xmult << " y shift " << renderer.ymult << endl;
-//=======
         renderer.xshift = localSettings.getValue("xshift", 0.0);
         renderer.yshift = localSettings.getValue("yshift", 0.0);
-        cout << "xshift " << renderer.xshift << " y shift " << renderer.yshift << endl;
-
-//>>>>>>> 7785d622a173e710bd358ffb900bc4ebd357bed5
         int numScreens = localSettings.getNumTags("screenRect");
+        cout << "xshift " << renderer.xshift << " y shift " << renderer.yshift << endl;
         cout << "num screens " << numScreens << endl;
 		twoScreens = (numScreens > 1);
 		threeScreens = (numScreens > 2);
@@ -181,18 +174,9 @@ void testApp::gotoNextPortrait(){
 	currentPortrait = (currentPortrait + 1) % allPortraits.size();
 	allPortraits[currentPortrait].resetAndPlay();
 
-//<<<<<<< HEAD
-//    cameraTrackFile = ofToDataPath(allPortraits[currentPortrait].take.mediaFolder + "/SalfordTracks.xml");
-//    middleCameraTrackFile = ofToDataPath(allPortraits[currentPortrait].take.mediaFolder + "/SalfordTracks_Middle.xml");
-    //cout << "loading camera track " << cameraTrackFile << endl;
     track.loadFromFile(cameraTrackFile);
     middleTrack.loadFromFile(middleCameraTrackFile);
     
-
-    
-    //cout << "Playing portrait " << currentPortrait << " with " << 	allPortraits[currentPortrait].videoPlayer.getTotalNumFrames() << endl;    
-//=======
-    //cameraTrackFile = ofToDataPath(allPortraits[currentPortrait].scene.mediaFolder + "/SalfordTracks.xml");
     cameraTrackFile = ofToDataPath(cameraPositionDirectory + allPortraits[currentPortrait].name + "_CameraTrack.xml", true);
     cout << "loading camera track " << cameraTrackFile << endl;
     track.loadFromFile(cameraTrackFile);
@@ -245,12 +229,7 @@ void testApp::update(){
     }
     */
     
-    //cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
-//<<<<<<< HEAD
-//    if(!render && !allPortraits[currentPortrait].soundPlayer.isPlaying()){
-//=======
     if(!composeMode && !allPortraits[currentPortrait].soundPlayer.isPlaying()){
-//>>>>>>> 7785d622a173e710bd358ffb900bc4ebd357bed5
         gotoNextPortrait();
     }
     
