@@ -12,6 +12,12 @@ ScreenLabPortrait::ScreenLabPortrait(){
     rendererRef = NULL;
     useHighResPlayer = false;
     render = false;
+    
+    showTitle = false; //are we showing atitle
+    showTitleLeft = false; //are we showing it on the left (or right?)
+    titlesRemaining = 0; // how many titles do we have left to show
+    showEnglish = false; //are we showing english (or japanese)
+
 }
 
 void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string soundPath){
@@ -32,15 +38,14 @@ void ScreenLabPortrait::setup(PortraitType _type, string mediaFolder, string sou
             ofDirectory(renderFolder).create();
         }
         videoTimes = pairing.getStartAndEndTimes(videoPlayer, depthImages);
-        
     }
     else{
         ofLogError("ScreenLabPortrait -- Couldn't load media folder " + mediaFolder);
     }
+    
     filler.enable = true;
     filler.setIterations(3);
     filler.setKernelSize(3);
-
 }
 
 void ScreenLabPortrait::resetAndPlay(){
@@ -48,7 +53,7 @@ void ScreenLabPortrait::resetAndPlay(){
     
     cout << "setting up sound player" << endl;
     
-    soundPlayer.setVolume(1300);
+    soundPlayer.setVolume(1.0);
     soundPlayer.setPosition(0);
     soundPlayer.play();
 	soundPlayer.setLoopState(OF_LOOP_NONE);
@@ -73,13 +78,12 @@ void ScreenLabPortrait::resetAndPlay(){
         videoPlayer.setVolume(0);
         videoPlayer.play();
         videoPlayer.setLoopState(OF_LOOP_NORMAL);
-
     }
-    cout << "calibration folder " << scene.calibrationFolder << endl;
+
     rendererRef->setup(scene.calibrationFolder);
     rendererRef->setRGBTexture(videoPlayer);
-
 	rendererRef->setDepthImage(depthImages.getPixels());
+    
     rendererRef->farClip = 1200;
     if(name == "jenny"){
         rendererRef->farClip = 925;
@@ -88,14 +92,6 @@ void ScreenLabPortrait::resetAndPlay(){
     	rendererRef->farClip = 1050;
     }
     
-    if(name == "kev"){
-//        rendererRef->xshift = 0.0140476;
-//        rendererRef->yshift = 0.0293333;
-    }
-    else{
-//		rendererRef->xshift = 0;
-//        rendererRef->yshift = 0.0436667;
-    }
     rendererRef->setSimplification(2);
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
 }
@@ -105,19 +101,48 @@ void ScreenLabPortrait::startRender(){
     render = true;
 }
 
+void ScreenLabPortrait::drawTitles(int x, int y){
+    englishTitles.setTimeInSeconds(soundPlayer.getPosition() * soundPlayer.getDuration());
+    if(englishTitles.isTitleNew()){
+        if(showTitle){
+            titlesRemaining--;
+            if(titlesRemaining <= 0){
+                showTitle = false;
+            }
+        }
+        else{
+            showTitle = ofRandomuf() > .5;
+            if(showTitle){
+                titlesRemaining = 2;
+                showEnglish = ofRandomuf() > .5;
+                showTitleLeft = ofRandomuf() > .5;
+            }
+        }
+        cout << "NEW TITLE " << endl;
+    }
+    if(showEnglish){
+	    englishTitles.draw(x,y);
+    }
+    else{
+        japaneseTitles.draw(x, y);
+    }
+}
+
 void ScreenLabPortrait::stop(){
-//    cout << "stopping portraits " << endl;
+	ofRemoveListener(ofEvents().update, this, &ScreenLabPortrait::update);
+    
 	videoPlayer.stop();
     hiResPlayer.stop();
     soundPlayer.stop();
-    ofRemoveListener(ofEvents().update, this, &ScreenLabPortrait::update);
-//    cout << "portrait stopped" << endl;
 }
 
 void ScreenLabPortrait::update(ofEventArgs& args){
     if(!render && (soundPlayer.getPosition() == 1.0 || lastTime > soundPlayer.getPosition()) ){ 
         stop();
     }
+    
+    englishTitles.setTimeInSeconds(soundPlayer.getPosition()*soundPlayer.getDuration());
+    japaneseTitles.setTimeInSeconds(soundPlayer.getPosition()*soundPlayer.getDuration());
     lastTime = soundPlayer.getPosition();
     ofVideoPlayer& player = useHighResPlayer ? hiResPlayer : videoPlayer;
     if(render){

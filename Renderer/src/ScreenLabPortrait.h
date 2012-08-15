@@ -13,7 +13,7 @@
 #include "ofxRGBDScene.h"
 #include "ofxDepthImageSequence.h"
 #include "ofxDepthHoleFiller.h"
-//#include "ofxOsc.h"
+#include "ofxSubtitles.h"
 
 typedef enum  {
 	Studio,
@@ -30,17 +30,27 @@ class ScreenLabPortrait {
     void resetAndPlay();
     void stop();
 	void update(ofEventArgs& args);
-
     float lastTime;
-    
+
     ofRange videoTimes;
     ofxRGBDRenderer* rendererRef;
     ofxRGBDScene scene;
     ofxDepthImageSequence depthImages;
     ofxRGBDVideoDepthSequence pairing;
     
+    //title logic
+    bool showTitle; //are we showing atitle
+    bool showTitleLeft; //are we showing it on the left (or right?)
+    int titlesRemaining; // how many titles do we have left to show
+    bool showEnglish; //are we showing english (or japanese)
+    ofxSubtitles englishTitles;
+    ofxSubtitles japaneseTitles;
+	
+    void drawTitles(int x, int y);
+
     bool useHighResPlayer;
     PortraitType type;
+
   	ofVideoPlayer videoPlayer;
     ofVideoPlayer hiResPlayer;
 	ofVideoPlayer soundPlayer;

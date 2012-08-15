@@ -16,16 +16,18 @@ void testApp::setup(){
         localSettings.pushTag("settings");
         renderer.xshift = localSettings.getValue("xshift", 0.0);
         renderer.yshift = localSettings.getValue("yshift", 0.0);
+        
         int numScreens = localSettings.getNumTags("screenRect");
         cout << "xshift " << renderer.xshift << " y shift " << renderer.yshift << endl;
         cout << "num screens " << numScreens << endl;
+        
 		twoScreens = (numScreens > 1);
         localSettings.pushTag("screenRect", 0);
         leftRect.x = localSettings.getValue("x",0);
         leftRect.y = localSettings.getValue("y",0);
         leftRect.width = localSettings.getValue("w",10);
         leftRect.height = localSettings.getValue("h",10);
-        //leftFbo.allocate(leftRect.width, leftRect.height, GL_RGB, 4);
+
         localSettings.popTag();
         cout << "screen one " << leftRect.x << " " << leftRect.y << " " << leftRect.width << " " << leftRect.height << endl;
 		if(twoScreens){
@@ -58,8 +60,7 @@ void testApp::setup(){
         }
         lineWidth = localSettings.getValue("lineWidth",1.);
         pointSize = localSettings.getValue("pointSize",2.);
-        cout << "line width " << lineWidth << " " << pointSize << endl;
-        ofLogNotice("TYPE IS " + typeString);
+
     	int receiverPort = localSettings.getValue("receiverPort", 1200);
 //        receiver.setup(1200);
         
@@ -82,18 +83,12 @@ void testApp::setup(){
             string compositionMediaBin;
 			if(type == Studio){
                 compositionMediaBin = portraits.getValue("studio:mediaFolder","");
-//                newPortrait.startFrame = portraits.getValue("studio:startFrame",0);
-//                newPortrait.endFrame = portraits.getValue("studio:endFrame",0);
             }
             else if(type == Far){
                 compositionMediaBin = portraits.getValue("far:mediaFolder","");
-//                newPortrait.startFrame = portraits.getValue("far:startFrame",-1);
-//                newPortrait.endFrame = portraits.getValue("far:endFrame",0);
             }
             else if(type == Close){
                 compositionMediaBin = portraits.getValue("close:mediaFolder","");
-//                newPortrait.startFrame = portraits.getValue("close:startFrame",0);
-//                newPortrait.endFrame = portraits.getValue("close:endFrame",0);
             }
             
 			string soundFile = portraits.getValue("soundFile", "");
@@ -101,6 +96,9 @@ void testApp::setup(){
             
             newPortrait.rendererRef = &renderer; //must be set before setup()
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
+            newPortrait.englishTitles.setup("subtitles/spectacle_alice.srt", "subtitles/sazanami-gothic.ttf", 20);
+            newPortrait.japaneseTitles.setup("subtitles/spectacle_alice_japanese.srt", "subtitles/sazanami-gothic.ttf", 20);
+            
             newPortrait.name = portraits.getValue("name", "noname");
 
             portraits.popTag();//portrait
@@ -234,12 +232,14 @@ void testApp::draw(){
 	}
         
     fbo.begin();
+    ofClear(0);
+    
     if(composeMode){
         ofClear(0);
         leftCam.begin(leftRect);
         drawFunc();
         leftCam.end();
-        if(twoScreens){   
+        if(twoScreens){
             rightCam.begin(rightRect);
             drawFunc();
             rightCam.end();
@@ -256,6 +256,24 @@ void testApp::draw(){
             normalRightCam.end();        
         }
     }
+    
+
+//        ofPoint titlePoint;
+//        if(allPortraits[currentPortrait].showTitleLeft){
+        ofPoint titlePointLeft = leftRect.getCenter(); //+ ofVec2f(0, leftRect.getHeight());
+//        }
+//        else{
+        ofPoint titlePointRight = rightRect.getCenter();// + ofVec2f(0, rightRect.getHeight());
+//        }
+        allPortraits[currentPortrait].englishTitles.draw(titlePointLeft);
+        allPortraits[currentPortrait].japaneseTitles.draw(titlePointRight);
+//    }
+    
+    //allPortraits[currentPortrait].titles.draw(leftRect.getCenter().x, leftRect.getCenter().y);
+    
+//	ofPushStyle();
+//    allPortraits[currentPortrait].drawTitles(500, 200);
+//    ofPopStyle();
     
     fbo.end();
 
