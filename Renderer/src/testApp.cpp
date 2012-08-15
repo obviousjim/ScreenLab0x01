@@ -56,8 +56,8 @@ void testApp::setup(){
         else {
             type = Far;
         }
-        lineWidth = localSettings.getValue("lineWidth",1);
-        pointSize = localSettings.getValue("pointSize",2);
+        lineWidth = localSettings.getValue("lineWidth",1.);
+        pointSize = localSettings.getValue("pointSize",2.);
         cout << "line width " << lineWidth << " " << pointSize << endl;
         ofLogNotice("TYPE IS " + typeString);
     	int receiverPort = localSettings.getValue("receiverPort", 1200);
@@ -290,9 +290,9 @@ void testApp::draw(){
 void testApp::drawFunc(){
     ofEnableBlendMode(OF_BLENDMODE_SCREEN);
     glEnable(GL_POINT_SMOOTH); // makes circular points
-    glPointSize( int(pointSize) );
+    glPointSize( pointSize );
     renderer.drawPointCloud();
-    glLineWidth( int(lineWidth) );
+    glLineWidth( lineWidth );
     renderer.drawWireFrame();
 }
 
@@ -323,6 +323,7 @@ void testApp::keyPressed(int key){
             ofHideCursor();
         }
     }
+    
     if(key == 'R'){
         track.camera = leftCam.applyTranslation ? &leftCam : &rightCam;
         track.addSample();
@@ -343,7 +344,6 @@ void testApp::keyPressed(int key){
     if(key == 'A'){
         alignMode = !alignMode;
         if(!alignMode){
-            
             ofxXmlSettings xyshiftFile;
             xyshiftFile.loadFile(allPortraits[currentPortrait].scene.xyshiftFile);
             xyshiftFile.setValue("xshift", renderer.xshift);
