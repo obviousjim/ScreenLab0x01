@@ -234,6 +234,7 @@ void testApp::draw(){
     fbo.begin();
     ofClear(0);
     
+    glEnable(GL_DEPTH_TEST);
     if(composeMode){
         ofClear(0);
         leftCam.begin(leftRect);
@@ -256,7 +257,7 @@ void testApp::draw(){
             normalRightCam.end();        
         }
     }
-    
+	glDisable(GL_DEPTH_TEST);
 
 //        ofPoint titlePoint;
 //        if(allPortraits[currentPortrait].showTitleLeft){
