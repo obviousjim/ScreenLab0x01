@@ -37,6 +37,7 @@
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		E729171715DCFF6200061871 /* ofxSubtitleUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E729171515DCFF6200061871 /* ofxSubtitleUnit.cpp */; };
 		E734B799153DA92A00E7E20F /* ofxCameraTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E734B796153DA92A00E7E20F /* ofxCameraTrack.cpp */; };
 		E734B7A4153E2FA600E7E20F /* unproject.frag in Sources */ = {isa = PBXBuildFile; fileRef = E734B7A2153E2FA600E7E20F /* unproject.frag */; };
 		E734B7A5153E2FA600E7E20F /* unproject.vert in Sources */ = {isa = PBXBuildFile; fileRef = E734B7A3153E2FA600E7E20F /* unproject.vert */; };
@@ -196,6 +197,8 @@
 		E4C2424610CC5A17004149E2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		E729171515DCFF6200061871 /* ofxSubtitleUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSubtitleUnit.cpp; sourceTree = "<group>"; };
+		E729171615DCFF6200061871 /* ofxSubtitleUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSubtitleUnit.h; sourceTree = "<group>"; };
 		E734B796153DA92A00E7E20F /* ofxCameraTrack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxCameraTrack.cpp; sourceTree = "<group>"; };
 		E734B797153DA92A00E7E20F /* ofxCameraTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCameraTrack.h; sourceTree = "<group>"; };
 		E734B7A2153E2FA600E7E20F /* unproject.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = unproject.frag; sourceTree = "<group>"; };
@@ -1238,6 +1241,8 @@
 		E7F2A04A15DBA5320016AF67 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E729171615DCFF6200061871 /* ofxSubtitleUnit.h */,
+				E729171515DCFF6200061871 /* ofxSubtitleUnit.cpp */,
 				E7F2A04C15DBA5320016AF67 /* ofxSubtitles.h */,
 				E7F2A04B15DBA5320016AF67 /* ofxSubtitles.cpp */,
 			);
@@ -1469,6 +1474,7 @@
 				E7F2A04415DBA5240016AF67 /* ofxFTGLFont.cpp in Sources */,
 				E7F2A04D15DBA5320016AF67 /* ofxSubtitles.cpp in Sources */,
 				E7F2A06515DBA7080016AF67 /* ofxTimecode.cpp in Sources */,
+				E729171715DCFF6200061871 /* ofxSubtitleUnit.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

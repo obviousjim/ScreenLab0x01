@@ -260,21 +260,10 @@ void testApp::draw(){
     }
 	glDisable(GL_DEPTH_TEST);
 
-//        ofPoint titlePoint;
-//        if(allPortraits[currentPortrait].showTitleLeft){
-        ofPoint titlePointLeft = leftRect.getCenter() + ofVec2f(0, leftRect.getHeight()*.33);
-//        }
-//        else{
-        ofPoint titlePointRight = rightRect.getCenter() + ofVec2f(0, rightRect.getHeight()*.33);
-//        }
-        allPortraits[currentPortrait].englishTitles.draw(titlePointLeft);
-        allPortraits[currentPortrait].japaneseTitles.draw(titlePointRight);
-//    }
-    
-    //allPortraits[currentPortrait].titles.draw(leftRect.getCenter().x, leftRect.getCenter().y);
-//	ofPushStyle();
-//    allPortraits[currentPortrait].drawTitles(500, 200);
-//    ofPopStyle();
+    ofPoint titlePointLeft = leftRect.getCenter() + ofVec2f(0, leftRect.getHeight()*.33);
+    ofPoint titlePointRight = rightRect.getCenter() + ofVec2f(0, rightRect.getHeight()*.33);
+    allPortraits[currentPortrait].englishTitles.draw(titlePointLeft);
+    allPortraits[currentPortrait].japaneseTitles.draw(titlePointRight);
     
     fbo.end();
 

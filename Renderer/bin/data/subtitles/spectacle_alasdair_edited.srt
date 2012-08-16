@@ -1,0 +1,185 @@
+1
+00:00:01,000 --> 00:00:09,000
+I can't remember how it exactly happened, but I was using animation to generate my visuals
+どんな風にそれが起こったのか、正確には覚えていないけど、僕は初め、自分でビジュアルを創り出すのにアニメーションを使っていた。
+
+2
+00:00:09,000 --> 00:00:16,000
+to start with. And then I was trying things with anaglyphic 3-D, and trying to present
+それでそれから、アナグリフを使った3Dをやってみた。
+
+3
+00:00:16,000 --> 00:00:22,304
+3-D visuals, and I then I was like, well, could I control this 3-D environment live,
+3Dの映像を見せるためにね。それで、僕は、なんというか、3D空間のライブがコントロールできるか？
+
+4
+00:00:22,643 --> 00:00:30,309
+and display that and more generative visuals? So things that are created directly from the music,
+そしてもっと生成的な映像を見せれるか？という感じになって、だから、音楽から直接映像が生成されるような物を作った。
+
+5
+00:00:30,309 --> 00:00:37,000
+and the environment that music is in. I started out doing visuals in Manchester and
+そして音楽が含まれるような物をね。僕はマンチェスターでビジュアル作りを始めた。そして
+
+6
+00:00:38,000 --> 00:00:41,875
+got more into coding because I wanted to bring more interactivity into the visuals,
+よりコードを書く事にはまっていった。なぜなら、僕はもっとインタラクティブな要素をビジュアルに盛り込みたかったからだ。
+
+7
+00:00:42,000 --> 00:00:45,583
+so I was playing around with things like Quartz	Composer and Processing.
+だから、Quartz Composerとか、Processingなんかで遊んでいた。
+
+8
+00:00:45,767 --> 00:00:50,030
+I knew my library inside-out, my library of clips, and I wanted something that would be different
+僕は自分のライブラリを隅から隅まで知っていて、だからいつも僕は何か違うものが欲しかった。
+
+9
+00:00:50,143 --> 00:00:55,917
+each time, but wouldn't mean generating new media each time. And, just to keep it exciting for myself,
+だけどそれは毎回新しいメディアを生成するという意味じゃなくて、ただ僕にとってエキサイティングなままにしておきたかったんだ。
+
+10
+00:00:56,000 --> 00:01:01,839
+also I saw the benefits of how some of these visuals look, especially when you start introducing
+特に、物理学とかそういった類いの物全てを紹介するときに、そういったビジュアルを使う事の利点、が分かったという事も有る。
+
+11
+00:01:02,000 --> 00:01:08,821
+physics and all these sort of things, and the audio-reactive side of it, and I guess through that
+それ以外は上に入った）オーディオに反応するタイプのものを通じて、					
+
+12
+00:01:09,000 --> 00:01:16,000
+I started realizing there is a digital community out there, who are working in creative code and
+世界中にデジタルコミュニティがあって、彼らはクリエイティブコードの分野で働いていて、コードをメインで使っている事に僕は気づき始めた。
+
+13
+00:01:16,000 --> 00:01:21,845
+using code mainly because code had become far more accessible, so it's more documented.
+主な理由は、コードが以前よりもはるかに手の届くところに来たからだ。だから昔よりも良くドキュメント化されている。
+
+14
+00:01:22,000 --> 00:01:28,458
+That community's made it more accessible. Because, I remember trying when I was maybe
+そのデジタルコミュニティがさらにそれを手が届きやすくした。僕は自分が13か14だった頃にコードを理解しようとトライしていたのを覚えてる。
+
+15
+00:01:28,673 --> 00:01:33,684
+thirteen, fourteen, trying to get into code and just driving myself crazy and not getting anywhere with it.
+コードにのめり込むつもりで集中してやったけど、結局さっぱりわからなかった。
+
+16
+00:01:34,042 --> 00:01:37,231
+So it was, I gave myself about a ten year break and then had another look,
+だから、そこから僕は10年間休んだんだ。そしてもう一度見てみたとき、
+
+17
+00:01:37,602 --> 00:01:39,560
+and it starts making more sense.	
+以前よりも理解出来たんだ。
+
+18
+00:01:40,000 --> 00:01:42,792
+I think it's going to drive things along must faster,
+この事は物事をもっと加速すると思う
+
+19
+00:01:43,000 --> 00:01:46,839
+I think there's going to be more varied output the more people you work with.
+そしてアウトプットが幅広くなっていって、より沢山の人と一緒に働く事になっていくと思う。
+
+20
+00:01:47,000 --> 00:01:53,679
+So, ideas you'd never have come up with on your own and problems that need
+だから、自分自身では思いついた事の無いアイデアが出てきたり
+
+21
+00:01:53,679 --> 00:01:59,887
+solving - that you can solve - that they made, which could drive the creative process.
+他の人の問題を自分が解決できたりする。そういった事がクリエイティブなプロセスを駆動できるんだ。
+
+22
+00:02:02,565 --> 00:02:05,197
+So I was installing all this stuff on my mom's work machine,
+僕はこれら全てを母親の仕事用の"コンピュータ"にインストールしていた。
+
+23
+00:02:05,709 --> 00:02:08,691
+and trying to hack into my mate's computers and open their CD trays,
+そして、友人のコンピュータをハッキングして、彼らのCDトレイを開けたり、
+
+24
+00:02:09,000 --> 00:02:10,429
+and all these sort of things.	
+そんな類いのことを色々とやろうとしてた
+
+25
+00:02:11,000 --> 00:02:14,768
+I had to go to my mate's house, install this little package on his machine,
+友人の家に行って、小さなプログラムを彼のマシンにインストールする必要があった。
+
+26
+00:02:14,768 --> 00:02:18,863
+and then I went home and just opened and shut	his CD tray.
+そして、家に帰ってから、彼のマシンのCDトレイを、ただ開いたり閉じたりする
+
+27
+00:02:19,000 --> 00:02:23,000
+And he came in the next day like, you won't believe what's going on with my computer.
+それで彼が翌日来て、君は僕のコンピュータに起こってる事を信じないだろうけど、みたいになってた。
+
+28
+00:02:23,429 --> 00:02:24,589
+I was like, I will.
+なんというか、僕は、
+
+29
+00:02:28,237 --> 00:02:32,824
+I don't know, sometimes some people think they need to know this stuff, when really,
+時々ある人たちは、そういうような事を知る必要が有る。
+
+30
+00:02:33,000 --> 00:02:37,242
+you might be better off sticking with the more traditional side of it.
+もしかしたら、もっと旧来的な事に固執した方が良いのかもしれない。
+
+31
+00:02:37,616 --> 00:02:44,365
+Because it's not an easy thing to start, get going on it, especially with code inside of it.
+なぜなら、特にコードが入ってくるような事をスタートして、続けていくのはそんなに簡単な事じゃないからだ。
+
+32
+00:02:44,574 --> 00:02:49,850
+It can put you back a couple of years, I think. It's quite intense learning sometimes.
+そうすれば数年間が返ってくると僕は思う。コードを扱うのは時々、非常に集中した学習を必要するからだ。
+
+33
+00:02:50,942 --> 00:02:56,800
+I think the advantage is with working with other people who know different things already,
+僕は自分と異なった事を既に知っている人々と一緒に働く事がアドバンテージだと思う。 
+
+34
+00:02:57,000 --> 00:03:01,000
+rather than trying to teach yourself - which is something I'm guilty of - which is trying
+自分で学習するよりもね、一人で学習する事は、僕はたまに罪の意識を感じるんだけど、それは、
+
+35
+00:03:01,000 --> 00:03:02,000
+to learn everything.	
+全てを自分で学ぶことにトライすることなんだ。
+
+36
+00:03:02,825 --> 00:03:10,730
+I'm quite keen on building open software packages that can be picked up by non-technical people,
+僕はテクニカルじゃない人たちに選ばれるようなオープンソフトウェアのパッケージを作る事にとても興味が有る。
+
+37
+00:03:11,000 --> 00:03:16,009
+and taken to new areas that would never be expected.
+そして想像もつかなかった新しい領域に連れて行ってくれるようなね。
+
