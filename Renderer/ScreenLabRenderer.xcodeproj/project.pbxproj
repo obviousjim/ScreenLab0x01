@@ -1256,8 +1256,8 @@
 		E7F2A05B15DBA7080016AF67 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				E7F2A05C15DBA7080016AF67 /* ofxTimecode.cpp */,
 				E7F2A05D15DBA7080016AF67 /* ofxTimecode.h */,
+				E7F2A05C15DBA7080016AF67 /* ofxTimecode.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";

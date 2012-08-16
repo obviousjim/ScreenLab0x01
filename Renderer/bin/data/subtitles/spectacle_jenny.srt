@@ -71,7 +71,7 @@ but they don't actually have any real plans for	what's going to happen to that s
 けれど彼らはその場所で何が起こるのかについて、何の具体的なプランも実際には持ってないの。
 
 15
-0:1:6 --> 0:1:8,0
+0:1:6,0 --> 0:1:8,0
 It's mainly about the internet, I guess.
 主にインターネットに関する事だと思う。
 
@@ -126,7 +126,7 @@ If it's taking that building and then trying to just, you know, take it out of t
 もしもその作業が、ただ、そのビルを時間から取り除いて、
 
 26
-0:2:10,0  --> 0:2:12,0
+0:2:10,0 --> 0:2:12,0
 and then make a kind of imprint of it somewhere else,
 それで、どこか別の場所に刻み込むなら、
 

@@ -96,11 +96,12 @@ void testApp::setup(){
             
             newPortrait.rendererRef = &renderer; //must be set before setup()
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
-            newPortrait.englishTitles.setup("subtitles/spectacle_alice.srt", "subtitles/sazanami-gothic.ttf", 30);
-            newPortrait.japaneseTitles.setup("subtitles/spectacle_alice_japanese.srt", "subtitles/sazanami-gothic.ttf", 30);
             
             newPortrait.name = portraits.getValue("name", "noname");
 
+            newPortrait.englishTitles.setup("subtitles/spectacle_" + newPortrait.name + ".srt", "subtitles/sazanami-gothic.ttf", 30);
+            newPortrait.japaneseTitles.setup("subtitles/spectacle_" + newPortrait.name + ".srt", "subtitles/sazanami-gothic.ttf", 30);
+            cout << "Loaded " << newPortrait.englishTitles.getNumTitles() << " for name " << newPortrait.name << endl;
             portraits.popTag();//portrait
             
             allPortraits.push_back( newPortrait );
@@ -280,6 +281,7 @@ void testApp::draw(){
     
     fbo.draw(0,0);
     
+    /*
     ofPushStyle();
     ofNoFill();
     ofSetLineWidth(10);
@@ -288,6 +290,7 @@ void testApp::draw(){
     ofSetColor(255, 255, 0);
     ofCircle(rightRect.getCenter(), 10);
     ofPopStyle();
+    */
     
     ofDrawBitmapString("Next Cut Left " + ofToString( currentCameraFramesLeft - (ofGetFrameNum() - lastCameraChangeFrameLeft)), 
                        rightRect.x + rightRect.width + 10, 10);

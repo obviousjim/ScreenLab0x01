@@ -89,7 +89,7 @@ and they didn't have a laser cutter, they didn't have anything.
 彼らはレーザーカッターを持ってなかったというか、彼らは何も持ってなかった。
 
 19
-0:1:21,0 --> 0:1:28,0
+0:1:21,0	 --> 0:1:28,0
 They had a rapid prototyper which was the flour and water composite thing,
 彼らはラピッドプロトタイピングのためのものを持っていて、それは、粉末と水を混ぜ合わせたような物だった。
 
