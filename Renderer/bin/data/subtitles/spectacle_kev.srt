@@ -1,0 +1,154 @@
+1
+0:0:1,0 --> 0:0:6,0
+We build sound systems, and screen printing, and illustration 
+僕らはサウンドシステムとスクリーン印刷を作っている。それとイラストもね。
+
+2
+0:0:7,0 --> 0:0:11,0
+but we used to do stuff all by hand we'd be working to like 3, 4 of a mil
+僕らは全て自分たちの手で作っていたんだ。以前まで僕らは3,4ミルの精度で仕事をしていた
+
+3
+0:0:12,0 --> 0:0:17,0
+and now we're working to like point 1 of a mil accuracy because we've got laser cutters
+そして今は、0.1ミルの精度でやっている。なぜかというと、レーザーカッターを買ったんだ。
+
+4
+0:0:18,0 --> 0:0:21,0
+we've got all the cutting jigs and it is all cut with hand by routers, but
+僕らはカットするための治具を全て手に入れて、それはどれもルーターを使って手で切った感じだった。
+
+5
+0:0:22,0 --> 0:0:24,0
+you're working from a template that you digitally produced
+だけど、デジタル的に作ったテンプレートを使って、仕事をすると、
+
+6
+0:0:25,0 --> 0:0:29,0
+and then once you've got that template you've got it forever.
+一度手に入れたテンプレートはずっと使用する事が出来る。 
+
+7
+0:0:30,0 --> 0:0:33,0
+Dave, you know, he's a proper old school carpenter joiner 
+デイヴは正しくオールドスクールな大工だ。
+
+8
+0:0:34,0 --> 0:0:40,0
+Everything's done by hand, and all proper oak and teak and ash
+全て手で作る。そして全て適切に選ばれたオークやチークやトネリコの木材を使う。
+
+9
+0:0:41,0 --> 0:0:44,0
+and then we're in here, we're making speakers out of birch-ply and MDF
+それで僕らはここで、樺材のベニヤ板や、MDFを使ってスピーカーを作っている。
+
+10
+0:0:45 --> 0:0:46	
+and making furniture our of birch-ply and stuff like that 
+家具を樺材のベニヤ板で作ったりとか、そういう感じ。
+
+11
+0:0:47,0 --> 0:0:50,0
+and we're using like, laser cutters and all that, and he's using
+僕らはレーザーカッターとかを使用していて、彼は		
+
+12
+0:0:51,0 --> 0:0:56,0
+proper old school hand tools and stuff. And it's just really nice that it's side by side. 
+適切なオールドスクールの手作業の工具などを使っている。そのどちらもあるということが、本当に良いんだ。
+
+13
+0:0:57,0 --> 0:1:0,0
+You know you can't, you still need to have the hand tooling skills and stuff like that.
+未だに手で工具を使用するようなスキルは必要なんだ。 
+
+14
+0:1:1,0 --> 0:1:3,0
+You've got to understand the intricacies of putting it together
+それを組み合わせる時の、その複雑さを理解する必要が有る。
+
+15
+0:1:4,0 --> 0:1:8,0
+and how it goes together, and what bits you're going to need,
+そしてどういう風に組み合わさるかや、どんなビットが必要になるか、
+
+16
+0:1:9,0 --> 0:1:12,0
+and how to mix the hand skills with the CAD/CAM skills
+それからどうやって手作業の技術と、CAD/CAMの技術を組み合わせるかもね。 
+
+17
+0:1:13,0 --> 0:1:17,0
+and when I went to school, I went to Uni at Salford, eight or nine years ago
+8年か9年前、僕が学校に行っていたとき、ソルフォードにあったUniに行ったんだ。
+
+18
+0:1:18,0 --> 0:1:20,0
+and they didn't have a laser cutter, they didn't have anything. 
+彼らはレーザーカッターを持ってなかったというか、彼らは何も持ってなかった。
+
+19
+0:1:21 --> 0:1:28,0
+They had a rapid prototyper which was the flour and water composite thing,
+彼らはラピッドプロトタイピングのためのものを持っていて、それは、粉末と水を混ぜ合わせたような物だった。
+
+20
+0:1:29,0 --> 0:1:33,0	
+like literally, you touched it and it went "PHOOOOSH" like that
+文字通りには、さわったら、それはフーシュ（粉が飛び散る感じ）という感じだった。
+
+21
+0:1:34,0 --> 0:1:36,0
+and it was good, but now here we are 9 years later and the school I used to teach in
+それは良かったんだけど、今は9年後だ。僕が教えにいっていた学校は、
+
+22
+0:1:37,0 --> 0:1:41,0
+used to have a dimension plotter and a 3D printer, like 2 laser cutters
+ディメンジョンプロッターと、3Dプリンターを持っていた。2台のレーザーカッターとかね。
+
+23
+0:1:42,0 --> 0:1:47,0
+a CNC lathe, a CNC router - that's in the space of 9 years.
+それからCNC旋盤や、CNCルーターとかもだけど、それはそのスペースに9年間あったものだ。
+
+24
+0:1:48,0 --> 0:1:52,0
+And then you've got 11, 12, 13  year old kids who do that type of thing 
+それで、11歳、12歳、13歳の子供たちと一緒にいて、その子供達はその年齢から、
+
+25
+0:1:53,0 --> 0:1:55,0
+right from that age all the way through. 	
+この種の事をずっとやり始める事になる。
+
+26
+0:1:56,0 --> 0:2:0,0
+think the thing that made me realize how good and powerful it could all be
+僕がそれらがいかに優れていて、パワフルかという事に気づいたのは
+
+27
+0:2:1,0 --> 0:2:3,0
+was when I started learning how to use 	Illustrator. 
+イラストレーターの使い方を学んでいるときだったと思う。
+
+28
+0:2:4,0 --> 0:2:10,0
+And it just made me go, all right! That was like a month ago taking me like a week to do.
+そして僕はその方向で進む事になって、オールライト！な感じだった。なぜなら、それはまるで一ヶ月前に一週間かかった事が、
+
+29
+0:2:11,0 --> 0:2:15,0
+It's now taking me four hours. It just sort of made me go, huh, all right, yeah
+今はたった４時間でできるようになったんだ。それはなんというか、僕を進ませてくれて、オールライト！な事だった。
+
+30
+0:2:16,0 --> 0:2:18,0
+it does make a lot of sense. 	
+それには十分納得がいっている。
+
+
+
+
+
