@@ -96,8 +96,8 @@ void testApp::setup(){
             
             newPortrait.rendererRef = &renderer; //must be set before setup()
             newPortrait.setup(type, portraitMediaBin+compositionMediaBin, soundDirectory+soundFile);
-            newPortrait.englishTitles.setup("subtitles/spectacle_alice.srt", "subtitles/sazanami-gothic.ttf", 20);
-            newPortrait.japaneseTitles.setup("subtitles/spectacle_alice_japanese.srt", "subtitles/sazanami-gothic.ttf", 20);
+            newPortrait.englishTitles.setup("subtitles/spectacle_alice.srt", "subtitles/sazanami-gothic.ttf", 30);
+            newPortrait.japaneseTitles.setup("subtitles/spectacle_alice_japanese.srt", "subtitles/sazanami-gothic.ttf", 30);
             
             newPortrait.name = portraits.getValue("name", "noname");
 
@@ -260,17 +260,16 @@ void testApp::draw(){
 
 //        ofPoint titlePoint;
 //        if(allPortraits[currentPortrait].showTitleLeft){
-        ofPoint titlePointLeft = leftRect.getCenter(); //+ ofVec2f(0, leftRect.getHeight());
+        ofPoint titlePointLeft = leftRect.getCenter() + ofVec2f(0, leftRect.getHeight()*.33);
 //        }
 //        else{
-        ofPoint titlePointRight = rightRect.getCenter();// + ofVec2f(0, rightRect.getHeight());
+        ofPoint titlePointRight = rightRect.getCenter() + ofVec2f(0, rightRect.getHeight()*.33);
 //        }
         allPortraits[currentPortrait].englishTitles.draw(titlePointLeft);
         allPortraits[currentPortrait].japaneseTitles.draw(titlePointRight);
 //    }
     
     //allPortraits[currentPortrait].titles.draw(leftRect.getCenter().x, leftRect.getCenter().y);
-    
 //	ofPushStyle();
 //    allPortraits[currentPortrait].drawTitles(500, 200);
 //    ofPopStyle();
