@@ -144,17 +144,17 @@ I don't know, sometimes some people think they need to know this stuff, when rea
 時々ある人たちは、そういうような事を知る必要が有る。
 
 30
-0:2:33,0 --> 0:2:38,0
+0:2:33,0 --> 0:2:37,0
 you might be better off sticking with the more traditional side of it.
 もしかしたら、もっと旧来的な事に固執した方が良いのかもしれない。
 
 31
-0:2:39,0 --> 0:2:37,0
+0:2:37,0 --> 0:2:41,0
 Because it's not an easy thing to start, get going on it, especially with code inside of it.
 なぜなら、特にコードが入ってくるような事をスタートして、続けていくのはそんなに簡単な事じゃないからだ。
 
 32
-0:2:38,0 --> 0:2:49,0
+0:2:41,0 --> 0:2:49,0
 It can put you back a couple of years, I think. It's quite intense learning sometimes.
 そうすれば数年間が返ってくると僕は思う。コードを扱うのは時々、非常に集中した学習を必要するからだ。
 
@@ -182,4 +182,3 @@ I'm quite keen on building open software packages that can be picked up by non-t
 0:3:11,0 --> 0:3:15,0
 and taken to new areas that would never be expected.
 そして想像もつかなかった新しい領域に連れて行ってくれるようなね。
-

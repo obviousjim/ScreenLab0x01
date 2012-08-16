@@ -44,7 +44,7 @@ and then we're in here, we're making speakers out of birch-ply and MDF
 それで僕らはここで、樺材のベニヤ板や、MDFを使ってスピーカーを作っている。
 
 10
-0:0:45 --> 0:0:46	
+0:0:45,0 --> 0:0:46,0
 and making furniture our of birch-ply and stuff like that 
 家具を樺材のベニヤ板で作ったりとか、そういう感じ。
 
@@ -89,7 +89,7 @@ and they didn't have a laser cutter, they didn't have anything.
 彼らはレーザーカッターを持ってなかったというか、彼らは何も持ってなかった。
 
 19
-0:1:21 --> 0:1:28,0
+0:1:21,0 --> 0:1:28,0
 They had a rapid prototyper which was the flour and water composite thing,
 彼らはラピッドプロトタイピングのためのものを持っていて、それは、粉末と水を混ぜ合わせたような物だった。
 
@@ -147,8 +147,3 @@ It's now taking me four hours. It just sort of made me go, huh, all right, yeah
 0:2:16,0 --> 0:2:18,0
 it does make a lot of sense. 	
 それには十分納得がいっている。
-
-
-
-
-
