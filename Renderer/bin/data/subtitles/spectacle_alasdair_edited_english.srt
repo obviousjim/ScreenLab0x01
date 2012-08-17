@@ -70,12 +70,13 @@ Because, I remember trying when I was maybe
 
 15
 00:01:28,673 --> 00:01:33,684
-thirteen, fourteen, trying to get into code 
-and just driving myself crazy and not getting anywhere with it.
+thirteen, fourteen, trying to get into code and just 
+driving myself crazy and not getting anywhere with it.
 
 16
 00:01:34,042 --> 00:01:37,231
-So it was, I gave myself about a ten year break and then had another look,
+So it was, I gave myself about a ten year
+break and then had another look,
 
 17
 00:01:37,602 --> 00:01:39,560
@@ -102,11 +103,13 @@ which could drive the creative process.
 
 22
 00:02:02,565 --> 00:02:05,197
-So I was installing all this stuff on my mom's work machine,
+So I was installing all this stuff 
+on my mom's work machine,
 
 23
 00:02:05,709 --> 00:02:08,691
-and trying to hack into my mate's computers and open their CD trays,
+and trying to hack into my mate's 
+computers and open their CD trays,
 
 24
 00:02:09,000 --> 00:02:10,429
@@ -124,8 +127,8 @@ his CD tray.
 
 27
 00:02:19,000 --> 00:02:23,000
-And he came in the next day like, 
-you won't believe what's going on with my computer.
+And he came in the next day like, you won't 
+believe what's going on with my computer.
 
 28
 00:02:23,429 --> 00:02:24,589
@@ -168,8 +171,10 @@ which is trying to learn everything.
 36
 00:03:02,825 --> 00:03:10,730
 I'm quite keen on building open software 
-packages that can be picked up by non-technical people,
+packages that can be picked up 
+by non-technical people,
 
 37
 00:03:11,000 --> 00:03:16,009
-and taken to new areas that would never be expected.
+and taken to new areas that 
+would never be expected.
