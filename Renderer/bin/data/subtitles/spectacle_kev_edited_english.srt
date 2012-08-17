@@ -1,11 +1,12 @@
 1
 00:00:02,122 --> 00:00:06,703
-We build sound systems, and screen printing, and illustration 
+We build sound systems, and 
+screen printing, and illustration 
 
 2
 00:00:06,921 --> 00:00:11,702
 but we used to do stuff all by hand
-we'd be working to like 3, 4 of a mil
+we'd be working to like point 3, 4 of a mil
 
 3
 00:00:12,000 --> 00:00:17,000
@@ -19,7 +20,8 @@ and it is all cut with hand by routers, but
 
 5
 00:00:22,000 --> 00:00:25,462
-you're working from a template that you digitally produced
+you're working from a template 
+that you digitally produced
 
 6
 00:00:25,955 --> 00:00:29,000
@@ -43,7 +45,7 @@ speakers out of birch-ply and MDF
 
 10
 00:00:44,609 --> 00:00:46,514
-and making furniture out of birch-ply and stuff like that 
+and furniture out of birch-ply and stuff like that 
 
 11
 00:00:47,000 --> 00:00:50,840
@@ -100,12 +102,12 @@ later and the school I used to teach in
 
 22
 00:01:36,874 --> 00:01:41,772
-used to have a dimension plotter 
-and a 3D printer, like 2 laser cutters
+used to have a dimension 12800 3D Printer, 
+like 2 laser cutters
 
 23
 00:01:41,835 --> 00:01:46,283
-a CNC lathe, a CNC router - that's in the space of 9 years.
+a CNC lathe, a CNC router and that's in the space of 9 years.
 
 24
 00:01:47,108 --> 00:01:53,662
