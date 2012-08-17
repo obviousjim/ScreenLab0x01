@@ -99,8 +99,8 @@ void testApp::setup(){
             
             newPortrait.name = portraits.getValue("name", "noname");
 
-            newPortrait.englishTitles.setup("subtitles/spectacle_" + newPortrait.name + ".srt", "subtitles/sazanami-gothic.ttf", 30);
-            newPortrait.japaneseTitles.setup("subtitles/spectacle_" + newPortrait.name + ".srt", "subtitles/sazanami-gothic.ttf", 30);
+            newPortrait.englishTitles.setup("subtitles/spectacle_" + newPortrait.name + "_edited_english.srt", "subtitles/AxisStd-Regular.otf", 20);
+            newPortrait.japaneseTitles.setup("subtitles/spectacle_" + newPortrait.name + "_edited_japanese.srt", "subtitles/AxisStd-Regular.otf", 20);
             cout << "Loaded " << newPortrait.englishTitles.getNumTitles() << " for name " << newPortrait.name << endl;
             portraits.popTag();//portrait
             
