@@ -260,26 +260,23 @@ void testApp::draw(){
     }
 	glDisable(GL_DEPTH_TEST);
 
+    ofPushStyle();
+    
     ofPoint titlePointLeft = leftRect.getCenter() + ofVec2f(0, leftRect.getHeight()*.33);
     ofPoint titlePointRight = rightRect.getCenter() + ofVec2f(0, rightRect.getHeight()*.33);
+    ofSetColor(0);
     allPortraits[currentPortrait].englishTitles.draw(titlePointLeft);
     allPortraits[currentPortrait].japaneseTitles.draw(titlePointRight);
+    ofSetColor(255);
+    allPortraits[currentPortrait].englishTitles.draw(titlePointLeft+ofVec2f(-2,-2));
+    allPortraits[currentPortrait].japaneseTitles.draw(titlePointRight+ofVec2f(-2,-2));
+    
+    ofPopStyle();
     
     fbo.end();
 
     
     fbo.draw(0,0);
-    
-    /*
-    ofPushStyle();
-    ofNoFill();
-    ofSetLineWidth(10);
-    ofSetColor(255, 0, 0);
-    ofCircle(leftRect.getCenter(), 10);
-    ofSetColor(255, 255, 0);
-    ofCircle(rightRect.getCenter(), 10);
-    ofPopStyle();
-    */
     
     ofDrawBitmapString("Next Cut Left " + ofToString( currentCameraFramesLeft - (ofGetFrameNum() - lastCameraChangeFrameLeft)), 
                        rightRect.x + rightRect.width + 10, 10);

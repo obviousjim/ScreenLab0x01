@@ -46,6 +46,7 @@ class ScreenLabPortrait {
     ofxSubtitles englishTitles;
     ofxSubtitles japaneseTitles;
 	
+
     void drawTitles(int x, int y);
 
     bool useHighResPlayer;
