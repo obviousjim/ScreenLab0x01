@@ -74,11 +74,8 @@ class testApp : public ofBaseApp{
     bool composeMode;
   	void checkSwitchCamera(bool force = false);
 
-//    ofxPanel panel;
-//	ofxToggle renderOn;
-    
-//    ofxOscReceiver receiver;
-
+	int fontSize;
+    float titlePosition;
     bool alignMode;
     ofFbo fbo;
     bool render;

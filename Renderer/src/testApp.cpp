@@ -11,6 +11,9 @@ void testApp::setup(){
     alignMode = false;
     loadedSuccess = false;
     render = false;
+    fontSize = 35;
+    titlePosition = .85;
+
     ofxXmlSettings localSettings;
     if(localSettings.loadFile("localsettings.xml")){
         localSettings.pushTag("settings");
@@ -60,6 +63,8 @@ void testApp::setup(){
         }
         lineWidth = localSettings.getValue("lineWidth",1.);
         pointSize = localSettings.getValue("pointSize",2.);
+        fontSize = localSettings.getValue("fontSize",35);;
+        titlePosition = localSettings.getValue("titlePosition", .85);
 
     	int receiverPort = localSettings.getValue("receiverPort", 1200);
 //        receiver.setup(1200);
@@ -99,8 +104,8 @@ void testApp::setup(){
             
             newPortrait.name = portraits.getValue("name", "noname");
 
-            newPortrait.englishTitles.setup("subtitles/spectacle_" + newPortrait.name + "_edited_english.srt", "subtitles/AxisStd-Regular.otf", 20);
-            newPortrait.japaneseTitles.setup("subtitles/spectacle_" + newPortrait.name + "_edited_japanese.srt", "subtitles/AxisStd-Regular.otf", 20);
+            newPortrait.englishTitles.setup("subtitles/spectacle_" + newPortrait.name + "_edited_english.srt", "subtitles/AxisStd-Regular.otf", fontSize);
+            newPortrait.japaneseTitles.setup("subtitles/spectacle_" + newPortrait.name + "_edited_japanese.srt", "subtitles/AxisStd-Regular.otf", fontSize);
             cout << "Loaded " << newPortrait.englishTitles.getNumTitles() << " for name " << newPortrait.name << endl;
             portraits.popTag();//portrait
             
@@ -262,8 +267,8 @@ void testApp::draw(){
 
     ofPushStyle();
     
-    ofPoint titlePointLeft = leftRect.getCenter() + ofVec2f(0, leftRect.getHeight()*.33);
-    ofPoint titlePointRight = rightRect.getCenter() + ofVec2f(0, rightRect.getHeight()*.33);
+    ofPoint titlePointLeft = ofVec2f(leftRect.getCenter().x, leftRect.getHeight()*titlePosition);
+    ofPoint titlePointRight = ofVec2f(rightRect.getCenter().x, rightRect.getHeight()*titlePosition);
     ofSetColor(0);
     allPortraits[currentPortrait].englishTitles.draw(titlePointLeft);
     allPortraits[currentPortrait].japaneseTitles.draw(titlePointRight);
