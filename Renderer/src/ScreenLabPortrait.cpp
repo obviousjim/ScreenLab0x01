@@ -92,7 +92,7 @@ void ScreenLabPortrait::resetAndPlay(){
     	rendererRef->farClip = 1050;
     }
     
-    rendererRef->setSimplification(2);
+    rendererRef->setSimplification(ofVec2f(2,2));
 	ofAddListener(ofEvents().update, this, &ScreenLabPortrait::update);
 }
 
@@ -154,8 +154,9 @@ void ScreenLabPortrait::update(ofEventArgs& args){
             player.setPosition(videoTimes.min / player.getDuration() );
         }
 		else {
-            long time = pairing.getDepthFrameForVideoFrame(player.getPosition() * player.getDuration() * 1000);
-            depthImages.selectTime( time );
+//            long time = pairing.getDepthFrameForVideoFrame(player.getPosition() * player.getDuration() * 1000);
+			unsigned long time = pairing.getDepthMillisForVideoMillis(player.getPosition() * player.getDuration() * 1000);
+            depthImages.setTimeInMilliseconds( time );
             filler.close(depthImages.getPixels());
             rendererRef->update();
         }        	

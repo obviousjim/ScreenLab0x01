@@ -6,8 +6,7 @@
 #include "ofxGameCamera.h"
 #include "ofxXmlSettings.h"
 #include "ofxCameraTrack.h"
-
-
+#include "ofxRGBDGPURenderer.h"
 
 class testApp : public ofBaseApp{
   public:
@@ -41,7 +40,7 @@ class testApp : public ofBaseApp{
     vector<ScreenLabPortrait> allPortraits;
     int currentPortrait;
     
-    ofxRGBDRenderer renderer;
+    ofxRGBDGPURenderer renderer;
 
     string soundDirectory;
     string portraitMediaBin;

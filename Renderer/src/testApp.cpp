@@ -17,11 +17,11 @@ void testApp::setup(){
     ofxXmlSettings localSettings;
     if(localSettings.loadFile("localsettings.xml")){
         localSettings.pushTag("settings");
-        renderer.xshift = localSettings.getValue("xshift", 0.0);
-        renderer.yshift = localSettings.getValue("yshift", 0.0);
+        renderer.shift.x = localSettings.getValue("xshift", 0.0);
+        renderer.shift.y = localSettings.getValue("yshift", 0.0);
         
         int numScreens = localSettings.getNumTags("screenRect");
-        cout << "xshift " << renderer.xshift << " y shift " << renderer.yshift << endl;
+        cout << "x/y shift " << renderer.shift << endl;
         cout << "num screens " << numScreens << endl;
         
 		twoScreens = (numScreens > 1);
@@ -171,8 +171,8 @@ void testApp::gotoNextPortrait(){
     
     ofxXmlSettings xyshiftFile;
     xyshiftFile.loadFile(allPortraits[currentPortrait].scene.xyshiftFile);
-    renderer.xshift = xyshiftFile.getValue("xshift", 0.);
-    renderer.yshift = xyshiftFile.getValue("yshift", 0.);
+    renderer.shift.x = xyshiftFile.getValue("xshift", 0.);
+    renderer.shift.y = xyshiftFile.getValue("yshift", 0.);
 
 }
 
@@ -201,8 +201,8 @@ void testApp::update(){
    // cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
     
     if(alignMode){
-        renderer.xshift = ofMap(ofGetMouseX(), 0, ofGetWidth(),  -.2, .2, true);
-        renderer.yshift = ofMap(ofGetMouseY(), 0, ofGetHeight(), -.2, .2, true);
+        renderer.shift.x = ofMap(ofGetMouseX(), 0, ofGetWidth(),  -.2, .2, true);
+        renderer.shift.y = ofMap(ofGetMouseY(), 0, ofGetHeight(), -.2, .2, true);
     }
     
     /*
@@ -358,8 +358,8 @@ void testApp::keyPressed(int key){
         if(!alignMode){
             ofxXmlSettings xyshiftFile;
             xyshiftFile.loadFile(allPortraits[currentPortrait].scene.xyshiftFile);
-            xyshiftFile.setValue("xshift", renderer.xshift);
-            xyshiftFile.setValue("yshift", renderer.yshift);
+            xyshiftFile.setValue("xshift", renderer.shift.x);
+            xyshiftFile.setValue("yshift", renderer.shift.y);
             xyshiftFile.saveFile();
         }
     }
