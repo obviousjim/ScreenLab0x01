@@ -1,0 +1,11 @@
+ofxOpenCv
+ofxXmlSettings
+ofxCv
+ofxGameCamera
+ofxMSATimer
+ofxRange
+ofxRGBDepth
+ofxTextInputField
+ofxTimecode
+ofxTimeline
+ofxTween
