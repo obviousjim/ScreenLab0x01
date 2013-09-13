@@ -122,7 +122,6 @@
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageCompressor.cpp" />
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageProvider.cpp" />
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageSequence.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDCombinedVideoRenderer.cpp" />
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDCPURenderer.cpp" />
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDGPURenderer.cpp" />
     <ClCompile Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDPlayer.cpp" />
@@ -291,7 +290,6 @@
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageCompressor.h" />
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageProvider.h" />
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxDepthImageSequence.h" />
-    <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDCombinedVideoRenderer.h" />
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDCPURenderer.h" />
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDGPURenderer.h" />
     <ClInclude Include="..\..\..\addons\ofxRGBDepth\src\ofxRGBDPlayer.h" />

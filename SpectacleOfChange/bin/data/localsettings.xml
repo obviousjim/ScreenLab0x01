@@ -1,0 +1,47 @@
+<settings>
+<!--
+    PRESENTING Window 125
+    <soundDirectory>/Users/obviousjim/Documents/media/SpectacleOfChange/Sound/</soundDirectory>
+    <portraitMediaBin>/Users/obviousjim/Documents/media/SpectacleOfChange/MediaBin/</portraitMediaBin>
+    <cameraAngles>/Users/obviousjim/Documents/media/SpectacleOfChange/CameraAnglesEyebeam/</cameraAngles>
+-->
+<!--
+    BASIC 2 SCREEN
+	<soundDirectory>/Volumes/Headroom 2/IslingtonMill/SoundBin/</soundDirectory>
+  	<portraitMediaBin>/Volumes/Headroom 2/IslingtonMill/MediaBinForShow/</portraitMediaBin>
+    <cameraAngles>/Volumes/Headroom 2/IslingtonMill/CameraAngles/</cameraAngles>
+    <screenType>CLOSE</screenType>
+    <screenRect>
+        <x>0</x>
+        <y>0</y>
+        <w>600</w>
+        <h>1920</h>
+    </screenRect>
+    <screenRect>
+        <x>600</x>
+        <y>0</y>
+        <w>600</w>
+        <h>1920</h>
+    </screenRect>
+-->
+    <soundDirectory>C:\code\SpectacleData\SoundBin\</soundDirectory>
+    <portraitMediaBin>C:\code\SpectacleData\MediaBinForShow\</portraitMediaBin>
+    <cameraAngles>C:\code\SpectacleData\Camera\</cameraAngles>
+    <screenType>CLOSE</screenType>
+    <screenRect>
+        <x>0</x>
+        <y>0</y>
+        <w>600</w>
+        <h>1920</h>
+    </screenRect>
+
+    <pointSize>2.5</pointSize>
+    <lineWidth>1</lineWidth>
+
+<!--    <xshift>0.0104762</xshift> -->
+<!--    <yshift>0.0274286</yshift> -->
+
+    <xshift>0.00266667</xshift>
+    <yshift>0.0521429</yshift>
+
+</settings>

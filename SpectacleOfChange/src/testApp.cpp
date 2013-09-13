@@ -5,7 +5,7 @@ void testApp::setup(){
     
 	ofSetFrameRate(30);
     ofBackground(0);
-    ofHideCursor();
+//    ofHideCursor();
     
 	totalFramesRendered = 0;
     alignMode = false;
@@ -82,7 +82,7 @@ void testApp::setup(){
     if(portraits.loadFile("portraits.xml")){
         portraits.pushTag("portraits");
     	int numPortraits = portraits.getNumTags("portrait");
-        for(int i = 0; i < numPortraits; i++){
+        for(int i = 0; i < MIN(1,numPortraits); i++){
             ScreenLabPortrait newPortrait;
             portraits.pushTag("portrait", i);
             string compositionMediaBin;
@@ -151,7 +151,7 @@ void testApp::setup(){
     
     glEnable(GL_DEPTH_TEST);
     loadedSuccess = true;
-	ofToggleFullscreen();
+//	ofToggleFullscreen();
 }
 
 //--------------------------------------------------------------
@@ -239,12 +239,20 @@ void testApp::draw(){
         
     fbo.begin();
     ofClear(0);
-    
-    glEnable(GL_DEPTH_TEST);
+
+
+    //glEnable(GL_DEPTH_TEST);
     if(composeMode){
+		//cout << "composing" << endl;
         ofClear(0);
         leftCam.begin(leftRect);
-        drawFunc();
+		for(int i = 0; i < 10; i++){
+			ofNode n;
+			n.setPosition(ofVec3f(ofRandomuf(),ofRandomuf(),ofRandomuf() ) * 200);
+			n.draw();
+		}
+
+		drawFunc();
         leftCam.end();
         if(twoScreens){
             rightCam.begin(rightRect);
@@ -263,7 +271,7 @@ void testApp::draw(){
             normalRightCam.end();        
         }
     }
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 
     ofPushStyle();
     
@@ -282,7 +290,7 @@ void testApp::draw(){
 
     
     fbo.draw(0,0);
-    
+//	allPortraits[currentPortrait].videoPlayer.draw(0,0);
     ofDrawBitmapString("Next Cut Left " + ofToString( currentCameraFramesLeft - (ofGetFrameNum() - lastCameraChangeFrameLeft)), 
                        rightRect.x + rightRect.width + 10, 10);
     if(twoScreens){
@@ -305,7 +313,7 @@ void testApp::drawFunc(){
     glPointSize( pointSize );
     renderer.drawPointCloud();
     glLineWidth( lineWidth );
-    renderer.drawWireFrame();
+   // renderer.drawWireFrame();
 }
 
 //--------------------------------------------------------------
