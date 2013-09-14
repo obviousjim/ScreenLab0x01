@@ -148,8 +148,10 @@ void testApp::setup(){
     normalRightCam.setScale(1,-1,1);
     
 	checkSwitchCamera(true);
-    
-    glEnable(GL_DEPTH_TEST);
+	renderer.setSimplification(ofVec2f(2,2));
+	generateMeshes();
+
+    //glEnable(GL_DEPTH_TEST);
     loadedSuccess = true;
 //	ofToggleFullscreen();
 }
@@ -171,8 +173,8 @@ void testApp::gotoNextPortrait(){
     
     ofxXmlSettings xyshiftFile;
     xyshiftFile.loadFile(allPortraits[currentPortrait].scene.xyshiftFile);
-    renderer.shift.x = xyshiftFile.getValue("xshift", 0.);
-    renderer.shift.y = xyshiftFile.getValue("yshift", 0.);
+    renderer.colorMatrixRotate.x = xyshiftFile.getValue("xshift", 0.);
+    renderer.colorMatrixRotate.y = xyshiftFile.getValue("yshift", 0.);
 
 }
 
@@ -201,8 +203,8 @@ void testApp::update(){
    // cout << allPortraits[currentPortrait].soundPlayer.getPosition() << endl;
     
     if(alignMode){
-        renderer.shift.x = ofMap(ofGetMouseX(), 0, ofGetWidth(),  -.2, .2, true);
-        renderer.shift.y = ofMap(ofGetMouseY(), 0, ofGetHeight(), -.2, .2, true);
+		renderer.colorMatrixRotate.x = ofMap(ofGetMouseX(), 0, ofGetWidth(),  -10, 10, true);
+        renderer.colorMatrixRotate.y = ofMap(ofGetMouseY(), 0, ofGetHeight(), -10, 10, true);
     }
     
     /*
@@ -240,7 +242,8 @@ void testApp::draw(){
     fbo.begin();
     ofClear(0);
 
-
+	glDisable(GL_DEPTH_TEST);
+//	ofEnableBlendMode(OF_BLENDMODE_SCREEN);
     //glEnable(GL_DEPTH_TEST);
     if(composeMode){
 		//cout << "composing" << endl;
@@ -289,8 +292,9 @@ void testApp::draw(){
     fbo.end();
 
     
-    fbo.draw(0,0);
-//	allPortraits[currentPortrait].videoPlayer.draw(0,0);
+    //fbo.draw(0,0);
+	fbo.draw(0, fbo.getHeight(), fbo.getWidth(), -fbo.getHeight());
+
     ofDrawBitmapString("Next Cut Left " + ofToString( currentCameraFramesLeft - (ofGetFrameNum() - lastCameraChangeFrameLeft)), 
                        rightRect.x + rightRect.width + 10, 10);
     if(twoScreens){
@@ -307,13 +311,37 @@ void testApp::draw(){
 
 }
 
+void testApp::generateMeshes(){
+	scanlines.clear();
+	points.clear();
+
+	for(int y = 0; y < 480; y+= 2){
+		for(int x = 0; x < 640; x += 2){
+			scanlines.addVertex( ofVec3f(x,y,0) );
+			scanlines.addVertex( ofVec3f(x+2,y,0) );
+			points.addVertex( ofVec3f(x,y,0) );
+		}
+	}
+
+	scanlines.setMode(OF_PRIMITIVE_LINES);
+	points.setMode(OF_PRIMITIVE_POINTS);
+}
+
 void testApp::drawFunc(){
-    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+    ofPushStyle();
+	ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+	renderer.bindRenderer();
+
     glEnable(GL_POINT_SMOOTH); // makes circular points
-    glPointSize( pointSize );
-    renderer.drawPointCloud();
+  
+	glPointSize( pointSize );
+	points.draw();
+
     glLineWidth( lineWidth );
-   // renderer.drawWireFrame();
+    scanlines.draw();
+
+	renderer.unbindRenderer();
+	ofPopStyle();
 }
 
 //--------------------------------------------------------------
@@ -366,8 +394,8 @@ void testApp::keyPressed(int key){
         if(!alignMode){
             ofxXmlSettings xyshiftFile;
             xyshiftFile.loadFile(allPortraits[currentPortrait].scene.xyshiftFile);
-            xyshiftFile.setValue("xshift", renderer.shift.x);
-            xyshiftFile.setValue("yshift", renderer.shift.y);
+			xyshiftFile.setValue("xshift", renderer.colorMatrixRotate.x);
+            xyshiftFile.setValue("yshift", renderer.colorMatrixRotate.y);
             xyshiftFile.saveFile();
         }
     }

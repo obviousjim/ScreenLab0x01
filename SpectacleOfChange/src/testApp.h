@@ -81,6 +81,7 @@ class testApp : public ofBaseApp{
     int totalFramesRendered;
     ofImage savePixels;
   //  bool fullCamMode;
-    
-
+	ofVboMesh scanlines;
+	ofVboMesh points;
+	void generateMeshes();
 };

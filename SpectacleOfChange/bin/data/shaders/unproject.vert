@@ -12,8 +12,9 @@ uniform vec2 principalPoint;
 uniform vec2 fov;
 uniform float farClip;
 uniform float edgeClip;
-uniform float xsimplify;
-uniform float ysimplify;
+//uniform float xsimplify;
+//uniform float ysimplify;
+uniform vec2 simplify;
 uniform int useTexture;
 uniform mat4 extrinsics;
 //uniform mat3 colorRotate;
@@ -32,12 +33,12 @@ void main(void)
     //align to texture
     vec2 halfvec = vec2(.5,.5);
     float depth = texture2DRect(depthTex, floor(gl_Vertex.xy) + halfvec).r * 65535.;
-    float right = texture2DRect(depthTex, floor(gl_Vertex.xy  + vec2(xsimplify,0.0)) + halfvec ).r * 65535.;
-    float down  = texture2DRect(depthTex, floor(gl_Vertex.xy  + vec2(0.0,ysimplify)) + halfvec ).r * 65535.;
-    float left  = texture2DRect(depthTex, floor(gl_Vertex.xy + vec2(-xsimplify,0.0)) + halfvec ).r * 65535.;
-    float up    = texture2DRect(depthTex, floor(gl_Vertex.xy + vec2(0.0,-ysimplify)) + halfvec ).r * 65535.;
-    float bl    = texture2DRect(depthTex, vec2(floor(gl_Vertex.x - xsimplify),floor( gl_Vertex.y + ysimplify)) + halfvec ).r * 65535.;
-    float ur    = texture2DRect(depthTex, vec2(floor(gl_Vertex.x  + xsimplify),floor(gl_Vertex.y - ysimplify)) + halfvec ).r * 65535.;
+    float right = texture2DRect(depthTex, floor(gl_Vertex.xy  + vec2(simplify.x,0.0)) + halfvec ).r * 65535.;
+    float down  = texture2DRect(depthTex, floor(gl_Vertex.xy  + vec2(0.0,simplify.y)) + halfvec ).r * 65535.;
+    float left  = texture2DRect(depthTex, floor(gl_Vertex.xy + vec2(-simplify.x,0.0)) + halfvec ).r * 65535.;
+    float up    = texture2DRect(depthTex, floor(gl_Vertex.xy + vec2(0.0,-simplify.y)) + halfvec ).r * 65535.;
+    float bl    = texture2DRect(depthTex, vec2(floor(gl_Vertex.x - simplify.x),floor( gl_Vertex.y + simplify.y)) + halfvec ).r * 65535.;
+    float ur    = texture2DRect(depthTex, vec2(floor(gl_Vertex.x + simplify.x),floor(gl_Vertex.y - simplify.y)) + halfvec ).r * 65535.;
 
     //TODO: make uniform var
     float nearClip = 20.0;
@@ -75,7 +76,6 @@ void main(void)
         vec4 texCd;
 		//http://opencv.willowgarage.com/documentation/camera_calibration_and_3d_reconstruction.html
 		vec4 projection = extrinsics * pos;
- 		//vec3 projection = pos.xyz + colorTranslate + vec3(shift*dim,0);
 		if(projection.z != 0.0) {
 
 			vec2 xyp = projection.xy / projection.z;
@@ -86,7 +86,6 @@ void main(void)
 			xypp.x = xyp.x * (1.0 + dK.x*r2 + dK.y*r4 + dK.z*r6) + 2.0*dP.x * xyp.x * xyp.y + dP.y*(r2 + 2.0 * pow(xyp.x,2.0) );
 			xypp.y = xyp.y * (1.0 + dK.x*r2 + dK.y*r4 + dK.z*r6) + dP.x * (r2 + 2.0*pow(xyp.y, 2.0) ) + 2.0*dP.y*xyp.x*xyp.y;
 			vec2 uv = (colorFOV * xypp + colorPP) * textureScale;
-			//texCd.xy = ((uv-dim/2.0) * scale) + dim/2.0 ;
             texCd.xy = uv;
         }
 
