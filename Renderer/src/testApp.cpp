@@ -338,7 +338,7 @@ void testApp::keyPressed(int key){
     
     if(key == 'R'){
         track.camera = leftCam.applyTranslation ? &leftCam : &rightCam;
-        track.addSample();
+        track.sample();
         track.writeToFile(cameraTrackFile);
     }
     if(key == 'P'){
